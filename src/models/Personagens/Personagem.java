@@ -1,4 +1,4 @@
-package Personagens;
+package models.Personagens;
 
 public class Personagem{
     

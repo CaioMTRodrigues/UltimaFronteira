@@ -1,4 +1,4 @@
-package Eventos;
+package models.Eventos;
 
 public class EventoCriatura extends Evento {
 

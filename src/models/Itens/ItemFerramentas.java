@@ -1,4 +1,4 @@
-package Itens;
+package models.Itens;
 public class ItemFerramentas{
 
 }

@@ -1,4 +1,4 @@
-package Ambientes;
+package models.Ambientes;
 
 public class AmbienteFloresta extends Ambiente {
 

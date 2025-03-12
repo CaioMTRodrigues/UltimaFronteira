@@ -1,4 +1,4 @@
-package Eventos;
+package models.Eventos;
 public class Evento {
     
     protected String nome; // Identificação do evento

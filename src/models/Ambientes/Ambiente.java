@@ -1,7 +1,7 @@
-package Ambientes;
+package models.Ambientes;
 
-import Eventos.Evento;
-import Itens.Item;
+import models.Eventos.Evento;
+import models.Itens.Item;
 import java.util.List;
 
 public class Ambiente {

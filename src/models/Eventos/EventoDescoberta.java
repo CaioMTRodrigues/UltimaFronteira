@@ -1,6 +1,6 @@
-package Eventos;
+package models.Eventos;
 
-import Itens.Item;
+import models.Itens.Item;
 import java.util.List;
 
 public class EventoDescoberta extends Evento {

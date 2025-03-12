@@ -1,4 +1,4 @@
-package Ambientes;
+package models.Ambientes;
 
 public class AmbienteLagoRio extends Ambiente {
 
