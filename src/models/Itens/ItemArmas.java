@@ -1,4 +1,5 @@
 package models.Itens;
-public class ItemArmas{
-
+public class ItemArmas extends Item{
+    private String tipo; 
+    private int dano; 
 }
