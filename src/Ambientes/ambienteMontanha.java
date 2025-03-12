@@ -1,5 +1,5 @@
 package Ambientes;
 
-public class ambienteMontanha {
+public class AmbienteMontanha {
     
 }

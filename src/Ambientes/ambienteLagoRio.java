@@ -1,5 +1,5 @@
 package Ambientes;
 
-public class ambienteLagoRio {
+public class AmbienteLagoRio {
     
 }

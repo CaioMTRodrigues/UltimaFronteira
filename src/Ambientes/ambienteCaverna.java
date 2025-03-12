@@ -1,5 +1,5 @@
 package Ambientes;
 
-public class ambienteCaverna {
+public class AmbienteCaverna {
     
 }
