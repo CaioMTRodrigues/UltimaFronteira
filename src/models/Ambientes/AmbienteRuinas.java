@@ -1,9 +1,9 @@
 package models.Ambientes;
 
-public class AmbienteRuinas {
+public class AmbienteRuinas extends Ambiente {
     
-    private boolean estruturasInstaveis; // O local pode desmoronar a qualquer momento
-    private boolean presencaSobreviventes; // Algumas ruínas podem estar ocupadas por outros sobreviventes
-    private boolean baixoRiscoClimatico; // Normalmente oferecem abrigo contra o clima
+    private boolean estruturasInstaveis; 
+    private boolean presencaSobreviventes; 
+    private boolean baixoRiscoClimatico; 
 
 }
