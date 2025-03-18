@@ -1,9 +1,9 @@
 package models.Itens;
 
 public class ItemAlimento extends Item{
-    private int valorNutricional; 
-    private String tipo; 
-    private int prazoValidade; 
+    protected  int valorNutricional; 
+    protected  String tipo; 
+    protected  int prazoValidade; 
 
     public ItemAlimento(String nome, double peso, int durabilidade, int valorNutricional, String tipo, int prazoValidade) {
         super(nome, peso, durabilidade);
@@ -12,9 +12,14 @@ public class ItemAlimento extends Item{
         this.prazoValidade = prazoValidade;
     }
 
+    public int getValorNutricional() {
+        return valorNutricional;
+    }
+
     @Override
     public void usar() {
         System.out.println("🍏 Você consumiu " + nome + ". Restaurou " + valorNutricional + " pontos de fome.");
         reduzirDurabilidade();
     }
+
 }
