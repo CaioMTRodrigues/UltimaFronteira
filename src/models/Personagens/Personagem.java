@@ -6,6 +6,7 @@ import models.Ambientes.Ambiente;
 import models.Itens.Item;
 import models.Itens.ItemAgua;
 import models.Itens.ItemAlimento;
+import models.Itens.ItemArmas;
 
 public abstract class Personagem {
     protected String nome; 
@@ -90,6 +91,16 @@ public abstract class Personagem {
         sanidade = Math.min(sanidade + 10, 100);
         System.out.println(nome + " descansou e recuperou energia e sanidade.");
     }
+
+    public void atacar(ItemArmas arma) {
+    if (inventario.contains(arma)) {
+        System.out.println(nome + " atacou com " + arma.getNome() + " causando " + arma.getDano() + " de dano!");
+        arma.atacar();
+    } else {
+        System.out.println("⚠ Nenhuma arma disponível no inventário!");
+    }
+}
+
 
     public void adicionarItemAoInventario(Item item) {
         inventario.add(item);
