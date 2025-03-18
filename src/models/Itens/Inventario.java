@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventario {
-     private List<Item> listaItens; 
-    private double pesoTotal; 
-    private double capacidadeMaxima; 
+    private List<Item> listaItens;
+    private double pesoTotal;
+    private double capacidadeMaxima;
 
     public Inventario(double capacidadeMaxima) {
         this.listaItens = new ArrayList<>();
@@ -62,4 +62,12 @@ public class Inventario {
         }
     }
 
+    public double getPesoTotal() {
+        return pesoTotal;
+    }
+
+    public double getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
 }
+       
