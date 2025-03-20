@@ -84,15 +84,47 @@ public abstract class Ambiente {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public double getDificuldadeExploracao() {
         return dificuldadeExploracao;
     }
 
+    public void setDificuldadeExploracao(double dificuldadeExploracao) {
+        this.dificuldadeExploracao = dificuldadeExploracao;
+    }
+
     public String getCondicoesClimaticas() {
         return condicoesClimaticas;
+    }
+
+    public void setCondicoesClimaticas(String condicoesClimaticas) {
+        this.condicoesClimaticas = condicoesClimaticas;
+    }
+
+    public List<Item> getRecursosDisponiveis() {
+        return recursosDisponiveis;
+    }
+
+    public void setRecursosDisponiveis(List<Item> recursosDisponiveis) {
+        this.recursosDisponiveis = recursosDisponiveis;
+    }
+
+    public List<Evento> getEventosPossiveis() {
+        return eventosPossiveis;
+    }
+
+    public void setEventosPossiveis(List<Evento> eventosPossiveis) {
+        this.eventosPossiveis = eventosPossiveis;
     }
 }

@@ -2,6 +2,7 @@ package models.Personagens;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import models.Ambientes.Ambiente;
 import models.Itens.Item;
 import models.Itens.ItemAgua;
@@ -9,15 +10,18 @@ import models.Itens.ItemAlimento;
 import models.Itens.ItemArmas;
 
 public abstract class Personagem {
-    protected String nome; 
-    protected int vida; 
-    protected int fome; 
-    protected int sede; 
-    protected int energia; 
-    protected int sanidade; 
-    protected List<Item> inventario; 
-    protected Ambiente localizacao; 
+    
+    // Atributos Principais
+    protected String nome; // Nome do personagem
+    protected int vida; // Vida do personagem (100 é o máximo)
+    protected int fome; // Nível de fome (100 é o máximo)
+    protected int sede; // Nível de sede (100 é o máximo)
+    protected int energia; // Nível de energia (100 é o máximo)
+    protected int sanidade; // Nível de sanidade (100 é o máximo)
+    protected List<Item> inventario; // Lista de itens do personagem
+    protected Ambiente localizacao; // Localização atual do personagem (ambiente)
 
+    // Construtor
     public Personagem(String nome, Ambiente localizacao) {
         this.nome = nome;
         this.vida = 100;
@@ -29,38 +33,32 @@ public abstract class Personagem {
         this.localizacao = localizacao;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    // Métodos de Acesso (Getters e Setters)
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public int getVida() {
-        return vida;
-    }
+    public int getVida() { return vida; }
+    public void setVida(int vida) { this.vida = vida; }
 
-    public int getFome() {
-        return fome;
-    }
+    public int getFome() { return fome; }
+    public void setFome(int fome) { this.fome = fome; }
 
-    public int getSede() {
-        return sede;
-    }
+    public int getSede() { return sede; }
+    public void setSede(int sede) { this.sede = sede; }
 
-    public int getEnergia() {
-        return energia;
-    }
+    public int getEnergia() { return energia; }
+    public void setEnergia(int energia) { this.energia = energia; }
 
-    public int getSanidade() {
-        return sanidade;
-    }
+    public int getSanidade() { return sanidade; }
+    public void setSanidade(int sanidade) { this.sanidade = sanidade; }
 
-    public List<Item> getInventario() {
-        return inventario;
-    }
+    public List<Item> getInventario() { return inventario; }
+    public void setInventario(List<Item> inventario) { this.inventario = inventario; }
 
-    public Ambiente getLocalizacao() {
-        return localizacao;
-    }
+    public Ambiente getLocalizacao() { return localizacao; }
+    public void setLocalizacao(Ambiente localizacao) { this.localizacao = localizacao; }
 
+    // Métodos de Ação
     public void moverPara(Ambiente novoAmbiente) {
         this.localizacao = novoAmbiente;
         System.out.println(nome + " se moveu para " + novoAmbiente.getNome());
@@ -93,14 +91,13 @@ public abstract class Personagem {
     }
 
     public void atacar(ItemArmas arma) {
-    if (inventario.contains(arma)) {
-        System.out.println(nome + " atacou com " + arma.getNome() + " causando " + arma.getDano() + " de dano!");
-        arma.atacar();
-    } else {
-        System.out.println("⚠ Nenhuma arma disponível no inventário!");
+        if (inventario.contains(arma)) {
+            System.out.println(nome + " atacou com " + arma.getNome() + " causando " + arma.getDano() + " de dano!");
+            arma.atacar();
+        } else {
+            System.out.println("⚠ Nenhuma arma disponível no inventário!");
+        }
     }
-}
-
 
     public void adicionarItemAoInventario(Item item) {
         inventario.add(item);
@@ -125,6 +122,4 @@ public abstract class Personagem {
 
     // Método abstrato para habilidade especial da subclasse
     public abstract void habilidadeEspecial();
-
-
 }

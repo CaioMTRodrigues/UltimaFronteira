@@ -8,12 +8,14 @@ public class Inventario {
     private double pesoTotal;
     private double capacidadeMaxima;
 
+    // Construtor
     public Inventario(double capacidadeMaxima) {
         this.listaItens = new ArrayList<>();
         this.pesoTotal = 0;
         this.capacidadeMaxima = capacidadeMaxima;
     }
 
+    // Método para adicionar um item ao inventário
     public void adicionarItem(Item item) {
         if (pesoTotal + item.getPeso() <= capacidadeMaxima) {
             listaItens.add(item);
@@ -24,6 +26,7 @@ public class Inventario {
         }
     }
 
+    // Método para remover um item do inventário
     public void removerItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
@@ -36,6 +39,7 @@ public class Inventario {
         System.out.println("⚠ Item não encontrado no inventário.");
     }
 
+    // Método para usar um item do inventário
     public void usarItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
@@ -51,6 +55,7 @@ public class Inventario {
         System.out.println("⚠ Item não encontrado para uso.");
     }
 
+    // Método para exibir todos os itens do inventário
     public void exibirInventario() {
         System.out.println("🎒 Inventário: ");
         if (listaItens.isEmpty()) {
@@ -62,12 +67,29 @@ public class Inventario {
         }
     }
 
+    // Getters e Setters
     public double getPesoTotal() {
         return pesoTotal;
+    }
+
+    public void setPesoTotal(double pesoTotal) {
+        this.pesoTotal = pesoTotal;
     }
 
     public double getCapacidadeMaxima() {
         return capacidadeMaxima;
     }
+
+    public void setCapacidadeMaxima(double capacidadeMaxima) {
+        this.capacidadeMaxima = capacidadeMaxima;
+    }
+
+    public List<Item> getListaItens() {
+        return listaItens;
+    }
+
+    public void setListaItens(List<Item> listaItens) {
+        this.listaItens = listaItens;
+    }
 }
-       
+    
