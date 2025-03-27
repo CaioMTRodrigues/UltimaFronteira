@@ -1,15 +1,15 @@
 package models.Eventos;
 
 import java.util.List;
-
 import models.Itens.Item;
 
 public class EventoDescoberta extends Evento {
-    private String tipoDescoberta;      // Tipo da descoberta (ex: "abrigo", "suprimentos abandonados")
-    private List<Item> recursosEncontrados; // Lista de recursos encontrados na descoberta
-    private String condicaoEspecial;   // Condição especial para a descoberta (ex: "precisa de ferramenta para ser acessado")
 
-    // Construtor
+    private String tipoDescoberta; // Tipo da descoberta (ex: "abrigo", "suprimentos abandonados")
+    private List<Item> recursosEncontrados; // Lista de recursos encontrados na descoberta
+    private String condicaoEspecial; // Condição especial para a descoberta (ex: "precisa de ferramenta para ser acessado")
+
+    // Construtor que inicializa os dados específicos da descoberta
     public EventoDescoberta(String nome, String descricao, double probabilidade, String impacto, String tipoDescoberta, List<Item> recursosEncontrados, String condicaoEspecial) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoDescoberta = tipoDescoberta;
@@ -42,7 +42,7 @@ public class EventoDescoberta extends Evento {
         this.condicaoEspecial = condicaoEspecial;
     }
 
-    // Método sobrescrito de executar
+    // Método sobrescrito para executar o evento de descoberta
     @Override
     public void executar() {
         System.out.println("🔍 Descoberta: " + getTipoDescoberta());

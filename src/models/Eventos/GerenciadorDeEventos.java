@@ -6,10 +6,11 @@ import models.Personagens.Personagem;
 import models.Ambientes.Ambiente;
 
 public class GerenciadorDeEventos {
+
     private List<Evento> eventosDisponiveis; // Lista de eventos disponíveis para o jogo
     private Random random; // Objeto Random para sorteio de eventos
 
-    // Construtor
+    // Construtor que inicializa a lista de eventos disponíveis
     public GerenciadorDeEventos(List<Evento> eventosDisponiveis) {
         this.eventosDisponiveis = eventosDisponiveis;
         this.random = new Random();

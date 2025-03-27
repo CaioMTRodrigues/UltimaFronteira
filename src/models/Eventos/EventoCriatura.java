@@ -1,11 +1,12 @@
 package models.Eventos;
 
 public class EventoCriatura extends Evento {
-    private String tipoCriatura;      // Tipo da criatura (ex: "lobo", "urso", "cobra")
-    private int nivelPerigo;          // Nível de perigo da criatura
-    private String opcoesAcao;        // Opções de ação (ex: "atacar", "fugir", "evitar")
 
-    // Construtor
+    private String tipoCriatura; // Tipo da criatura (ex: "lobo", "urso", "cobra")
+    private int nivelPerigo; // Nível de perigo da criatura
+    private String opcoesAcao; // Opções de ação (ex: "atacar", "fugir", "evitar")
+
+    // Construtor que inicializa os dados específicos do evento de criatura
     public EventoCriatura(String nome, String descricao, double probabilidade, String impacto, String tipoCriatura, int nivelPerigo, String opcoesAcao) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoCriatura = tipoCriatura;
@@ -38,7 +39,7 @@ public class EventoCriatura extends Evento {
         this.opcoesAcao = opcoesAcao;
     }
 
-    // Método sobrescrito de executar
+    // Método sobrescrito para executar o evento de encontro com criatura
     @Override
     public void executar() {
         System.out.println("⚠ Encontro com Criatura: " + getTipoCriatura());

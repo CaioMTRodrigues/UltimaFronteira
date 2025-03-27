@@ -4,14 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventario {
-    private List<Item> listaItens;
-    private double pesoTotal;
-    private double capacidadeMaxima;
+    
+    private List<Item> listaItens; // Lista de itens no inventário
+    private double pesoTotal; // Peso total dos itens no inventário
+    private double capacidadeMaxima; // Capacidade máxima do inventário
 
-    // Construtor
+    // Construtor que inicializa o inventário com capacidade máxima
     public Inventario(double capacidadeMaxima) {
         this.listaItens = new ArrayList<>();
         this.pesoTotal = 0;
+        this.capacidadeMaxima = capacidadeMaxima;
+    }
+
+    // Métodos de Acesso (Getters e Setters)
+    public List<Item> getListaItens() {
+        return listaItens;
+    }
+
+    public void setListaItens(List<Item> listaItens) {
+        this.listaItens = listaItens;
+    }
+
+    public double getPesoTotal() {
+        return pesoTotal;
+    }
+
+    public void setPesoTotal(double pesoTotal) {
+        this.pesoTotal = pesoTotal;
+    }
+
+    public double getCapacidadeMaxima() {
+        return capacidadeMaxima;
+    }
+
+    public void setCapacidadeMaxima(double capacidadeMaxima) {
         this.capacidadeMaxima = capacidadeMaxima;
     }
 
@@ -55,7 +81,7 @@ public class Inventario {
         System.out.println("⚠ Item não encontrado para uso.");
     }
 
-    // Método para exibir todos os itens do inventário
+    // Método para exibir todos os itens no inventário
     public void exibirInventario() {
         System.out.println("🎒 Inventário: ");
         if (listaItens.isEmpty()) {
@@ -66,30 +92,4 @@ public class Inventario {
             }
         }
     }
-
-    // Getters e Setters
-    public double getPesoTotal() {
-        return pesoTotal;
-    }
-
-    public void setPesoTotal(double pesoTotal) {
-        this.pesoTotal = pesoTotal;
-    }
-
-    public double getCapacidadeMaxima() {
-        return capacidadeMaxima;
-    }
-
-    public void setCapacidadeMaxima(double capacidadeMaxima) {
-        this.capacidadeMaxima = capacidadeMaxima;
-    }
-
-    public List<Item> getListaItens() {
-        return listaItens;
-    }
-
-    public void setListaItens(List<Item> listaItens) {
-        this.listaItens = listaItens;
-    }
 }
-    

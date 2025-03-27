@@ -1,13 +1,14 @@
 package models.Eventos;
 
 public abstract class Evento {
-    protected String nome;                 // Nome do evento
-    protected String descricao;            // Descrição do evento
-    protected double probabilidadeOcorrencia; // Probabilidade de ocorrência do evento
-    protected String impacto;              // Impacto do evento
-    protected boolean condicaoAtivacao;   // Condição de ativação do evento (se está ativo ou não)
 
-    // Construtor
+    private String nome; // Nome do evento
+    private String descricao; // Descrição do evento
+    private double probabilidadeOcorrencia; // Probabilidade de ocorrência do evento
+    private String impacto; // Impacto do evento (ex: "redução de vida", "aumento de sanidade")
+    private boolean condicaoAtivacao; // Condição de ativação do evento (se está ativo ou não)
+
+    // Construtor que inicializa os dados principais do evento
     public Evento(String nome, String descricao, double probabilidadeOcorrencia, String impacto) {
         this.nome = nome;
         this.descricao = descricao;
@@ -62,7 +63,6 @@ public abstract class Evento {
         this.condicaoAtivacao = false;
     }
 
-    // Método abstrato para ser implementado nas subclasses
+    // Método abstrato que será implementado nas subclasses
     public abstract void executar();
 }
-

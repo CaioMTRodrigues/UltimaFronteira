@@ -4,7 +4,7 @@ import models.Ambientes.Ambiente;
 
 public class SobreviventeNato extends Personagem {
 
-    // Construtor
+    // Construtor que inicializa o sobrevivente nato
     public SobreviventeNato(String nome, Ambiente localizacao) {
         super(nome, localizacao);
     }
@@ -23,3 +23,5 @@ public class SobreviventeNato extends Personagem {
         System.out.println(getNome() + " descansou melhor e recuperou mais energia e sanidade.");
     }
 }
+
+

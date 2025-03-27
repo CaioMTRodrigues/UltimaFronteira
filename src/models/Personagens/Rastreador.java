@@ -5,7 +5,7 @@ import models.Itens.ItemAlimento;
 
 public class Rastreador extends Personagem {
 
-    // Construtor
+    // Construtor que inicializa o rastreador
     public Rastreador(String nome, Ambiente localizacao) {
         super(nome, localizacao);
     }
@@ -28,4 +28,5 @@ public class Rastreador extends Personagem {
         System.out.println(getNome() + " encontrou " + comida.getNome() + ".");
     }
 }
+
 

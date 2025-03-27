@@ -1,11 +1,12 @@
 package models.Eventos;
 
 public class EventoClimatico extends Evento {
-    private String tipoClima;      // Tipo de clima (ex: "nevasca", "chuva forte")
-    private int duracao;           // Duração do evento (em turnos)
+
+    private String tipoClima; // Tipo de clima (ex: "nevasca", "chuva forte")
+    private int duracao; // Duração do evento (em turnos)
     private String efeitoNoAmbiente; // Efeito do evento no ambiente (ex: "reduz a visibilidade", "aumenta o consumo de água")
 
-    // Construtor
+    // Construtor que inicializa os dados específicos do evento climático
     public EventoClimatico(String nome, String descricao, double probabilidade, String impacto, String tipoClima, int duracao, String efeitoNoAmbiente) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoClima = tipoClima;
@@ -38,7 +39,7 @@ public class EventoClimatico extends Evento {
         this.efeitoNoAmbiente = efeitoNoAmbiente;
     }
 
-    // Método sobrescrito de executar
+    // Método sobrescrito para executar o evento climático
     @Override
     public void executar() {
         System.out.println("⛈ Evento Climático: " + getTipoClima());
@@ -47,4 +48,3 @@ public class EventoClimatico extends Evento {
         System.out.println("Impacto: " + getImpacto());
     }
 }
-

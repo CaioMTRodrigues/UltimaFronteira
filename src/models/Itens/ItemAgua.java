@@ -1,10 +1,11 @@
 package models.Itens;
 
 public class ItemAgua extends Item {
+
     private boolean potavel; // Se a água é potável ou não
     private double volume;   // Volume de água disponível
 
-    // Construtor
+    // Construtor que inicializa os dados do item Água
     public ItemAgua(String nome, double peso, int durabilidade, boolean potavel, double volume) {
         super(nome, peso, durabilidade);
         this.potavel = potavel;
@@ -28,7 +29,7 @@ public class ItemAgua extends Item {
         this.volume = volume;
     }
 
-    // Método sobrescrito de usar
+    // Método sobrescrito para usar o item Água
     @Override
     public void usar() {
         if (potavel) {

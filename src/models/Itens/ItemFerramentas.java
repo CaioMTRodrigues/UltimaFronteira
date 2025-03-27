@@ -1,10 +1,11 @@
 package models.Itens;
 
 public class ItemFerramentas extends Item {
+
     private String tipo;        // Tipo de ferramenta (ex: "machado", "ferramenta de construção")
     private int eficiencia;     // Eficiência da ferramenta (quanto mais alta, mais eficaz)
 
-    // Construtor
+    // Construtor que inicializa os dados do item Ferramenta
     public ItemFerramentas(String nome, double peso, int durabilidade, String tipo, int eficiencia) {
         super(nome, peso, durabilidade);
         this.tipo = tipo;
@@ -28,11 +29,12 @@ public class ItemFerramentas extends Item {
         this.eficiencia = eficiencia;
     }
 
-    // Método sobrescrito de usar
+    // Método sobrescrito para usar o item Ferramenta
     @Override
     public void usar() {
         System.out.println("🛠 Você usou " + getNome() + " (" + tipo + ") com eficiência de " + eficiencia + ".");
         reduzirDurabilidade();
     }
 }
+
 

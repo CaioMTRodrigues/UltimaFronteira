@@ -1,10 +1,11 @@
 package models.Itens;
 
 public class ItemArmas extends Item {
+
     private String tipo;  // Tipo de arma (ex: "corpo a corpo", "à distância")
     private int dano;     // Dano causado pela arma
 
-    // Construtor
+    // Construtor que inicializa os dados do item Arma
     public ItemArmas(String nome, double peso, int durabilidade, String tipo, int dano) {
         super(nome, peso, durabilidade);
         this.tipo = tipo;
@@ -28,13 +29,13 @@ public class ItemArmas extends Item {
         this.dano = dano;
     }
 
-    // Método para atacar
+    // Método para atacar com a arma
     public void atacar() {
         System.out.println("⚔ " + getNome() + " foi usado para atacar, causando " + dano + " de dano!");
         reduzirDurabilidade();
     }
 
-    // Sobrescrita do método usar
+    // Sobrescrita do método usar para armas
     @Override
     public void usar() {
         System.out.println("⚔ Você atacou com " + getNome() + ", causando " + dano + " de dano.");

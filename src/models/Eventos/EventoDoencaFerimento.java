@@ -1,11 +1,12 @@
 package models.Eventos;
 
 public class EventoDoencaFerimento extends Evento {
-    private String tipoCondicao;    // Tipo da condição (ex: "infecção", "fratura")
-    private String impacto;         // Impacto do evento (ex: "redução de vida", "aumento de sanidade")
+
+    private String tipoCondicao; // Tipo da condição (ex: "infecção", "fratura")
+    private String impacto; // Impacto do evento (ex: "redução de vida", "aumento de sanidade")
     private String curaDisponivel; // Cura disponível para a condição (ex: "antibiótico", "gesso")
 
-    // Construtor
+    // Construtor que inicializa os dados específicos da condição ou ferimento
     public EventoDoencaFerimento(String nome, String descricao, double probabilidade, String impacto, String tipoCondicao, String curaDisponivel) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoCondicao = tipoCondicao;
@@ -38,7 +39,7 @@ public class EventoDoencaFerimento extends Evento {
         this.curaDisponivel = curaDisponivel;
     }
 
-    // Método sobrescrito de executar
+    // Método sobrescrito para executar o evento de doença ou ferimento
     @Override
     public void executar() {
         System.out.println("🚑 Evento de Doença/Ferimento: " + getTipoCondicao());
@@ -47,4 +48,5 @@ public class EventoDoencaFerimento extends Evento {
         System.out.println("Cura disponível: " + getCuraDisponivel());
     }
 }
+
 

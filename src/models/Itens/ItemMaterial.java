@@ -1,10 +1,11 @@
 package models.Itens;
 
 public class ItemMaterial extends Item {
+
     private String tipo;        // Tipo de material (ex: "madeira", "pedra", "metal")
     private int resistencia;    // Resistência do material (impacta na durabilidade de ferramentas)
 
-    // Construtor
+    // Construtor que inicializa os dados do item Material
     public ItemMaterial(String nome, double peso, int durabilidade, String tipo, int resistencia) {
         super(nome, peso, durabilidade);
         this.tipo = tipo;
@@ -28,7 +29,7 @@ public class ItemMaterial extends Item {
         this.resistencia = resistencia;
     }
 
-    // Método sobrescrito de usar
+    // Método sobrescrito para usar o item Material
     @Override
     public void usar() {
         System.out.println("🔨 Usando " + getNome() + " para criar ou consertar algo.");
@@ -41,3 +42,4 @@ public class ItemMaterial extends Item {
         return new ItemMaterial("Material Combinado", getPeso() + outroMaterial.getPeso(), getDurabilidade(), "Combinado", (getResistencia() + outroMaterial.getResistencia()) / 2);
     }
 }
+

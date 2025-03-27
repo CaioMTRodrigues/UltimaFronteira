@@ -1,12 +1,12 @@
 package models.Itens;
 
 public abstract class Item {
-    // Atributos principais
-    protected String nome; 
-    protected double peso;
-    protected int durabilidade; 
 
-    // Construtor
+    private String nome; // Nome do item
+    private double peso; // Peso do item
+    private int durabilidade; // Durabilidade do item
+
+    // Construtor que inicializa os dados principais do item
     public Item(String nome, double peso, int durabilidade) {
         this.nome = nome;
         this.peso = peso;

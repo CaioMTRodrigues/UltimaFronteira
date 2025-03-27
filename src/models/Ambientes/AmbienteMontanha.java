@@ -2,11 +2,11 @@ package models.Ambientes;
 
 public class AmbienteMontanha extends Ambiente {
 
-    private boolean terrenoAcidentado; // Se o terreno é acidentado
-    private boolean climaInstavel;     // Se o clima é instável (ex: nevascas, ventos fortes)
-    private boolean baixaVegetacao;    // Se há baixa vegetação na montanha
+    private boolean terrenoAcidentado; // Se o terreno é acidentado na montanha
+    private boolean climaInstavel; // Se o clima é instável na montanha
+    private boolean baixaVegetacao; // Se há baixa vegetação na montanha
 
-    // Construtor
+    // Construtor que inicializa os atributos específicos da montanha
     public AmbienteMontanha() {
         super("Montanha", "Uma região alta e perigosa, com ventos fortes e clima instável.", 5, "Frio");
         this.terrenoAcidentado = true;
@@ -14,7 +14,7 @@ public class AmbienteMontanha extends Ambiente {
         this.baixaVegetacao = true;
     }
 
-    // Métodos de Acesso (Getters e Setters)
+    // Métodos de Acesso
     public boolean isTerrenoAcidentado() {
         return terrenoAcidentado;
     }
@@ -39,7 +39,7 @@ public class AmbienteMontanha extends Ambiente {
         this.baixaVegetacao = baixaVegetacao;
     }
 
-    // Método sobrescrito para explorar o ambiente
+    // Método sobrescrito para explorar o ambiente, agora inclui características específicas da montanha
     @Override
     public void explorar() {
         System.out.println("Você enfrenta o frio e a altitude da montanha.");

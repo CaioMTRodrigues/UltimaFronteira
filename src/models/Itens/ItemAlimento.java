@@ -1,11 +1,12 @@
 package models.Itens;
 
 public class ItemAlimento extends Item {
-    protected int valorNutricional; // Valor nutricional (quantidade de fome restaurada)
-    protected String tipo;         // Tipo de alimento (ex: "fruta", "carne", etc.)
-    protected int prazoValidade;   // Prazo de validade do alimento
 
-    // Construtor
+    private int valorNutricional; // Valor nutricional (quantidade de fome restaurada)
+    private String tipo;         // Tipo de alimento (ex: "fruta", "carne", etc.)
+    private int prazoValidade;   // Prazo de validade do alimento
+
+    // Construtor que inicializa os dados do item Alimento
     public ItemAlimento(String nome, double peso, int durabilidade, int valorNutricional, String tipo, int prazoValidade) {
         super(nome, peso, durabilidade);
         this.valorNutricional = valorNutricional;
@@ -38,7 +39,7 @@ public class ItemAlimento extends Item {
         this.prazoValidade = prazoValidade;
     }
 
-    // Método sobrescrito de usar
+    // Método sobrescrito para usar o item Alimento
     @Override
     public void usar() {
         System.out.println("🍏 Você consumiu " + getNome() + ". Restaurou " + valorNutricional + " pontos de fome.");
