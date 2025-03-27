@@ -2,9 +2,9 @@ package models.Ambientes;
 
 public class AmbienteMontanha extends Ambiente {
 
-    private boolean terrenoAcidentado; // Se o terreno é acidentado na montanha
-    private boolean climaInstavel; // Se o clima é instável na montanha
-    private boolean baixaVegetacao; // Se há baixa vegetação na montanha
+    private boolean terrenoAcidentado;
+    private boolean climaInstavel;
+    private boolean baixaVegetacao;
 
     // Construtor que inicializa os atributos específicos da montanha
     public AmbienteMontanha() {
@@ -15,29 +15,12 @@ public class AmbienteMontanha extends Ambiente {
     }
 
     // Métodos de Acesso
-    public boolean isTerrenoAcidentado() {
-        return terrenoAcidentado;
-    }
-
-    public void setTerrenoAcidentado(boolean terrenoAcidentado) {
-        this.terrenoAcidentado = terrenoAcidentado;
-    }
-
-    public boolean isClimaInstavel() {
-        return climaInstavel;
-    }
-
-    public void setClimaInstavel(boolean climaInstavel) {
-        this.climaInstavel = climaInstavel;
-    }
-
-    public boolean isBaixaVegetacao() {
-        return baixaVegetacao;
-    }
-
-    public void setBaixaVegetacao(boolean baixaVegetacao) {
-        this.baixaVegetacao = baixaVegetacao;
-    }
+    public boolean isTerrenoAcidentado() { return terrenoAcidentado; }
+    public void setTerrenoAcidentado(boolean terrenoAcidentado) { this.terrenoAcidentado = terrenoAcidentado; }
+    public boolean isClimaInstavel() { return climaInstavel; }
+    public void setClimaInstavel(boolean climaInstavel) { this.climaInstavel = climaInstavel; }
+    public boolean isBaixaVegetacao() { return baixaVegetacao; }
+    public void setBaixaVegetacao(boolean baixaVegetacao) { this.baixaVegetacao = baixaVegetacao; }
 
     // Método sobrescrito para explorar o ambiente, agora inclui características específicas da montanha
     @Override
@@ -46,3 +29,4 @@ public class AmbienteMontanha extends Ambiente {
         super.explorar();
     }
 }
+

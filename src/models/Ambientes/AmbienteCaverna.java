@@ -2,9 +2,9 @@ package models.Ambientes;
 
 public class AmbienteCaverna extends Ambiente {
 
-    private boolean poucaLuz; // Se há pouca luz na caverna
-    private boolean criaturasPresentes; // Se há criaturas presentes na caverna
-    private boolean aguaDeGotejamento; // Se há água de gotejamento na caverna
+    private boolean poucaLuz;
+    private boolean criaturasPresentes;
+    private boolean aguaDeGotejamento;
 
     // Construtor que inicializa os atributos específicos da caverna
     public AmbienteCaverna() {
@@ -15,29 +15,12 @@ public class AmbienteCaverna extends Ambiente {
     }
 
     // Métodos de Acesso
-    public boolean isPoucaLuz() {
-        return poucaLuz;
-    }
-
-    public void setPoucaLuz(boolean poucaLuz) {
-        this.poucaLuz = poucaLuz;
-    }
-
-    public boolean isCriaturasPresentes() {
-        return criaturasPresentes;
-    }
-
-    public void setCriaturasPresentes(boolean criaturasPresentes) {
-        this.criaturasPresentes = criaturasPresentes;
-    }
-
-    public boolean isAguaDeGotejamento() {
-        return aguaDeGotejamento;
-    }
-
-    public void setAguaDeGotejamento(boolean aguaDeGotejamento) {
-        this.aguaDeGotejamento = aguaDeGotejamento;
-    }
+    public boolean isPoucaLuz() { return poucaLuz; }
+    public void setPoucaLuz(boolean poucaLuz) { this.poucaLuz = poucaLuz; }
+    public boolean isCriaturasPresentes() { return criaturasPresentes; }
+    public void setCriaturasPresentes(boolean criaturasPresentes) { this.criaturasPresentes = criaturasPresentes; }
+    public boolean isAguaDeGotejamento() { return aguaDeGotejamento; }
+    public void setAguaDeGotejamento(boolean aguaDeGotejamento) { this.aguaDeGotejamento = aguaDeGotejamento; }
 
     // Método sobrescrito para explorar o ambiente, agora inclui características específicas da caverna
     @Override
@@ -46,5 +29,3 @@ public class AmbienteCaverna extends Ambiente {
         super.explorar();
     }
 }
-
-

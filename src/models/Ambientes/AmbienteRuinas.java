@@ -2,9 +2,9 @@ package models.Ambientes;
 
 public class AmbienteRuinas extends Ambiente {
 
-    private boolean estruturasInstaveis; // Se as estruturas nas ruínas são instáveis
-    private boolean presencaSobreviventes; // Se há sobreviventes nas ruínas
-    private boolean baixoRiscoClimatico; // Se há baixo risco climático nas ruínas
+    private boolean estruturasInstaveis;
+    private boolean presencaSobreviventes;
+    private boolean baixoRiscoClimatico;
 
     // Construtor que inicializa os atributos específicos das ruínas
     public AmbienteRuinas() {
@@ -15,29 +15,12 @@ public class AmbienteRuinas extends Ambiente {
     }
 
     // Métodos de Acesso
-    public boolean isEstruturasInstaveis() {
-        return estruturasInstaveis;
-    }
-
-    public void setEstruturasInstaveis(boolean estruturasInstaveis) {
-        this.estruturasInstaveis = estruturasInstaveis;
-    }
-
-    public boolean isPresencaSobreviventes() {
-        return presencaSobreviventes;
-    }
-
-    public void setPresencaSobreviventes(boolean presencaSobreviventes) {
-        this.presencaSobreviventes = presencaSobreviventes;
-    }
-
-    public boolean isBaixoRiscoClimatico() {
-        return baixoRiscoClimatico;
-    }
-
-    public void setBaixoRiscoClimatico(boolean baixoRiscoClimatico) {
-        this.baixoRiscoClimatico = baixoRiscoClimatico;
-    }
+    public boolean isEstruturasInstaveis() { return estruturasInstaveis; }
+    public void setEstruturasInstaveis(boolean estruturasInstaveis) { this.estruturasInstaveis = estruturasInstaveis; }
+    public boolean isPresencaSobreviventes() { return presencaSobreviventes; }
+    public void setPresencaSobreviventes(boolean presencaSobreviventes) { this.presencaSobreviventes = presencaSobreviventes; }
+    public boolean isBaixoRiscoClimatico() { return baixoRiscoClimatico; }
+    public void setBaixoRiscoClimatico(boolean baixoRiscoClimatico) { this.baixoRiscoClimatico = baixoRiscoClimatico; }
 
     // Método sobrescrito para explorar o ambiente, agora inclui características específicas das ruínas
     @Override
@@ -46,5 +29,6 @@ public class AmbienteRuinas extends Ambiente {
         super.explorar();
     }
 }
+
 
 

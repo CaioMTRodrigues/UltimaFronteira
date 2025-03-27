@@ -2,8 +2,8 @@ package models.Itens;
 
 public class ItemArmas extends Item {
 
-    private String tipo;  // Tipo de arma (ex: "corpo a corpo", "à distância")
-    private int dano;     // Dano causado pela arma
+    private String tipo;
+    private int dano;
 
     // Construtor que inicializa os dados do item Arma
     public ItemArmas(String nome, double peso, int durabilidade, String tipo, int dano) {
@@ -12,22 +12,11 @@ public class ItemArmas extends Item {
         this.dano = dano;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public int getDano() {
-        return dano;
-    }
-
-    public void setDano(int dano) {
-        this.dano = dano;
-    }
+    // Métodos de Acesso
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    public int getDano() { return dano; }
+    public void setDano(int dano) { this.dano = dano; }
 
     // Método para atacar com a arma
     public void atacar() {
@@ -38,7 +27,8 @@ public class ItemArmas extends Item {
     // Sobrescrita do método usar para armas
     @Override
     public void usar() {
-        System.out.println("⚔ Você atacou com " + getNome() + ", causando " + dano + " de dano.");
+        System.out.println("⚔ Você atacou com " + getNome() + " (" + tipo + "), causando " + dano + " de dano.");
         reduzirDurabilidade();
     }
 }
+

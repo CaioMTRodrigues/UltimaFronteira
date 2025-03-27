@@ -1,27 +1,20 @@
 package models.Personagens;
 
-import models.Ambientes.Ambiente;
-
 public class SobreviventeNato extends Personagem {
 
-    // Construtor que inicializa o sobrevivente nato
-    public SobreviventeNato(String nome, Ambiente localizacao) {
-        super(nome, localizacao);
+    public SobreviventeNato(String nome, double vida, double fome, double sede, double energia, double sanidade, String localizacao) {
+        super(nome, vida, fome, sede, energia, sanidade, localizacao);
     }
 
-    // Implementação da habilidade especial
+    // Implementação da habilidade especial do sobrevivente nato
     @Override
     public void habilidadeEspecial() {
-        System.out.println(getNome() + " usou sua habilidade de Sobrevivente Nato: menos impactado por fome e sede.");
-    }
-
-    // Método para descansar e recuperar mais energia e sanidade
-    @Override
-    public void descansar() {
-        setEnergia(Math.min(getEnergia() + 70, 100));  // Usando o setter para energia
-        setSanidade(Math.min(getSanidade() + 20, 100));  // Usando o setter para sanidade
-        System.out.println(getNome() + " descansou melhor e recuperou mais energia e sanidade.");
+        System.out.println(this.getNome() + " está usando sua habilidade de resistência.");
+        // O sobrevivente nato tem uma resistência maior a fome e sede
+        this.setFome(this.getFome() - 5);  // Menor impacto da fome
+        this.setSede(this.getSede() - 5);  // Menor impacto da sede
     }
 }
+
 
 

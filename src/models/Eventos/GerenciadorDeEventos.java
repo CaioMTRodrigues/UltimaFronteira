@@ -7,8 +7,8 @@ import models.Ambientes.Ambiente;
 
 public class GerenciadorDeEventos {
 
-    private List<Evento> eventosDisponiveis; // Lista de eventos disponíveis para o jogo
-    private Random random; // Objeto Random para sorteio de eventos
+    private List<Evento> eventosDisponiveis;
+    private Random random;
 
     // Construtor que inicializa a lista de eventos disponíveis
     public GerenciadorDeEventos(List<Evento> eventosDisponiveis) {
@@ -16,7 +16,7 @@ public class GerenciadorDeEventos {
         this.random = new Random();
     }
 
-    // Métodos de Acesso (Getters e Setters)
+    // Métodos de Acesso
     public List<Evento> getEventosDisponiveis() {
         return eventosDisponiveis;
     }
@@ -53,7 +53,9 @@ public class GerenciadorDeEventos {
     public void aplicarEvento(Personagem jogador, Ambiente local) {
         Evento evento = sortearEvento(local);
         if (evento != null) {
+            System.out.println("===== Detalhes do Evento =====");
             evento.executar(); // Executa o evento, afetando o personagem e o ambiente
+            System.out.println("=================================");
         }
     }
 

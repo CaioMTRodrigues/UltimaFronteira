@@ -2,8 +2,8 @@ package models.Itens;
 
 public class ItemMaterial extends Item {
 
-    private String tipo;        // Tipo de material (ex: "madeira", "pedra", "metal")
-    private int resistencia;    // Resistência do material (impacta na durabilidade de ferramentas)
+    private String tipo;
+    private int resistencia;
 
     // Construtor que inicializa os dados do item Material
     public ItemMaterial(String nome, double peso, int durabilidade, String tipo, int resistencia) {
@@ -12,22 +12,11 @@ public class ItemMaterial extends Item {
         this.resistencia = resistencia;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public int getResistencia() {
-        return resistencia;
-    }
-
-    public void setResistencia(int resistencia) {
-        this.resistencia = resistencia;
-    }
+    // Métodos de Acesso
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
+    public int getResistencia() { return resistencia; }
+    public void setResistencia(int resistencia) { this.resistencia = resistencia; }
 
     // Método sobrescrito para usar o item Material
     @Override

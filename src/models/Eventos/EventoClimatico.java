@@ -2,9 +2,9 @@ package models.Eventos;
 
 public class EventoClimatico extends Evento {
 
-    private String tipoClima; // Tipo de clima (ex: "nevasca", "chuva forte")
-    private int duracao; // Duração do evento (em turnos)
-    private String efeitoNoAmbiente; // Efeito do evento no ambiente (ex: "reduz a visibilidade", "aumenta o consumo de água")
+    private String tipoClima;
+    private int duracao;
+    private String efeitoNoAmbiente;
 
     // Construtor que inicializa os dados específicos do evento climático
     public EventoClimatico(String nome, String descricao, double probabilidade, String impacto, String tipoClima, int duracao, String efeitoNoAmbiente) {
@@ -14,30 +14,13 @@ public class EventoClimatico extends Evento {
         this.efeitoNoAmbiente = efeitoNoAmbiente;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public String getTipoClima() {
-        return tipoClima;
-    }
-
-    public void setTipoClima(String tipoClima) {
-        this.tipoClima = tipoClima;
-    }
-
-    public int getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
-    }
-
-    public String getEfeitoNoAmbiente() {
-        return efeitoNoAmbiente;
-    }
-
-    public void setEfeitoNoAmbiente(String efeitoNoAmbiente) {
-        this.efeitoNoAmbiente = efeitoNoAmbiente;
-    }
+    // Métodos de Acesso
+    public String getTipoClima() { return tipoClima; }
+    public void setTipoClima(String tipoClima) { this.tipoClima = tipoClima; }
+    public int getDuracao() { return duracao; }
+    public void setDuracao(int duracao) { this.duracao = duracao; }
+    public String getEfeitoNoAmbiente() { return efeitoNoAmbiente; }
+    public void setEfeitoNoAmbiente(String efeitoNoAmbiente) { this.efeitoNoAmbiente = efeitoNoAmbiente; }
 
     // Método sobrescrito para executar o evento climático
     @Override
@@ -46,5 +29,8 @@ public class EventoClimatico extends Evento {
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Duração: " + getDuracao() + " turnos.");
         System.out.println("Impacto: " + getImpacto());
+        if (getDuracao() > 5) {
+            System.out.println("Este evento climático pode ter efeitos prolongados.");
+        }
     }
 }

@@ -2,9 +2,9 @@ package models.Ambientes;
 
 public class AmbienteLagoRio extends Ambiente {
 
-    private boolean aguaAbundante; // Se há água abundante no lago/rio
-    private boolean possibilidadePesca; // Se há possibilidade de pesca no lago/rio
-    private boolean terrenoLamacento; // Se o terreno é lamacento no lago/rio
+    private boolean aguaAbundante;
+    private boolean possibilidadePesca;
+    private boolean terrenoLamacento;
 
     // Construtor que inicializa os atributos específicos do lago/rio
     public AmbienteLagoRio() {
@@ -15,29 +15,12 @@ public class AmbienteLagoRio extends Ambiente {
     }
 
     // Métodos de Acesso
-    public boolean isAguaAbundante() {
-        return aguaAbundante;
-    }
-
-    public void setAguaAbundante(boolean aguaAbundante) {
-        this.aguaAbundante = aguaAbundante;
-    }
-
-    public boolean isPossibilidadePesca() {
-        return possibilidadePesca;
-    }
-
-    public void setPossibilidadePesca(boolean possibilidadePesca) {
-        this.possibilidadePesca = possibilidadePesca;
-    }
-
-    public boolean isTerrenoLamacento() {
-        return terrenoLamacento;
-    }
-
-    public void setTerrenoLamacento(boolean terrenoLamacento) {
-        this.terrenoLamacento = terrenoLamacento;
-    }
+    public boolean isAguaAbundante() { return aguaAbundante; }
+    public void setAguaAbundante(boolean aguaAbundante) { this.aguaAbundante = aguaAbundante; }
+    public boolean isPossibilidadePesca() { return possibilidadePesca; }
+    public void setPossibilidadePesca(boolean possibilidadePesca) { this.possibilidadePesca = possibilidadePesca; }
+    public boolean isTerrenoLamacento() { return terrenoLamacento; }
+    public void setTerrenoLamacento(boolean terrenoLamacento) { this.terrenoLamacento = terrenoLamacento; }
 
     // Método sobrescrito para explorar o ambiente, agora inclui características específicas do lago/rio
     @Override
@@ -46,4 +29,5 @@ public class AmbienteLagoRio extends Ambiente {
         super.explorar();
     }
 }
+
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventario {
-    
+
     private List<Item> listaItens; // Lista de itens no inventário
     private double pesoTotal; // Peso total dos itens no inventário
     private double capacidadeMaxima; // Capacidade máxima do inventário
@@ -48,7 +48,7 @@ public class Inventario {
             pesoTotal += item.getPeso();
             System.out.println("✅ " + item.getNome() + " adicionado ao inventário.");
         } else {
-            System.out.println("❌ Não há espaço suficiente para " + item.getNome() + ".");
+            System.out.println("❌ Não há espaço suficiente para " + item.getNome() + " no inventário.");
         }
     }
 
@@ -69,7 +69,7 @@ public class Inventario {
     public void usarItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
-                item.usar();
+                item.usar();  // Chama o método sobrescrito de uso específico do item
                 if (item.getDurabilidade() == 0) {
                     listaItens.remove(item);
                     pesoTotal -= item.getPeso();
@@ -91,5 +91,25 @@ public class Inventario {
                 System.out.println("- " + item.getNome() + " (Peso: " + item.getPeso() + ", Durabilidade: " + item.getDurabilidade() + ")");
             }
         }
+    }
+
+    // Método para verificar a capacidade restante no inventário
+    public void verificarEspaco() {
+        double espacoRestante = capacidadeMaxima - pesoTotal;
+        if (espacoRestante > 0) {
+            System.out.println("Há " + espacoRestante + " de espaço restante no inventário.");
+        } else {
+            System.out.println("O inventário está cheio.");
+        }
+    }
+
+    // Método para verificar se um item específico está no inventário
+    public boolean verificarItem(String nomeItem) {
+        for (Item item : listaItens) {
+            if (item.getNome().equalsIgnoreCase(nomeItem)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

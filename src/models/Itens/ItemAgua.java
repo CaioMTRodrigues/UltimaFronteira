@@ -2,8 +2,8 @@ package models.Itens;
 
 public class ItemAgua extends Item {
 
-    private boolean potavel; // Se a água é potável ou não
-    private double volume;   // Volume de água disponível
+    private boolean potavel;
+    private double volume;
 
     // Construtor que inicializa os dados do item Água
     public ItemAgua(String nome, double peso, int durabilidade, boolean potavel, double volume) {
@@ -12,22 +12,11 @@ public class ItemAgua extends Item {
         this.volume = volume;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public boolean isPotavel() {
-        return potavel;
-    }
-
-    public void setPotavel(boolean potavel) {
-        this.potavel = potavel;
-    }
-
-    public double getVolume() {
-        return volume;
-    }
-
-    public void setVolume(double volume) {
-        this.volume = volume;
-    }
+    // Métodos de Acesso
+    public boolean isPotavel() { return potavel; }
+    public void setPotavel(boolean potavel) { this.potavel = potavel; }
+    public double getVolume() { return volume; }
+    public void setVolume(double volume) { this.volume = volume; }
 
     // Método sobrescrito para usar o item Água
     @Override
@@ -40,3 +29,4 @@ public class ItemAgua extends Item {
         reduzirDurabilidade();
     }
 }
+

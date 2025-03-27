@@ -1,29 +1,27 @@
 package models.Personagens;
 
-import models.Ambientes.Ambiente;
 import models.Itens.ItemFerramentas;
+import models.Itens.Item;
 
 public class Mecanico extends Personagem {
 
-    // Construtor que inicializa o mecânico
-    public Mecanico(String nome, Ambiente localizacao) {
-        super(nome, localizacao);
+    public Mecanico(String nome, double vida, double fome, double sede, double energia, double sanidade, String localizacao) {
+        super(nome, vida, fome, sede, energia, sanidade, localizacao);
     }
 
-    // Implementação da habilidade especial
+    // Implementação da habilidade especial do mecânico
     @Override
     public void habilidadeEspecial() {
-        System.out.println(getNome() + " usou sua habilidade de Mecânico: pode consertar ferramentas quebradas.");
-    }
+        System.out.println(this.getNome() + " está usando sua habilidade de consertar ferramentas.");
 
-    // Método para consertar ferramenta
-    public void consertarFerramenta(ItemFerramentas ferramenta) {
-        if (getInventario().contains(ferramenta) && ferramenta.getDurabilidade() < 100) {
-            ferramenta.reduzirDurabilidade();
-            System.out.println(getNome() + " consertou " + ferramenta.getNome() + " e restaurou sua durabilidade.");
-        } else {
-            System.out.println("Ferramenta não precisa de reparo ou não está no inventário!");
+        // Exemplo de interação com o inventário para consertar uma ferramenta
+        for (Item item : getInventario()) {  // Agora iteramos corretamente sobre a lista de Item
+            if (item instanceof ItemFerramentas) {
+                System.out.println(this.getNome() + " consertou a ferramenta: " + item.getNome());
+                // Você pode adicionar mais lógica para melhorar a durabilidade ou efeito do item, por exemplo.
+            }
         }
     }
 }
+
 

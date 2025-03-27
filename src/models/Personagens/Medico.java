@@ -1,32 +1,26 @@
 package models.Personagens;
 
-import models.Ambientes.Ambiente;
 import models.Itens.ItemRemedios;
+import models.Itens.Item;
 
 public class Medico extends Personagem {
 
-    // Construtor que inicializa o médico
-    public Medico(String nome, Ambiente localizacao) {
-        super(nome, localizacao);
+    public Medico(String nome, double vida, double fome, double sede, double energia, double sanidade, String localizacao) {
+        super(nome, vida, fome, sede, energia, sanidade, localizacao);
     }
 
-    // Implementação da habilidade especial
+    // Implementação da habilidade especial do médico
     @Override
     public void habilidadeEspecial() {
-        System.out.println(getNome() + " usou sua habilidade de Médico: pode curar ferimentos sem itens raros.");
-    }
+        System.out.println(this.getNome() + " está usando sua habilidade de curar.");
 
-    // Método para curar ferimentos com remédios
-    public void curar(ItemRemedios remedio) {
-        if (getInventario().contains(remedio)) {
-            // Utilizando o setter para modificar a vida
-            setVida(Math.min(getVida() + 40, 100)); // Garantindo que a vida não ultrapasse 100
-            getInventario().remove(remedio);
-            System.out.println(getNome() + " usou " + remedio.getNome() + " e restaurou vida.");
-        } else {
-            System.out.println("Nenhum remédio disponível!");
+        // Exemplo de uso de remédios no inventário
+        for (Item item : getInventario()) {
+            if (item instanceof ItemRemedios) {
+                System.out.println(this.getNome() + " usou o remédio: " + item.getNome());
+                // Recupera vida ou sanidade do personagem
+                this.setVida(this.getVida() + 20);  // Exemplo de cura
+            }
         }
     }
 }
-
-
