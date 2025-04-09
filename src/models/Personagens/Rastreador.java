@@ -1,33 +1,42 @@
 package models.Personagens;
 
+import models.Itens.Item;
 import models.Itens.ItemAgua;
 import models.Itens.ItemAlimento;
-import models.Itens.Item;
 
+/**
+ * Classe que representa o personagem Rastreador.
+ * Tem facilidade em encontrar água e alimentos no inventário.
+ */
 public class Rastreador extends Personagem {
 
+    /**
+     * Construtor do Rastreador.
+     */
     public Rastreador(String nome, double vida, double fome, double sede, double energia, double sanidade, String localizacao) {
         super(nome, vida, fome, sede, energia, sanidade, localizacao);
     }
 
-    // Implementação da habilidade especial do rastreador
+    /**
+     * Habilidade especial: localiza alimentos e água no inventário e reduz fome/sede.
+     */
     @Override
     public void habilidadeEspecial() {
-        System.out.println(this.getNome() + " está usando sua habilidade de rastrear recursos.");
-        // Exemplo de rastreamento de recursos no inventário
-        for (Item item : getInventario()) {  // Agora estamos iterando corretamente sobre a lista de Item
+        System.out.println(this.getNome() + " está rastreando alimentos e água...");
+
+        for (Item item : getInventario().getListaItens()) {
             if (item instanceof ItemAlimento) {
-                System.out.println(this.getNome() + " encontrou alimento: " + item.getNome());
-                // Restaurar fome do personagem
+                System.out.println("🍏 Encontrado alimento: " + item.getNome());
                 this.setFome(this.getFome() - 10);
             } else if (item instanceof ItemAgua) {
-                System.out.println(this.getNome() + " encontrou água: " + item.getNome());
-                // Restaurar sede do personagem
+                System.out.println("💧 Encontrado água: " + item.getNome());
                 this.setSede(this.getSede() - 10);
             }
         }
     }
 }
+
+
 
 
 

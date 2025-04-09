@@ -1,20 +1,24 @@
 package models.Personagens;
 
-import java.util.List;
-import models.Itens.Item;
+import models.Itens.Inventario;
 
+/**
+ * Classe abstrata base para todos os personagens do jogo.
+ */
 public abstract class Personagem {
 
-    private String nome;
-    private double vida;
-    private double fome;
-    private double sede;
-    private double energia;
-    private double sanidade;
-    private List<Item> inventario;  // Lista de itens no inventário
-    private String localizacao;
+    protected String nome;
+    protected double vida;
+    protected double fome;
+    protected double sede;
+    protected double energia;
+    protected double sanidade;
+    protected String localizacao;
+    protected Inventario inventario;
 
-    // Construtor que inicializa os dados principais do personagem
+    /**
+     * Construtor do personagem.
+     */
     public Personagem(String nome, double vida, double fome, double sede, double energia, double sanidade, String localizacao) {
         this.nome = nome;
         this.vida = vida;
@@ -23,11 +27,11 @@ public abstract class Personagem {
         this.energia = energia;
         this.sanidade = sanidade;
         this.localizacao = localizacao;
+        this.inventario = new Inventario(30.0);
     }
 
-    // Métodos de Acesso (Getters e Setters)
+    // Getters e Setters
     public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
     public double getVida() { return vida; }
     public void setVida(double vida) { this.vida = vida; }
     public double getFome() { return fome; }
@@ -38,53 +42,40 @@ public abstract class Personagem {
     public void setEnergia(double energia) { this.energia = energia; }
     public double getSanidade() { return sanidade; }
     public void setSanidade(double sanidade) { this.sanidade = sanidade; }
-    public List<Item> getInventario() { return inventario; }  // Agora retorna uma lista de Item
-    public void setInventario(List<Item> inventario) { this.inventario = inventario; }
     public String getLocalizacao() { return localizacao; }
     public void setLocalizacao(String localizacao) { this.localizacao = localizacao; }
+    public Inventario getInventario() { return inventario; }
+    public void setInventario(Inventario inventario) { this.inventario = inventario; }
 
-    // Métodos de ação do personagem
-    public void comer(Item alimento) {
-        System.out.println(this.nome + " está comendo " + alimento.getNome());
-        this.fome -= 10; // Exemplo de como comer pode afetar a fome
+    /**
+     * Exibe os atributos atuais do personagem.
+     */
+    public void exibirStatus() {
+        System.out.println("\n📊 Status de " + nome + ":");
+        System.out.println("Vida: " + vida);
+        System.out.println("Fome: " + fome);
+        System.out.println("Sede: " + sede);
+        System.out.println("Energia: " + energia);
+        System.out.println("Sanidade: " + sanidade);
+        System.out.println("Localização: " + localizacao);
     }
 
-    public void beber(Item agua) {
-        System.out.println(this.nome + " está bebendo " + agua.getNome());
-        this.sede -= 10; // Exemplo de como beber pode afetar a sede
-    }
-
+    /**
+     * Permite o personagem descansar, recuperando energia e sanidade.
+     */
     public void descansar() {
-        System.out.println(this.nome + " está descansando.");
-        this.energia += 20; // Recupera energia durante o descanso
+        energia += 15;
+        sanidade += 10;
+        System.out.println("😴 Você descansou. Energia e sanidade recuperadas.");
+        if (energia > 100) energia = 100;
+        if (sanidade > 100) sanidade = 100;
     }
 
-    // Método abstrato que será implementado nas subclasses para habilidade especial
+    /**
+     * Habilidade especial única de cada personagem.
+     */
     public abstract void habilidadeEspecial();
-
-    // Método abstrato para realizar a ação no turno
-    public abstract void realizarAcao();
-
-    // Método para atualizar os atributos do personagem
-    public void atualizarAtributos() {
-        // Exemplo de atualizações que podem ocorrer em cada turno
-        this.fome += 5;    // A fome aumenta com o tempo
-        this.sede += 5;    // A sede aumenta com o tempo
-        this.energia -= 5; // A energia diminui com o tempo
-        this.sanidade -= 2; // A sanidade pode diminuir conforme eventos ou fadiga
-        System.out.println(this.nome + " teve seus atributos atualizados.");
-    }
-
-    // Método para exibir o status do personagem
-    public String getStatus() {
-        return "Status de " + nome + ":\n" +
-               "Vida: " + vida + "\n" +
-               "Fome: " + fome + "\n" +
-               "Sede: " + sede + "\n" +
-               "Energia: " + energia + "\n" +
-               "Sanidade: " + sanidade + "\n" +
-               "Localização: " + localizacao;
-    }
-
 }
+
+
 
