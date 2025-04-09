@@ -1,10 +1,10 @@
 package models.Ambientes;
 
-import models.Eventos.Evento;
-import models.Itens.Item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import models.Eventos.Evento;
+import models.Itens.Item;
 
 public abstract class Ambiente {
 
@@ -128,5 +128,13 @@ public abstract class Ambiente {
         System.out.println("Recursos disponíveis: " + (recursosDisponiveis.isEmpty() ? "Nenhum" : recursosDisponiveis));
         System.out.println("Possíveis Eventos: " + (eventosPossiveis.isEmpty() ? "Nenhum" : eventosPossiveis));
     }
+
+    // Método para atualizar os recursos do ambiente
+    public void atualizarRecursos() {
+        // Exemplo de como os recursos podem ser atualizados com o tempo
+        System.out.println("Os recursos do ambiente estão sendo atualizados...");
+    }
+    
 }
+
 

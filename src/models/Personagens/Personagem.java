@@ -1,7 +1,7 @@
 package models.Personagens;
 
-import models.Itens.Item;
 import java.util.List;
+import models.Itens.Item;
 
 public abstract class Personagem {
 
@@ -62,15 +62,29 @@ public abstract class Personagem {
     // Método abstrato que será implementado nas subclasses para habilidade especial
     public abstract void habilidadeEspecial();
 
-    // Método para exibir o status do personagem
-    public void exibirStatus() {
-        System.out.println("Status de " + nome + ":");
-        System.out.println("Vida: " + vida);
-        System.out.println("Fome: " + fome);
-        System.out.println("Sede: " + sede);
-        System.out.println("Energia: " + energia);
-        System.out.println("Sanidade: " + sanidade);
-        System.out.println("Localização: " + localizacao);
+    // Método abstrato para realizar a ação no turno
+    public abstract void realizarAcao();
+
+    // Método para atualizar os atributos do personagem
+    public void atualizarAtributos() {
+        // Exemplo de atualizações que podem ocorrer em cada turno
+        this.fome += 5;    // A fome aumenta com o tempo
+        this.sede += 5;    // A sede aumenta com o tempo
+        this.energia -= 5; // A energia diminui com o tempo
+        this.sanidade -= 2; // A sanidade pode diminuir conforme eventos ou fadiga
+        System.out.println(this.nome + " teve seus atributos atualizados.");
     }
+
+    // Método para exibir o status do personagem
+    public String getStatus() {
+        return "Status de " + nome + ":\n" +
+               "Vida: " + vida + "\n" +
+               "Fome: " + fome + "\n" +
+               "Sede: " + sede + "\n" +
+               "Energia: " + energia + "\n" +
+               "Sanidade: " + sanidade + "\n" +
+               "Localização: " + localizacao;
+    }
+
 }
 
