@@ -3,87 +3,87 @@ package models.Itens;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa o inventário de um personagem, contendo itens com peso limitado.
+ */
 public class Inventario {
 
-    private List<Item> listaItens; // Lista de itens no inventário
-    private double pesoTotal; // Peso total dos itens no inventário
-    private double capacidadeMaxima; // Capacidade máxima do inventário
+    private List<Item> listaItens;
+    private double pesoTotal;
+    private double capacidadeMaxima;
 
-    // Construtor que inicializa o inventário com capacidade máxima
+    /**
+     * Construtor do inventário.
+     *
+     * @param capacidadeMaxima Capacidade total de peso permitida.
+     */
     public Inventario(double capacidadeMaxima) {
         this.listaItens = new ArrayList<>();
         this.pesoTotal = 0;
         this.capacidadeMaxima = capacidadeMaxima;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public List<Item> getListaItens() {
-        return listaItens;
-    }
+    // Getters e Setters
+    public List<Item> getListaItens() { return listaItens; }
+    public void setListaItens(List<Item> listaItens) { this.listaItens = listaItens; }
 
-    public void setListaItens(List<Item> listaItens) {
-        this.listaItens = listaItens;
-    }
+    public double getPesoTotal() { return pesoTotal; }
+    public void setPesoTotal(double pesoTotal) { this.pesoTotal = pesoTotal; }
 
-    public double getPesoTotal() {
-        return pesoTotal;
-    }
+    public double getCapacidadeMaxima() { return capacidadeMaxima; }
+    public void setCapacidadeMaxima(double capacidadeMaxima) { this.capacidadeMaxima = capacidadeMaxima; }
 
-    public void setPesoTotal(double pesoTotal) {
-        this.pesoTotal = pesoTotal;
-    }
-
-    public double getCapacidadeMaxima() {
-        return capacidadeMaxima;
-    }
-
-    public void setCapacidadeMaxima(double capacidadeMaxima) {
-        this.capacidadeMaxima = capacidadeMaxima;
-    }
-
-    // Método para adicionar um item ao inventário
+    /**
+     * Adiciona um item ao inventário se houver espaço.
+     */
     public void adicionarItem(Item item) {
         if (pesoTotal + item.getPeso() <= capacidadeMaxima) {
             listaItens.add(item);
             pesoTotal += item.getPeso();
-            System.out.println("✅ " + item.getNome() + " adicionado ao inventário.");
+            System.out.println(item.getNome() + " adicionado ao inventário.");
         } else {
-            System.out.println("❌ Não há espaço suficiente para " + item.getNome() + " no inventário.");
+            System.out.println(" Não há espaço suficiente para " + item.getNome() + " no inventário.");
         }
     }
 
-    // Método para remover um item do inventário
+    /**
+     * Remove um item do inventário pelo nome.
+     */
     public void removerItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
                 listaItens.remove(item);
                 pesoTotal -= item.getPeso();
-                System.out.println("❌ " + nomeItem + " removido do inventário.");
+                System.out.println(nomeItem + " removido do inventário.");
                 return;
             }
         }
-        System.out.println("⚠ Item não encontrado no inventário.");
+        System.out.println(" Item não encontrado no inventário.");
     }
 
-    // Método para usar um item do inventário
+    /**
+     * Usa um item pelo nome, aplicando seu efeito e removendo se quebrar.
+     */
     public void usarItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {
-                item.usar();  // Chama o método sobrescrito de uso específico do item
+                item.usar();
                 if (item.getDurabilidade() == 0) {
                     listaItens.remove(item);
                     pesoTotal -= item.getPeso();
-                    System.out.println("❌ " + nomeItem + " quebrou e foi removido do inventário.");
+                    System.out.println(nomeItem + " quebrou e foi removido do inventário.");
                 }
                 return;
             }
         }
-        System.out.println("⚠ Item não encontrado para uso.");
+        System.out.println(" Item não encontrado para uso.");
     }
 
-    // Método para exibir todos os itens no inventário
+    /**
+     * Exibe todos os itens do inventário.
+     */
     public void exibirInventario() {
-        System.out.println("🎒 Inventário: ");
+        System.out.println(" Inventário: ");
         if (listaItens.isEmpty()) {
             System.out.println("Vazio.");
         } else {
@@ -93,7 +93,9 @@ public class Inventario {
         }
     }
 
-    // Método para verificar a capacidade restante no inventário
+    /**
+     * Verifica quanto espaço ainda resta no inventário.
+     */
     public void verificarEspaco() {
         double espacoRestante = capacidadeMaxima - pesoTotal;
         if (espacoRestante > 0) {
@@ -103,7 +105,9 @@ public class Inventario {
         }
     }
 
-    // Método para verificar se um item específico está no inventário
+    /**
+     * Verifica se um item com determinado nome está presente.
+     */
     public boolean verificarItem(String nomeItem) {
         for (Item item : listaItens) {
             if (item.getNome().equalsIgnoreCase(nomeItem)) {

@@ -1,12 +1,18 @@
 package models.Ambientes;
 
+/**
+ * Classe que representa o ambiente de Caverna.
+ * Um ambiente escuro, úmido e potencialmente perigoso.
+ */
 public class AmbienteCaverna extends Ambiente {
 
     private boolean poucaLuz;
     private boolean criaturasPresentes;
     private boolean aguaDeGotejamento;
 
-    // Construtor que inicializa os atributos específicos da caverna
+    /**
+     * Construtor da caverna, definindo suas características padrão.
+     */
     public AmbienteCaverna() {
         super("Caverna", "Uma caverna escura e úmida, cheia de mistérios.", 4, "Frio e úmido");
         this.poucaLuz = true;
@@ -14,15 +20,19 @@ public class AmbienteCaverna extends Ambiente {
         this.aguaDeGotejamento = true;
     }
 
-    // Métodos de Acesso
+    // Getters e Setters
     public boolean isPoucaLuz() { return poucaLuz; }
     public void setPoucaLuz(boolean poucaLuz) { this.poucaLuz = poucaLuz; }
+
     public boolean isCriaturasPresentes() { return criaturasPresentes; }
     public void setCriaturasPresentes(boolean criaturasPresentes) { this.criaturasPresentes = criaturasPresentes; }
+
     public boolean isAguaDeGotejamento() { return aguaDeGotejamento; }
     public void setAguaDeGotejamento(boolean aguaDeGotejamento) { this.aguaDeGotejamento = aguaDeGotejamento; }
 
-    // Método sobrescrito para explorar o ambiente, agora inclui características específicas da caverna
+    /**
+     * Exibe uma mensagem personalizada ao explorar a caverna.
+     */
     @Override
     public void explorar() {
         System.out.println("Você entra na caverna, sua lanterna ilumina as paredes úmidas.");

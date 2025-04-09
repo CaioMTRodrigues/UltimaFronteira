@@ -1,12 +1,18 @@
 package models.Ambientes;
 
+/**
+ * Classe que representa o ambiente de Montanha.
+ * Um local de difícil acesso, com clima instável e pouca vegetação.
+ */
 public class AmbienteMontanha extends Ambiente {
 
     private boolean terrenoAcidentado;
     private boolean climaInstavel;
     private boolean baixaVegetacao;
 
-    // Construtor que inicializa os atributos específicos da montanha
+    /**
+     * Construtor da montanha, definindo suas características típicas.
+     */
     public AmbienteMontanha() {
         super("Montanha", "Uma região alta e perigosa, com ventos fortes e clima instável.", 5, "Frio");
         this.terrenoAcidentado = true;
@@ -14,19 +20,22 @@ public class AmbienteMontanha extends Ambiente {
         this.baixaVegetacao = true;
     }
 
-    // Métodos de Acesso
+    // Getters e Setters
     public boolean isTerrenoAcidentado() { return terrenoAcidentado; }
     public void setTerrenoAcidentado(boolean terrenoAcidentado) { this.terrenoAcidentado = terrenoAcidentado; }
+
     public boolean isClimaInstavel() { return climaInstavel; }
     public void setClimaInstavel(boolean climaInstavel) { this.climaInstavel = climaInstavel; }
+
     public boolean isBaixaVegetacao() { return baixaVegetacao; }
     public void setBaixaVegetacao(boolean baixaVegetacao) { this.baixaVegetacao = baixaVegetacao; }
 
-    // Método sobrescrito para explorar o ambiente, agora inclui características específicas da montanha
+    /**
+     * Exibe uma mensagem personalizada ao explorar a montanha.
+     */
     @Override
     public void explorar() {
         System.out.println("Você enfrenta o frio e a altitude da montanha.");
         super.explorar();
     }
 }
-

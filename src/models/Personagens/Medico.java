@@ -25,7 +25,7 @@ public class Medico extends Personagem {
 
         for (Item item : getInventario().getListaItens()) {
             if (item instanceof ItemRemedios) {
-                System.out.println("💊 " + this.getNome() + " usou o remédio: " + item.getNome());
+                System.out.println(this.getNome() + " usou o remédio: " + item.getNome());
                 this.setVida(this.getVida() + 20);
                 item.usar();
             }

@@ -25,7 +25,7 @@ public class Mecanico extends Personagem {
 
         for (Item item : getInventario().getListaItens()) {
             if (item instanceof ItemFerramentas) {
-                System.out.println("🔧 " + this.getNome() + " consertou: " + item.getNome());
+                System.out.println(this.getNome() + " consertou: " + item.getNome());
                 item.setDurabilidade(item.getDurabilidade() + 10);
             }
         }

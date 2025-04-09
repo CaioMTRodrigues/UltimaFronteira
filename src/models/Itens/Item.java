@@ -1,44 +1,41 @@
 package models.Itens;
 
+/**
+ * Classe abstrata que representa um item genérico no jogo.
+ * Todos os itens herdam dessa classe e implementam o método usar().
+ */
 public abstract class Item {
 
-    private String nome; // Nome do item
-    private double peso; // Peso do item
-    private int durabilidade; // Durabilidade do item
+    private String nome;
+    private double peso;
+    private int durabilidade;
 
-    // Construtor que inicializa os dados principais do item
+    /**
+     * Construtor do item.
+     *
+     * @param nome Nome do item.
+     * @param peso Peso do item.
+     * @param durabilidade Durabilidade do item.
+     */
     public Item(String nome, double peso, int durabilidade) {
         this.nome = nome;
         this.peso = peso;
         this.durabilidade = durabilidade;
     }
 
-    // Métodos de Acesso (Getters e Setters)
-    public String getNome() {
-        return nome;
-    }
+    // Getters e Setters
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public double getPeso() { return peso; }
+    public void setPeso(double peso) { this.peso = peso; }
 
-    public double getPeso() {
-        return peso;
-    }
+    public int getDurabilidade() { return durabilidade; }
+    public void setDurabilidade(int durabilidade) { this.durabilidade = durabilidade; }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public int getDurabilidade() {
-        return durabilidade;
-    }
-
-    public void setDurabilidade(int durabilidade) {
-        this.durabilidade = durabilidade;
-    }
-
-    // Método para reduzir a durabilidade do item
+    /**
+     * Reduz a durabilidade do item após o uso.
+     */
     public void reduzirDurabilidade() {
         if (durabilidade > 0) {
             durabilidade--;
@@ -48,6 +45,8 @@ public abstract class Item {
         }
     }
 
-    // Método abstrato que será implementado nas subclasses
+    /**
+     * Método abstrato para uso do item, definido pelas subclasses.
+     */
     public abstract void usar();
 }

@@ -51,7 +51,7 @@ public abstract class Personagem {
      * Exibe os atributos atuais do personagem.
      */
     public void exibirStatus() {
-        System.out.println("\n📊 Status de " + nome + ":");
+        System.out.println("\n Status de " + nome + ":");
         System.out.println("Vida: " + vida);
         System.out.println("Fome: " + fome);
         System.out.println("Sede: " + sede);
@@ -66,7 +66,7 @@ public abstract class Personagem {
     public void descansar() {
         energia += 15;
         sanidade += 10;
-        System.out.println("😴 Você descansou. Energia e sanidade recuperadas.");
+        System.out.println(" Você descansou. Energia e sanidade recuperadas.");
         if (energia > 100) energia = 100;
         if (sanidade > 100) sanidade = 100;
     }

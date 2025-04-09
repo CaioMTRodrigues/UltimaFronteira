@@ -26,10 +26,10 @@ public class Rastreador extends Personagem {
 
         for (Item item : getInventario().getListaItens()) {
             if (item instanceof ItemAlimento) {
-                System.out.println("🍏 Encontrado alimento: " + item.getNome());
+                System.out.println(" Encontrado alimento: " + item.getNome());
                 this.setFome(this.getFome() - 10);
             } else if (item instanceof ItemAgua) {
-                System.out.println("💧 Encontrado água: " + item.getNome());
+                System.out.println(" Encontrado água: " + item.getNome());
                 this.setSede(this.getSede() - 10);
             }
         }

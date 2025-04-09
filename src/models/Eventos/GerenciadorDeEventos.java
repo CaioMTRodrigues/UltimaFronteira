@@ -5,67 +5,74 @@ import java.util.Random;
 import models.Personagens.Personagem;
 import models.Ambientes.Ambiente;
 
+/**
+ * Classe responsável por gerenciar os eventos aleatórios no jogo.
+ */
 public class GerenciadorDeEventos {
 
     private List<Evento> eventosDisponiveis;
     private Random random;
 
-    // Construtor que inicializa a lista de eventos disponíveis
+    /**
+     * Construtor do gerenciador de eventos.
+     *
+     * @param eventosDisponiveis Lista de eventos possíveis.
+     */
     public GerenciadorDeEventos(List<Evento> eventosDisponiveis) {
         this.eventosDisponiveis = eventosDisponiveis;
         this.random = new Random();
     }
 
-    // Métodos de Acesso
-    public List<Evento> getEventosDisponiveis() {
-        return eventosDisponiveis;
-    }
+    // Getters e Setters
+    public List<Evento> getEventosDisponiveis() { return eventosDisponiveis; }
+    public void setEventosDisponiveis(List<Evento> eventosDisponiveis) { this.eventosDisponiveis = eventosDisponiveis; }
 
-    public void setEventosDisponiveis(List<Evento> eventosDisponiveis) {
-        this.eventosDisponiveis = eventosDisponiveis;
-    }
+    public Random getRandom() { return random; }
+    public void setRandom(Random random) { this.random = random; }
 
-    public Random getRandom() {
-        return random;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    // Método para sortear um evento baseado na probabilidade
+    /**
+     * Sorteia um evento com base na probabilidade.
+     *
+     * @param local Ambiente atual.
+     * @return Evento sorteado ou null.
+     */
     public Evento sortearEvento(Ambiente local) {
-        if (eventosDisponiveis.isEmpty()) {
-            return null;
-        }
-
-        if (random.nextDouble() < 0.3) { // 30% de chance de um evento ocorrer
+        if (eventosDisponiveis.isEmpty()) return null;
+        if (random.nextDouble() < 0.3) {
             Evento eventoSelecionado = eventosDisponiveis.get(random.nextInt(eventosDisponiveis.size()));
-            System.out.println("🔥 Um evento inesperado aconteceu: " + eventoSelecionado.getNome());
+            System.out.println(" Um evento inesperado aconteceu: " + eventoSelecionado.getNome());
             return eventoSelecionado;
         }
-
         System.out.println("Nada de incomum aconteceu neste turno.");
         return null;
     }
 
-    // Método para aplicar um evento sorteado ao personagem e ao ambiente
+    /**
+     * Aplica o evento sorteado ao personagem e ambiente.
+     *
+     * @param jogador O personagem afetado.
+     * @param local O ambiente onde o evento ocorre.
+     */
     public void aplicarEvento(Personagem jogador, Ambiente local) {
         Evento evento = sortearEvento(local);
         if (evento != null) {
             System.out.println("===== Detalhes do Evento =====");
-            evento.executar(); // Executa o evento, afetando o personagem e o ambiente
+            evento.executar();
             System.out.println("=================================");
         }
     }
 
-    // Método para remover um evento da lista de eventos disponíveis
+    /**
+     * Remove um evento da lista de eventos disponíveis.
+     *
+     * @param evento Evento a ser removido.
+     */
     public void removerEvento(Evento evento) {
         if (eventosDisponiveis.contains(evento)) {
             eventosDisponiveis.remove(evento);
-            System.out.println("🚫 O evento '" + evento.getNome() + "' foi removido.");
+            System.out.println(" O evento '" + evento.getNome() + "' foi removido.");
         } else {
-            System.out.println("⚠ O evento '" + evento.getNome() + "' não está na lista.");
+            System.out.println(" O evento '" + evento.getNome() + "' não está na lista.");
         }
     }
 }
