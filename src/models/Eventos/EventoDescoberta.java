@@ -2,6 +2,8 @@ package models.Eventos;
 
 import java.util.List;
 import models.Itens.Item;
+import models.Personagens.Personagem;
+import models.Ambientes.Ambiente;
 
 /**
  * Representa um evento de descoberta no ambiente.
@@ -41,16 +43,29 @@ public class EventoDescoberta extends Evento {
     public void setCondicaoEspecial(String condicaoEspecial) { this.condicaoEspecial = condicaoEspecial; }
 
     /**
-     * Executa o evento de descoberta, listando os recursos.
+     * Executa o evento de descoberta, adicionando itens ao inventário
+     * e afetando atributos do personagem de forma positiva.
+     *
+     * @param jogador O personagem que encontrou os recursos.
+     * @param ambiente O ambiente onde a descoberta ocorreu.
      */
     @Override
-    public void executar() {
-        System.out.println(" Descoberta: " + getTipoDescoberta());
+    public void executar(Personagem jogador, Ambiente ambiente) {
+        System.out.println("🔍 Descoberta: " + getTipoDescoberta());
         System.out.println("Descrição: " + getDescricao());
-        System.out.println("Recursos encontrados:");
-        for (Item item : getRecursosEncontrados()) {
-            System.out.println("- " + item.getNome());
-        }
         System.out.println("Condição Especial: " + getCondicaoEspecial());
+
+        if (recursosEncontrados == null || recursosEncontrados.isEmpty()) {
+            System.out.println("Nenhum recurso foi encontrado.");
+        } else {
+            System.out.println("Recursos encontrados:");
+            for (Item item : recursosEncontrados) {
+                jogador.getInventario().adicionarItem(item);
+            }
+        }
+
+        // Recupera um pouco de sanidade ao encontrar recursos úteis
+        jogador.setSanidade(jogador.getSanidade() + 5);
     }
 }
+

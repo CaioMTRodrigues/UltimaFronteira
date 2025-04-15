@@ -40,7 +40,7 @@ public class GerenciadorDeEventos {
         if (eventosDisponiveis.isEmpty()) return null;
         if (random.nextDouble() < 0.3) {
             Evento eventoSelecionado = eventosDisponiveis.get(random.nextInt(eventosDisponiveis.size()));
-            System.out.println(" Um evento inesperado aconteceu: " + eventoSelecionado.getNome());
+            System.out.println("🔥 Um evento inesperado aconteceu: " + eventoSelecionado.getNome());
             return eventoSelecionado;
         }
         System.out.println("Nada de incomum aconteceu neste turno.");
@@ -57,7 +57,7 @@ public class GerenciadorDeEventos {
         Evento evento = sortearEvento(local);
         if (evento != null) {
             System.out.println("===== Detalhes do Evento =====");
-            evento.executar();
+            evento.executar(jogador, local); // 🔁 Atualizado para passar jogador e ambiente
             System.out.println("=================================");
         }
     }
@@ -70,10 +70,11 @@ public class GerenciadorDeEventos {
     public void removerEvento(Evento evento) {
         if (eventosDisponiveis.contains(evento)) {
             eventosDisponiveis.remove(evento);
-            System.out.println(" O evento '" + evento.getNome() + "' foi removido.");
+            System.out.println("🚫 O evento '" + evento.getNome() + "' foi removido.");
         } else {
-            System.out.println(" O evento '" + evento.getNome() + "' não está na lista.");
+            System.out.println("⚠ O evento '" + evento.getNome() + "' não está na lista.");
         }
     }
 }
+
 

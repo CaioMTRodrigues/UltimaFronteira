@@ -1,5 +1,8 @@
 package models.Eventos;
 
+import models.Personagens.Personagem;
+import models.Ambientes.Ambiente;
+
 /**
  * Representa um evento climático que afeta o ambiente do jogo.
  */
@@ -38,16 +41,28 @@ public class EventoClimatico extends Evento {
     public void setEfeitoNoAmbiente(String efeitoNoAmbiente) { this.efeitoNoAmbiente = efeitoNoAmbiente; }
 
     /**
-     * Executa o efeito do evento climático.
+     * Executa o efeito do evento climático, alterando o ambiente e afetando atributos do personagem.
+     *
+     * @param jogador O personagem afetado.
+     * @param ambiente O ambiente em que o evento ocorre.
      */
     @Override
-    public void executar() {
-        System.out.println(" Evento Climático: " + getTipoClima());
+    public void executar(Personagem jogador, Ambiente ambiente) {
+        System.out.println("⛈ Evento Climático: " + getTipoClima());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Duração: " + getDuracao() + " turnos.");
         System.out.println("Impacto: " + getImpacto());
+
+        // Modifica o clima do ambiente
+        ambiente.modificarClima(getTipoClima());
+
+        // Reduz energia do personagem devido às condições climáticas
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
+
         if (getDuracao() > 5) {
             System.out.println("Este evento climático pode ter efeitos prolongados.");
         }
     }
 }
+

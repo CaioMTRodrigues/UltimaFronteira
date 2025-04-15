@@ -1,5 +1,7 @@
 package models.Ambientes;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe que representa o ambiente de Floresta.
  * Rica em vegetação e fauna, mas pode ser perigosa.
@@ -32,10 +34,12 @@ public class AmbienteFloresta extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar a floresta.
+     *
+     * @param jogador O personagem que está explorando.
      */
     @Override
-    public void explorar() {
-        System.out.println("Você se aventura na floresta. O som dos animais ecoa ao redor.");
-        super.explorar();
+    public void explorar(Personagem jogador) {
+        System.out.println("🌳 Você se aventura na floresta. O som dos animais ecoa ao redor.");
+        super.explorar(jogador);
     }
 }

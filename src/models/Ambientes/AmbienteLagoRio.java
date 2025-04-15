@@ -1,5 +1,7 @@
 package models.Ambientes;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe que representa o ambiente de Lago e Rio.
  * Uma área rica em água, mas com riscos naturais e criaturas aquáticas.
@@ -32,10 +34,12 @@ public class AmbienteLagoRio extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar o lago ou rio.
+     *
+     * @param jogador O personagem que está explorando.
      */
     @Override
-    public void explorar() {
-        System.out.println("Você se aproxima do lago, observando as águas cristalinas.");
-        super.explorar();
+    public void explorar(Personagem jogador) {
+        System.out.println("🌊 Você se aproxima do lago, observando as águas cristalinas.");
+        super.explorar(jogador);
     }
 }

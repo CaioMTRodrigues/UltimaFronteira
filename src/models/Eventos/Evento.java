@@ -1,5 +1,8 @@
 package models.Eventos;
 
+import models.Personagens.Personagem;
+import models.Ambientes.Ambiente;
+
 /**
  * Classe abstrata base para todos os eventos do jogo.
  * Define os atributos e comportamentos genéricos de qualquer evento.
@@ -52,8 +55,11 @@ public abstract class Evento {
     }
 
     /**
-     * Executa o comportamento específico do evento.
+     * Executa o comportamento específico do evento, modificando o personagem e o ambiente.
      * Esse método será implementado nas subclasses.
+     *
+     * @param jogador Personagem afetado pelo evento.
+     * @param ambiente Ambiente onde o evento ocorre.
      */
-    public abstract void executar();
+    public abstract void executar(Personagem jogador, Ambiente ambiente);
 }

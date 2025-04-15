@@ -2,6 +2,8 @@ package models.Ambientes;
 
 import models.Eventos.Evento;
 import models.Itens.Item;
+import models.Personagens.Personagem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,22 +36,29 @@ public abstract class Ambiente {
     // Getters e Setters
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
+
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
+
     public double getDificuldadeExploracao() { return dificuldadeExploracao; }
     public void setDificuldadeExploracao(double dificuldadeExploracao) { this.dificuldadeExploracao = dificuldadeExploracao; }
+
     public String getCondicoesClimaticas() { return condicoesClimaticas; }
     public void setCondicoesClimaticas(String condicoesClimaticas) { this.condicoesClimaticas = condicoesClimaticas; }
+
     public List<Item> getRecursosDisponiveis() { return recursosDisponiveis; }
     public void setRecursosDisponiveis(List<Item> recursosDisponiveis) { this.recursosDisponiveis = recursosDisponiveis; }
+
     public List<Evento> getEventosPossiveis() { return eventosPossiveis; }
     public void setEventosPossiveis(List<Evento> eventosPossiveis) { this.eventosPossiveis = eventosPossiveis; }
 
     /**
      * Executa a exploração do ambiente, exibindo os recursos e sorteando um evento.
+     *
+     * @param jogador O personagem que está explorando.
      */
-    public void explorar() {
-        System.out.println("Explorando o ambiente: " + nome);
+    public void explorar(Personagem jogador) {
+        System.out.println("🔎 Explorando o ambiente: " + nome);
         if (!recursosDisponiveis.isEmpty()) {
             System.out.println("Você encontrou alguns recursos:");
             for (Item item : recursosDisponiveis) {
@@ -61,8 +70,8 @@ public abstract class Ambiente {
 
         Evento evento = gerarEvento();
         if (evento != null) {
-            System.out.println("Um evento inesperado ocorreu: " + evento.getNome());
-            evento.executar();
+            System.out.println("⚠ Um evento inesperado ocorreu: " + evento.getNome());
+            evento.executar(jogador, this); // ✅ Agora com parâmetros corretos
         }
     }
 
@@ -83,7 +92,7 @@ public abstract class Ambiente {
      */
     public void modificarClima(String novoClima) {
         this.condicoesClimaticas = novoClima;
-        System.out.println("O clima mudou para: " + novoClima);
+        System.out.println("🌦 O clima mudou para: " + novoClima);
     }
 
     /**

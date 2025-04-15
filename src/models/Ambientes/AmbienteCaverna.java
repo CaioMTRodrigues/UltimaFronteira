@@ -1,5 +1,7 @@
 package models.Ambientes;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe que representa o ambiente de Caverna.
  * Um ambiente escuro, úmido e potencialmente perigoso.
@@ -32,10 +34,12 @@ public class AmbienteCaverna extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar a caverna.
+     *
+     * @param jogador O personagem que está explorando.
      */
     @Override
-    public void explorar() {
-        System.out.println("Você entra na caverna, sua lanterna ilumina as paredes úmidas.");
-        super.explorar();
+    public void explorar(Personagem jogador) {
+        System.out.println("🕯️ Você entra na caverna, sua lanterna ilumina as paredes úmidas.");
+        super.explorar(jogador);
     }
 }

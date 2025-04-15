@@ -1,5 +1,8 @@
 package models.Eventos;
 
+import models.Personagens.Personagem;
+import models.Ambientes.Ambiente;
+
 /**
  * Representa um evento de doença ou ferimento.
  */
@@ -37,16 +40,27 @@ public class EventoDoencaFerimento extends Evento {
     public void setCuraDisponivel(String curaDisponivel) { this.curaDisponivel = curaDisponivel; }
 
     /**
-     * Executa o evento de doença ou ferimento.
+     * Executa o evento de doença ou ferimento, afetando os atributos do personagem.
+     *
+     * @param jogador Personagem afetado.
+     * @param ambiente Ambiente atual (não utilizado diretamente aqui, mas disponível).
      */
     @Override
-    public void executar() {
-        System.out.println(" Evento de Doença/Ferimento: " + getTipoCondicao());
+    public void executar(Personagem jogador, Ambiente ambiente) {
+        System.out.println("🚑 Evento de Doença/Ferimento: " + getTipoCondicao());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Impacto: " + getImpacto());
         System.out.println("Cura disponível: " + getCuraDisponivel());
+
+        // Afeta diretamente os atributos do personagem
+        jogador.setVida(jogador.getVida() - 15);
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
+
+        System.out.println("⚠ Vida, energia e sanidade foram reduzidas devido à condição.");
     }
 }
+
 
 
 

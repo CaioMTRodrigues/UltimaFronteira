@@ -1,5 +1,8 @@
 package models.Eventos;
 
+import models.Personagens.Personagem;
+import models.Ambientes.Ambiente;
+
 /**
  * Representa um evento relacionado ao encontro com uma criatura.
  */
@@ -38,18 +41,26 @@ public class EventoCriatura extends Evento {
     public void setOpcoesAcao(String opcoesAcao) { this.opcoesAcao = opcoesAcao; }
 
     /**
-     * Executa o evento de encontro com criatura.
+     * Executa o evento de encontro com criatura, afetando o personagem de forma dinâmica.
+     *
+     * @param jogador O personagem afetado.
+     * @param ambiente O ambiente onde o encontro ocorre.
      */
     @Override
-    public void executar() {
-        System.out.println(" Encontro com Criatura: " + getTipoCriatura());
+    public void executar(Personagem jogador, Ambiente ambiente) {
+        System.out.println("⚠ Encontro com Criatura: " + getTipoCriatura());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Nível de Perigo: " + getNivelPerigo());
+
+        // Impacto no personagem
+        int dano = nivelPerigo * 5;
+        jogador.setVida(jogador.getVida() - dano);
+        jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2));
+
+        System.out.println("💥 " + getTipoCriatura() + " causou " + dano + " de dano!");
         if (getNivelPerigo() > 5) {
             System.out.println("Esta criatura é extremamente perigosa! Fuja ou prepare-se para lutar!");
         }
         System.out.println("Opções disponíveis: " + getOpcoesAcao());
     }
 }
-
-

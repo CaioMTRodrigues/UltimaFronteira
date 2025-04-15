@@ -1,5 +1,7 @@
 package models.Ambientes;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe que representa o ambiente de Montanha.
  * Um local de difícil acesso, com clima instável e pouca vegetação.
@@ -32,10 +34,12 @@ public class AmbienteMontanha extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar a montanha.
+     *
+     * @param jogador O personagem que está explorando.
      */
     @Override
-    public void explorar() {
-        System.out.println("Você enfrenta o frio e a altitude da montanha.");
-        super.explorar();
+    public void explorar(Personagem jogador) {
+        System.out.println("🧗 Você enfrenta o frio e a altitude da montanha.");
+        super.explorar(jogador);
     }
 }

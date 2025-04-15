@@ -1,5 +1,7 @@
 package models.Ambientes;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe que representa o ambiente de Ruínas Abandonadas.
  * Estruturas antigas que podem conter recursos valiosos ou perigos escondidos.
@@ -32,10 +34,12 @@ public class AmbienteRuinas extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar as ruínas.
+     *
+     * @param jogador O personagem que está explorando.
      */
     @Override
-    public void explorar() {
-        System.out.println("Você adentra as ruínas, sentindo o cheiro da poeira e do tempo.");
-        super.explorar();
+    public void explorar(Personagem jogador) {
+        System.out.println("🏚️ Você adentra as ruínas, sentindo o cheiro da poeira e do tempo.");
+        super.explorar(jogador);
     }
 }

@@ -19,9 +19,9 @@ public class SistemaDeTurnos {
     /**
      * Construtor do sistema de turnos.
      *
-     * @param jogador             O personagem que está jogando.
-     * @param ambienteAtual       O ambiente onde o personagem se encontra.
-     * @param eventos             Gerenciador que aplica eventos aleatórios.
+     * @param jogador           O personagem que está jogando.
+     * @param ambienteAtual     O ambiente onde o personagem se encontra.
+     * @param eventos           Gerenciador que aplica eventos aleatórios.
      */
     public SistemaDeTurnos(Personagem jogador, Ambiente ambienteAtual, GerenciadorDeEventos eventos) {
         this.jogador = jogador;
@@ -37,8 +37,8 @@ public class SistemaDeTurnos {
         System.out.println("\n========== NOVO TURNO ==========");
         jogador.exibirStatus();
 
-        System.out.println("\n Ambiente atual: " + ambienteAtual.getNome());
-        System.out.println("Clima: " + ambienteAtual.getCondicoesClimaticas());
+        System.out.println("\n🌍 Ambiente atual: " + ambienteAtual.getNome());
+        System.out.println("🌦 Clima: " + ambienteAtual.getCondicoesClimaticas());
 
         System.out.println("\nEscolha uma ação:");
         System.out.println("1 - Descansar");
@@ -46,6 +46,8 @@ public class SistemaDeTurnos {
         System.out.println("3 - Explorar ambiente");
         System.out.println("4 - Exibir inventário");
         System.out.println("5 - Usar item");
+        System.out.print(">> ");
+
         int escolha = scanner.nextInt();
         scanner.nextLine(); // limpar buffer
 
@@ -57,7 +59,7 @@ public class SistemaDeTurnos {
                 jogador.habilidadeEspecial();
                 break;
             case 3:
-                ambienteAtual.explorar();
+                ambienteAtual.explorar(jogador);
                 break;
             case 4:
                 jogador.getInventario().exibirInventario();
@@ -68,20 +70,21 @@ public class SistemaDeTurnos {
                 jogador.getInventario().usarItem(nomeItem);
                 break;
             default:
-                System.out.println(" Ação inválida.");
+                System.out.println("❌ Ação inválida.");
         }
 
         // Evento aleatório
         gerenciadorDeEventos.aplicarEvento(jogador, ambienteAtual);
 
-        // Ajustes básicos de atributos (exemplo simplificado)
+        // Ajustes básicos de atributos após o turno
         jogador.setFome(jogador.getFome() + 5);
         jogador.setSede(jogador.getSede() + 5);
         jogador.setSanidade(jogador.getSanidade() - 2);
-        System.out.println(" Atributos ajustados após o turno.");
+        System.out.println("🔁 Atributos ajustados após o turno.");
 
+        // Verificação de morte
         if (jogador.getVida() <= 0 || jogador.getSanidade() <= 0) {
-            System.out.println(" Você morreu. Fim de jogo.");
+            System.out.println("💀 Você morreu. Fim de jogo.");
             System.exit(0);
         }
     }
