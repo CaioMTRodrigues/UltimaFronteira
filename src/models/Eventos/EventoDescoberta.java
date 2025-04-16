@@ -1,9 +1,9 @@
 package models.Eventos;
 
 import java.util.List;
+import models.Ambientes.Ambiente;
 import models.Itens.Item;
 import models.Personagens.Personagem;
-import models.Ambientes.Ambiente;
 
 /**
  * Representa um evento de descoberta no ambiente.
@@ -50,10 +50,11 @@ public class EventoDescoberta extends Evento {
      * @param ambiente O ambiente onde a descoberta ocorreu.
      */
     @Override
+
     public void executar(Personagem jogador, Ambiente ambiente) {
-        System.out.println("🔍 Descoberta: " + getTipoDescoberta());
+        System.out.println("Descoberta: " + tipoDescoberta);
         System.out.println("Descrição: " + getDescricao());
-        System.out.println("Condição Especial: " + getCondicaoEspecial());
+        System.out.println("Condição Especial: " + condicaoEspecial);
 
         if (recursosEncontrados == null || recursosEncontrados.isEmpty()) {
             System.out.println("Nenhum recurso foi encontrado.");
@@ -61,11 +62,22 @@ public class EventoDescoberta extends Evento {
             System.out.println("Recursos encontrados:");
             for (Item item : recursosEncontrados) {
                 jogador.getInventario().adicionarItem(item);
+                System.out.println("Adicionado ao inventário: " + item.getNome());
+            }
+
+            // Bônus adicional baseado no tipo de descoberta
+            if (tipoDescoberta.toLowerCase().contains("abrigo")) {
+                jogador.setEnergia(jogador.getEnergia() + 10);
+                System.out.println("Você descansou um pouco no abrigo. Energia +10.");
+            } else if (tipoDescoberta.toLowerCase().contains("tesouro") || tipoDescoberta.toLowerCase().contains("baú")) {
+                jogador.setSanidade(jogador.getSanidade() + 10);
+                System.out.println("Encontrar um tesouro renovou sua esperança. Sanidade +10.");
             }
         }
 
-        // Recupera um pouco de sanidade ao encontrar recursos úteis
+        // Bônus padrão: encontrar algo ajuda na moral
         jogador.setSanidade(jogador.getSanidade() + 5);
     }
 }
+
 

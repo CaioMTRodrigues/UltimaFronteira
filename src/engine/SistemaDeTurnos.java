@@ -37,8 +37,8 @@ public class SistemaDeTurnos {
         System.out.println("\n========== NOVO TURNO ==========");
         jogador.exibirStatus();
 
-        System.out.println("\n🌍 Ambiente atual: " + ambienteAtual.getNome());
-        System.out.println("🌦 Clima: " + ambienteAtual.getCondicoesClimaticas());
+        System.out.println("\n Ambiente atual: " + ambienteAtual.getNome());
+        System.out.println(" Clima: " + ambienteAtual.getCondicoesClimaticas());
 
         System.out.println("\nEscolha uma ação:");
         System.out.println("1 - Descansar");
@@ -70,7 +70,7 @@ public class SistemaDeTurnos {
                 jogador.getInventario().usarItem(nomeItem);
                 break;
             default:
-                System.out.println("❌ Ação inválida.");
+                System.out.println("Ação inválida.");
         }
 
         // Evento aleatório
@@ -80,11 +80,11 @@ public class SistemaDeTurnos {
         jogador.setFome(jogador.getFome() + 5);
         jogador.setSede(jogador.getSede() + 5);
         jogador.setSanidade(jogador.getSanidade() - 2);
-        System.out.println("🔁 Atributos ajustados após o turno.");
+        System.out.println("Atributos ajustados após o turno.");
 
         // Verificação de morte
         if (jogador.getVida() <= 0 || jogador.getSanidade() <= 0) {
-            System.out.println("💀 Você morreu. Fim de jogo.");
+            System.out.println("Você morreu. Fim de jogo.");
             System.exit(0);
         }
     }

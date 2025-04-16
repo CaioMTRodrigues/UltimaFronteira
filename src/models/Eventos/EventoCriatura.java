@@ -1,7 +1,10 @@
 package models.Eventos;
 
-import models.Personagens.Personagem;
+import java.util.List;
 import models.Ambientes.Ambiente;
+import models.Itens.Item;
+import models.Itens.ItemAlimento;
+import models.Personagens.Personagem;
 
 /**
  * Representa um evento relacionado ao encontro com uma criatura.
@@ -47,20 +50,43 @@ public class EventoCriatura extends Evento {
      * @param ambiente O ambiente onde o encontro ocorre.
      */
     @Override
+    
     public void executar(Personagem jogador, Ambiente ambiente) {
-        System.out.println("⚠ Encontro com Criatura: " + getTipoCriatura());
+        System.out.println("⚠ Encontro com Criatura: " + tipoCriatura);
         System.out.println("Descrição: " + getDescricao());
-        System.out.println("Nível de Perigo: " + getNivelPerigo());
+        System.out.println("Nível de Perigo: " + nivelPerigo);
+        System.out.println("Opções disponíveis: " + opcoesAcao);
 
-        // Impacto no personagem
         int dano = nivelPerigo * 5;
         jogador.setVida(jogador.getVida() - dano);
         jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2));
 
-        System.out.println("💥 " + getTipoCriatura() + " causou " + dano + " de dano!");
-        if (getNivelPerigo() > 5) {
+        System.out.println(tipoCriatura + " causou " + dano + " de dano!");
+
+        // Efeito temático: criatura forte pode destruir um item qualquer
+        if (nivelPerigo >= 7) {
+            List<Item> itens = jogador.getInventario().getListaItens();
+            if (!itens.isEmpty()) {
+                Item perdido = itens.get(0);
+                jogador.getInventario().removerItem(perdido.getNome());
+                System.out.println(tipoCriatura + " destruiu um item do seu inventário: " + perdido.getNome());
+            }
+        }
+
+        // Efeito extra para criaturas pequenas
+        if (nivelPerigo < 4) {
+            List<Item> itens = jogador.getInventario().getListaItens();
+            for (Item item : itens) {
+                if (item instanceof ItemAlimento) {
+                    jogador.getInventario().removerItem(item.getNome());
+                    System.out.println("Pequenos roedores roubaram sua comida: " + item.getNome());
+                    break;
+                }
+            }
+        }
+
+        if (nivelPerigo > 5) {
             System.out.println("Esta criatura é extremamente perigosa! Fuja ou prepare-se para lutar!");
         }
-        System.out.println("Opções disponíveis: " + getOpcoesAcao());
     }
 }

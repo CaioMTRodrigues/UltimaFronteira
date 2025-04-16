@@ -1,7 +1,8 @@
 package models.Eventos;
 
-import models.Personagens.Personagem;
 import models.Ambientes.Ambiente;
+import models.Itens.*;
+import models.Personagens.Personagem;
 
 /**
  * Representa um evento climático que afeta o ambiente do jogo.
@@ -46,9 +47,10 @@ public class EventoClimatico extends Evento {
      * @param jogador O personagem afetado.
      * @param ambiente O ambiente em que o evento ocorre.
      */
+
     @Override
     public void executar(Personagem jogador, Ambiente ambiente) {
-        System.out.println("⛈ Evento Climático: " + getTipoClima());
+        System.out.println("Evento Climático: " + getTipoClima());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Duração: " + getDuracao() + " turnos.");
         System.out.println("Impacto: " + getImpacto());
@@ -56,13 +58,42 @@ public class EventoClimatico extends Evento {
         // Modifica o clima do ambiente
         ambiente.modificarClima(getTipoClima());
 
-        // Reduz energia do personagem devido às condições climáticas
+        // Efeitos gerais no personagem
         jogador.setEnergia(jogador.getEnergia() - 10);
         jogador.setSanidade(jogador.getSanidade() - 5);
+
+        // Efeitos específicos por tipo de clima
+        switch (tipoClima.toLowerCase()) {
+            case "chuva":
+            case "chuva leve":
+            case "chuva nutriente":
+                Item fruta = new ItemAlimento("Fruta Fresca", 0.4, 1, 10, "Fruta", 8);
+                jogador.getInventario().adicionarItem(fruta);
+                System.out.println("A chuva fez brotar frutas frescas. Você coletou: " + fruta.getNome());
+                break;
+
+            case "calor seco":
+            case "seca":
+                System.out.println("O calor excessivo secou fontes de água próximas.");
+                // efeito fictício: personagem perde mais sede no próximo turno (implementação futura)
+                jogador.setSede(jogador.getSede() + 5);
+                break;
+
+            case "neblina":
+                System.out.println("A visibilidade está baixa. Você se sente desorientado.");
+                jogador.setSanidade(jogador.getSanidade() - 10);
+                break;
+
+            case "neve":
+                System.out.println("Você sente o frio cortante dificultando a movimentação.");
+                jogador.setEnergia(jogador.getEnergia() - 15);
+                break;
+        }
 
         if (getDuracao() > 5) {
             System.out.println("Este evento climático pode ter efeitos prolongados.");
         }
     }
 }
+
 

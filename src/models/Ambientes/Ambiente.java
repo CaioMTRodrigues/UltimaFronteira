@@ -1,12 +1,11 @@
 package models.Ambientes;
 
-import models.Eventos.Evento;
-import models.Itens.Item;
-import models.Personagens.Personagem;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import models.Eventos.Evento;
+import models.Itens.*;
+import models.Personagens.Personagem;
 
 /**
  * Classe abstrata que representa um ambiente no jogo.
@@ -54,24 +53,48 @@ public abstract class Ambiente {
 
     /**
      * Executa a exploração do ambiente, exibindo os recursos e sorteando um evento.
+     * Também adiciona recursos essenciais aleatórios ao inventário do jogador.
      *
      * @param jogador O personagem que está explorando.
      */
     public void explorar(Personagem jogador) {
-        System.out.println("🔎 Explorando o ambiente: " + nome);
+        System.out.println("Explorando o ambiente: " + nome);
+
         if (!recursosDisponiveis.isEmpty()) {
-            System.out.println("Você encontrou alguns recursos:");
+            System.out.println("Você encontrou alguns recursos fixos:");
             for (Item item : recursosDisponiveis) {
                 System.out.println("- " + item.getNome());
             }
         } else {
-            System.out.println("Este local parece estar sem recursos.");
+            System.out.println("Este local parece estar sem recursos fixos...");
         }
 
+        // Geração aleatória de novos recursos essenciais
+        Random random = new Random();
+
+        if (random.nextDouble() < 0.6) {
+            Item alimento = new ItemAlimento("Fruta Silvestre", 0.4, 1, 10, "Fruta", 5);
+            jogador.getInventario().adicionarItem(alimento);
+            System.out.println("Você encontrou um alimento: " + alimento.getNome());
+        }
+
+        if (random.nextDouble() < 0.5) {
+            Item agua = new ItemAgua("Garrafa de Água", 1.0, 1, true, 0.5);
+            jogador.getInventario().adicionarItem(agua);
+            System.out.println("Você encontrou água potável!");
+        }
+
+        if (random.nextDouble() < 0.2) {
+            Item remedio = new ItemRemedios("Ervas Medicinais", 0.3, 1, "Ervas", "Alivia dores leves");
+            jogador.getInventario().adicionarItem(remedio);
+            System.out.println("Você encontrou ervas medicinais.");
+        }
+
+        // Evento aleatório
         Evento evento = gerarEvento();
         if (evento != null) {
-            System.out.println("⚠ Um evento inesperado ocorreu: " + evento.getNome());
-            evento.executar(jogador, this); // ✅ Agora com parâmetros corretos
+            System.out.println("Um evento inesperado ocorreu: " + evento.getNome());
+            evento.executar(jogador, this);
         }
     }
 
@@ -92,7 +115,7 @@ public abstract class Ambiente {
      */
     public void modificarClima(String novoClima) {
         this.condicoesClimaticas = novoClima;
-        System.out.println("🌦 O clima mudou para: " + novoClima);
+        System.out.println("O clima mudou para: " + novoClima);
     }
 
     /**
