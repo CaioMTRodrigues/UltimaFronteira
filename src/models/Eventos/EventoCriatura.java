@@ -1,9 +1,6 @@
 package models.Eventos;
 
-import java.util.List;
 import models.Ambientes.Ambiente;
-import models.Itens.Item;
-import models.Itens.ItemArmas;
 import models.Personagens.Personagem;
 import java.util.Random;
 import java.util.Scanner;
@@ -58,20 +55,21 @@ public class EventoCriatura extends Evento {
         System.out.println("Nível de Perigo: " + nivelPerigo);
         System.out.println("Opções disponíveis: " + opcoesAcao);
 
-        // Escolha de ação (lutar ou fugir)
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Escolha uma ação: ");
-        System.out.println("1 - Lutar");
-        System.out.println("2 - Fugir");
-        int escolha = scanner.nextInt();
-        scanner.nextLine(); // limpar buffer
+        try (// Escolha de ação (lutar ou fugir)
+        Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Escolha uma ação: ");
+            System.out.println("1 - Lutar");
+            System.out.println("2 - Fugir");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // limpar buffer
 
-        if (escolha == 1) {
-            lutar(jogador);
-        } else if (escolha == 2) {
-            fugir(jogador);
-        } else {
-            System.out.println("Opção inválida.");
+            if (escolha == 1) {
+                lutar(jogador);
+            } else if (escolha == 2) {
+                fugir(jogador);
+            } else {
+                System.out.println("Opção inválida.");
+            }
         }
     }
 
