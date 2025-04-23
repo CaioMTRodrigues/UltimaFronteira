@@ -3,8 +3,10 @@ package models.Eventos;
 import java.util.List;
 import models.Ambientes.Ambiente;
 import models.Itens.Item;
-import models.Itens.ItemAlimento;
+import models.Itens.ItemArmas;
 import models.Personagens.Personagem;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Representa um evento relacionado ao encontro com uma criatura.
@@ -50,43 +52,67 @@ public class EventoCriatura extends Evento {
      * @param ambiente O ambiente onde o encontro ocorre.
      */
     @Override
-    
     public void executar(Personagem jogador, Ambiente ambiente) {
         System.out.println("⚠ Encontro com Criatura: " + tipoCriatura);
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Nível de Perigo: " + nivelPerigo);
         System.out.println("Opções disponíveis: " + opcoesAcao);
 
-        int dano = nivelPerigo * 5;
-        jogador.setVida(jogador.getVida() - dano);
-        jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2));
+        // Escolha de ação (lutar ou fugir)
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escolha uma ação: ");
+        System.out.println("1 - Lutar");
+        System.out.println("2 - Fugir");
+        int escolha = scanner.nextInt();
+        scanner.nextLine(); // limpar buffer
 
-        System.out.println(tipoCriatura + " causou " + dano + " de dano!");
-
-        // Efeito temático: criatura forte pode destruir um item qualquer
-        if (nivelPerigo >= 7) {
-            List<Item> itens = jogador.getInventario().getListaItens();
-            if (!itens.isEmpty()) {
-                Item perdido = itens.get(0);
-                jogador.getInventario().removerItem(perdido.getNome());
-                System.out.println(tipoCriatura + " destruiu um item do seu inventário: " + perdido.getNome());
-            }
+        if (escolha == 1) {
+            lutar(jogador);
+        } else if (escolha == 2) {
+            fugir(jogador);
+        } else {
+            System.out.println("Opção inválida.");
         }
+    }
 
-        // Efeito extra para criaturas pequenas
-        if (nivelPerigo < 4) {
-            List<Item> itens = jogador.getInventario().getListaItens();
-            for (Item item : itens) {
-                if (item instanceof ItemAlimento) {
-                    jogador.getInventario().removerItem(item.getNome());
-                    System.out.println("Pequenos roedores roubaram sua comida: " + item.getNome());
-                    break;
-                }
-            }
+    // Método para lutar contra a criatura
+    private void lutar(Personagem jogador) {
+        System.out.println("Você escolheu lutar contra o " + tipoCriatura);
+
+        // Calculando dano ao jogador e à criatura
+        Random random = new Random();
+        int danoJogador = nivelPerigo * 5;
+        int danoCriatura = random.nextInt(15) + 5; // Dano aleatório da criatura
+
+        // Reduzindo vida do jogador
+        jogador.setVida(jogador.getVida() - danoJogador);
+        jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2)); // Afeta a sanidade
+
+        System.out.println("A criatura causou " + danoCriatura + " de dano!");
+        System.out.println("Você perdeu " + danoJogador + " de vida e " + (nivelPerigo * 2) + " de sanidade.");
+
+        // Se o jogador sobreviver, o combate continua e a criatura pode ser derrotada
+        if (jogador.getVida() > 0) {
+            System.out.println("Você venceu o combate contra o " + tipoCriatura);
+            // O jogador pode ganhar itens após derrotar a criatura
+        } else {
+            System.out.println("Você morreu durante o combate.");
+            System.exit(0);
         }
+    }
 
-        if (nivelPerigo > 5) {
-            System.out.println("Esta criatura é extremamente perigosa! Fuja ou prepare-se para lutar!");
+    // Método para fugir do combate
+    private void fugir(Personagem jogador) {
+        System.out.println("Você escolheu tentar fugir...");
+
+        Random random = new Random();
+        int chanceDeFuga = random.nextInt(100);
+
+        if (chanceDeFuga < 50) { // 50% de chance de fuga
+            System.out.println("Você conseguiu fugir com sucesso!");
+        } else {
+            System.out.println("Você não conseguiu fugir a tempo! A criatura atacou.");
+            lutar(jogador); // Se falhar na fuga, começa o combate
         }
     }
 }

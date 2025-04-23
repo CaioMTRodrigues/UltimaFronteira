@@ -1,9 +1,18 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import models.Ambientes.Ambiente;
+import models.Ambientes.AmbienteCaverna;
+import models.Ambientes.AmbienteFloresta;
+import models.Ambientes.AmbienteLagoRio;
+import models.Ambientes.AmbienteMontanha;
+import models.Ambientes.AmbienteRuinas;
 import models.Eventos.GerenciadorDeEventos;
 import models.Personagens.Personagem;
+import models.Itens.Item;
 
 /**
  * Classe responsável por controlar o sistema de turnos do jogo.
@@ -46,8 +55,8 @@ public class SistemaDeTurnos {
         System.out.println("3 - Explorar ambiente");
         System.out.println("4 - Exibir inventário");
         System.out.println("5 - Usar item");
+        System.out.println("6 - Ir para outro ambiente"); // Nova opção
         System.out.print(">> ");
-
         int escolha = scanner.nextInt();
         scanner.nextLine(); // limpar buffer
 
@@ -65,9 +74,11 @@ public class SistemaDeTurnos {
                 jogador.getInventario().exibirInventario();
                 break;
             case 5:
-                System.out.print("Digite o nome do item: ");
-                String nomeItem = scanner.nextLine();
-                jogador.getInventario().usarItem(nomeItem);
+                usarItem();
+                break;
+            case 6:
+                // Trocar ambiente
+                trocarAmbiente(jogador);
                 break;
             default:
                 System.out.println("Ação inválida.");
@@ -87,5 +98,65 @@ public class SistemaDeTurnos {
             System.out.println("Você morreu. Fim de jogo.");
             System.exit(0);
         }
+    }
+
+    // Método para trocar de ambiente
+    public void trocarAmbiente(Personagem jogador) {
+        // Lista de ambientes disponíveis
+        List<Ambiente> ambientes = new ArrayList<>();
+        ambientes.add(new AmbienteFloresta());
+        ambientes.add(new AmbienteCaverna());
+        ambientes.add(new AmbienteLagoRio());
+        ambientes.add(new AmbienteMontanha());
+        ambientes.add(new AmbienteRuinas());
+
+        // Sorteia um novo ambiente
+        Random random = new Random();
+        Ambiente novoAmbiente = ambientes.get(random.nextInt(ambientes.size()));
+
+        // Atualiza a localização do jogador para o novo ambiente
+        jogador.setLocalizacao(novoAmbiente.getNome());
+        System.out.println("Você se mudou para o novo ambiente: " + novoAmbiente.getNome());
+
+        // Atualiza o ambiente atual
+        this.ambienteAtual = novoAmbiente;
+    }
+
+    // Método para usar item do inventário
+    public void usarItem() {
+        // Exibir o inventário numerado
+        System.out.println("Escolha um item para usar:");
+        List<Item> listaItens = jogador.getInventario().getListaItens();
+        for (int i = 0; i < listaItens.size(); i++) {
+            System.out.println((i + 1) + " - " + listaItens.get(i).getNome());
+        }
+        System.out.print("Digite o número do item: ");
+        int escolhaItem = scanner.nextInt();
+        scanner.nextLine(); // limpar o buffer
+
+        if (escolhaItem >= 1 && escolhaItem <= listaItens.size()) {
+            Item itemEscolhido = listaItens.get(escolhaItem - 1);
+            itemEscolhido.usar(); // Usar o item escolhido
+            
+            // Verificar se o item deve ser removido
+            if (itemEscolhido.getDurabilidade() == 0) {
+                jogador.getInventario().removerItem(itemEscolhido.getNome()); // Remover do inventário
+            }
+
+            // Atualizar o status do personagem
+            atualizarStatus(jogador);
+        } else {
+            System.out.println("Escolha inválida.");
+        }
+    }
+
+    // Método para atualizar o status do personagem
+    private void atualizarStatus(Personagem jogador) {
+        System.out.println("\nStatus Atualizado de " + jogador.getNome() + ":");
+        System.out.println("Vida: " + jogador.getVida());
+        System.out.println("Fome: " + jogador.getFome());
+        System.out.println("Sede: " + jogador.getSede());
+        System.out.println("Energia: " + jogador.getEnergia());
+        System.out.println("Sanidade: " + jogador.getSanidade());
     }
 }

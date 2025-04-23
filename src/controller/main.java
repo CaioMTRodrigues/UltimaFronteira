@@ -85,14 +85,29 @@ public class Main {
         GerenciadorDeEventos gerenciador = new GerenciadorDeEventos(eventos);
         SistemaDeTurnos sistema = new SistemaDeTurnos(jogador, ambiente, gerenciador);
 
-        // Início da simulação
-        for (int i = 1; i <= 3; i++) {
-            System.out.println("\n Turno " + i);
-            sistema.iniciarTurno();
+        // Início da simulação com turnos repetidos
+        boolean continuarJogando = true;
+        while (continuarJogando) {
+            // Executar 5 turnos obrigatórios
+            for (int turnosJogados = 1; turnosJogados <= 5; turnosJogados++) {
+                System.out.println("\n Turno " + turnosJogados);
+                sistema.iniciarTurno();
+            }
+
+            // Após 5 turnos, perguntar se o jogador quer continuar com mais 5 turnos
+            System.out.println("\nVocê completou 5 turnos! Deseja continuar jogando?");
+            System.out.println("1 - Continuar com mais 5 turnos");
+            System.out.println("2 - Sair");
+            int escolha = scanner.nextInt();
+            scanner.nextLine(); // Limpar o buffer
+
+            if (escolha == 2) {
+                continuarJogando = false;
+                System.out.println("Fim do jogo!");
+            }
         }
 
         System.out.println("\n Fim da simulação de turnos.");
         scanner.close();
     }
 }
-
