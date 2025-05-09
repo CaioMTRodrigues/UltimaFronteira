@@ -6,8 +6,9 @@ import models.Ambientes.Ambiente;
 /**
  * Classe abstrata base para todos os eventos do jogo.
  * Define os atributos e comportamentos genéricos de qualquer evento.
+ * Implementa a interface Executavel para garantir que todos os eventos possam ser executados.
  */
-public abstract class Evento {
+public abstract class Evento implements Executavel {
 
     private String nome;
     private String descricao;
@@ -53,13 +54,4 @@ public abstract class Evento {
     public void desativarEvento() {
         this.condicaoAtivacao = false;
     }
-
-    /**
-     * Executa o comportamento específico do evento, modificando o personagem e o ambiente.
-     * Esse método será implementado nas subclasses.
-     *
-     * @param jogador Personagem afetado pelo evento.
-     * @param ambiente Ambiente onde o evento ocorre.
-     */
-    public abstract void executar(Personagem jogador, Ambiente ambiente);
 }

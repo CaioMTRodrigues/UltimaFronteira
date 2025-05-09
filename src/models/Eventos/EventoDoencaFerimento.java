@@ -47,7 +47,7 @@ public class EventoDoencaFerimento extends Evento {
      */
     @Override
     public void executar(Personagem jogador, Ambiente ambiente) {
-        System.out.println("🚑 Evento de Doença/Ferimento: " + getTipoCondicao());
+        System.out.println("Evento de Doença/Ferimento: " + getTipoCondicao());
         System.out.println("Descrição: " + getDescricao());
         System.out.println("Impacto: " + getImpacto());
         System.out.println("Cura disponível: " + getCuraDisponivel());

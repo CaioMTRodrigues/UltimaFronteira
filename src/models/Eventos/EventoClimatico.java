@@ -47,7 +47,6 @@ public class EventoClimatico extends Evento {
      * @param jogador O personagem afetado.
      * @param ambiente O ambiente em que o evento ocorre.
      */
-
     @Override
     public void executar(Personagem jogador, Ambiente ambiente) {
         System.out.println("Evento Climático: " + getTipoClima());
@@ -75,7 +74,6 @@ public class EventoClimatico extends Evento {
             case "calor seco":
             case "seca":
                 System.out.println("O calor excessivo secou fontes de água próximas.");
-                // efeito fictício: personagem perde mais sede no próximo turno (implementação futura)
                 jogador.setSede(jogador.getSede() + 5);
                 break;
 
@@ -95,5 +93,3 @@ public class EventoClimatico extends Evento {
         }
     }
 }
-
-

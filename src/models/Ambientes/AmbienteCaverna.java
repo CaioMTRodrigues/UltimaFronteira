@@ -34,12 +34,25 @@ public class AmbienteCaverna extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar a caverna.
+     * Este método implementa a ação definida na interface Exploravel.
      *
      * @param jogador O personagem que está explorando.
      */
     @Override
     public void explorar(Personagem jogador) {
-        System.out.println("🕯️ Você entra na caverna, sua lanterna ilumina as paredes úmidas.");
-        super.explorar(jogador);
+        System.out.println("Você entra na caverna, sua lanterna ilumina as paredes úmidas.");
+        System.out.println("Você encontra alguns recursos na caverna.");
+        
+        // Exemplo de ações adicionais durante a exploração
+        // Você pode adicionar mais interações ou recursos encontrados aqui
+        if (this.isCriaturasPresentes()) {
+            System.out.println("Cuidado! Há criaturas na caverna.");
+        } else {
+            System.out.println("A caverna parece tranquila por enquanto.");
+        }
+
+        // Exemplo de impacto nos atributos do jogador
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
     }
 }

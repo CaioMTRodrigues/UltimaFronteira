@@ -34,12 +34,24 @@ public class AmbienteFloresta extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar a floresta.
+     * Este método implementa a ação definida na interface Exploravel.
      *
      * @param jogador O personagem que está explorando.
      */
     @Override
     public void explorar(Personagem jogador) {
-        System.out.println("🌳 Você se aventura na floresta. O som dos animais ecoa ao redor.");
-        super.explorar(jogador);
+        System.out.println("Você se aventura na floresta. O som dos animais ecoa ao redor.");
+        System.out.println("Você encontra alguns recursos na floresta.");
+        
+        // Exemplo de ações adicionais durante a exploração
+        if (this.isFaunaAbundante()) {
+            System.out.println("A fauna na floresta é abundante, talvez você possa caçar.");
+        } else {
+            System.out.println("A floresta está tranquila, mas não há muita fauna por perto.");
+        }
+
+        // Exemplo de impacto nos atributos do jogador
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
     }
 }

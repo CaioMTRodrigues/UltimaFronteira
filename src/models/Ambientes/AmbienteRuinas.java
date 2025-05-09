@@ -34,12 +34,24 @@ public class AmbienteRuinas extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar as ruínas.
+     * Este método implementa a ação definida na interface Exploravel.
      *
      * @param jogador O personagem que está explorando.
      */
     @Override
     public void explorar(Personagem jogador) {
-        System.out.println("🏚️ Você adentra as ruínas, sentindo o cheiro da poeira e do tempo.");
-        super.explorar(jogador);
+        System.out.println("Você adentra as ruínas, sentindo o cheiro da poeira e do tempo.");
+        System.out.println("Você encontra alguns recursos nas ruínas.");
+        
+        // Exemplo de ações durante a exploração
+        if (this.isPresencaSobreviventes()) {
+            System.out.println("Há outros sobreviventes nas ruínas, tome cuidado!");
+        } else {
+            System.out.println("As ruínas estão desertas, mas há muitos segredos a serem desvendados.");
+        }
+
+        // Exemplo de impacto nos atributos do jogador
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
     }
 }

@@ -34,12 +34,24 @@ public class AmbienteLagoRio extends Ambiente {
 
     /**
      * Exibe uma mensagem personalizada ao explorar o lago ou rio.
+     * Este método implementa a ação definida na interface Exploravel.
      *
      * @param jogador O personagem que está explorando.
      */
     @Override
     public void explorar(Personagem jogador) {
-        System.out.println("🌊 Você se aproxima do lago, observando as águas cristalinas.");
-        super.explorar(jogador);
+        System.out.println("Você se aproxima do lago, observando as águas cristalinas.");
+        System.out.println("Você encontra alguns recursos próximos à água.");
+        
+        // Exemplo de ações durante a exploração
+        if (this.isPossibilidadePesca()) {
+            System.out.println("A pesca pode ser uma boa fonte de alimento aqui.");
+        } else {
+            System.out.println("O terreno está lamacento, dificultando a movimentação.");
+        }
+
+        // Exemplo de impacto nos atributos do jogador
+        jogador.setEnergia(jogador.getEnergia() - 10);
+        jogador.setSanidade(jogador.getSanidade() - 5);
     }
 }
