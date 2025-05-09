@@ -9,6 +9,8 @@ import models.Ambientes.*;
 import models.Eventos.*;
 import models.Itens.*;
 import models.Personagens.*;
+import models.exceptions.InventarioCheioException;
+import models.exceptions.MortePorFomeOuSedeException;
 
 public class Main {
 
@@ -50,9 +52,13 @@ public class Main {
         }
 
         // Itens iniciais
-        jogador.getInventario().adicionarItem(new ItemAlimento("Fruta Silvestre", 1.2, 2, 15, "Fruta", 5));
-        jogador.getInventario().adicionarItem(new ItemAgua("Cantil de Água", 1.0, 1, true, 0.5));
-        jogador.getInventario().adicionarItem(new ItemRemedios("Kit de Primeiros Socorros", 2.0, 3, "Bandagem", "Cura ferimentos leves"));
+        try {
+            jogador.getInventario().adicionarItem(new ItemAlimento("Fruta Silvestre", 1.2, 2, 15, "Fruta", 5));
+            jogador.getInventario().adicionarItem(new ItemAgua("Cantil de Água", 1.0, 1, true, 0.5));
+            jogador.getInventario().adicionarItem(new ItemRemedios("Kit de Primeiros Socorros", 2.0, 3, "Bandagem", "Cura ferimentos leves"));
+        } catch (InventarioCheioException e) {
+            System.out.println("Erro ao adicionar item ao inventário: " + e.getMessage());
+        }
 
         // Sorteio de ambiente inicial
         List<Ambiente> ambientes = new ArrayList<>();
@@ -91,23 +97,31 @@ public class Main {
             // Executar 5 turnos obrigatórios
             for (int turnosJogados = 1; turnosJogados <= 5; turnosJogados++) {
                 System.out.println("\n Turno " + turnosJogados);
-                sistema.iniciarTurno();
+                try {
+                    sistema.iniciarTurno();
+                } catch (MortePorFomeOuSedeException e) {
+                    System.out.println(e.getMessage());
+                    continuarJogando = false;  // Fim do jogo em caso de morte
+                    break;
+                }
             }
 
             // Após 5 turnos, perguntar se o jogador quer continuar com mais 5 turnos
-            System.out.println("\nVocê completou 5 turnos! Deseja continuar jogando?");
-            System.out.println("1 - Continuar com mais 5 turnos");
-            System.out.println("2 - Sair");
-            int escolha = scanner.nextInt();
-            scanner.nextLine(); // Limpar o buffer
+            if (continuarJogando) {
+                System.out.println("\nVocê completou 5 turnos! Deseja continuar jogando?");
+                System.out.println("1 - Continuar com mais 5 turnos");
+                System.out.println("2 - Sair");
+                int escolha = scanner.nextInt();
+                scanner.nextLine(); // Limpar o buffer
 
-            if (escolha == 2) {
-                continuarJogando = false;
-                System.out.println("Fim do jogo!");
+                if (escolha == 2) {
+                    continuarJogando = false;
+                    System.out.println("Fim do jogo!");
+                }
             }
         }
 
-        System.out.println("\n Fim da simulação de turnos.");
+        System.out.println("\nFim da simulação de turnos.");
         scanner.close();
     }
 }
