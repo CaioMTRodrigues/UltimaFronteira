@@ -2,6 +2,7 @@ package models.Itens;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Representa o inventário de um personagem, contendo itens com peso limitado.
@@ -35,14 +36,15 @@ public class Inventario {
 
     /**
      * Adiciona um item ao inventário se houver espaço.
+     * Lança uma exceção se o inventário estiver cheio.
      */
-    public void adicionarItem(Item item) {
+    public void adicionarItem(Item item) throws InventarioCheioException {
         if (pesoTotal + item.getPeso() <= capacidadeMaxima) {
             listaItens.add(item);
             pesoTotal += item.getPeso();
             System.out.println(item.getNome() + " adicionado ao inventário.");
         } else {
-            System.out.println(" Não há espaço suficiente para " + item.getNome() + " no inventário.");
+            throw new InventarioCheioException("Não há espaço suficiente para " + item.getNome() + " no inventário.");
         }
     }
 
@@ -58,7 +60,7 @@ public class Inventario {
                 return;
             }
         }
-        System.out.println(" Item não encontrado no inventário.");
+        System.out.println("Item não encontrado no inventário.");
     }
 
     /**
@@ -76,14 +78,14 @@ public class Inventario {
                 return;
             }
         }
-        System.out.println(" Item não encontrado para uso.");
+        System.out.println("Item não encontrado para uso.");
     }
 
     /**
      * Exibe todos os itens do inventário.
      */
     public void exibirInventario() {
-        System.out.println(" Inventário: ");
+        System.out.println("Inventário: ");
         if (listaItens.isEmpty()) {
             System.out.println("Vazio.");
         } else {

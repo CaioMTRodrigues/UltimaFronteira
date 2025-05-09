@@ -1,6 +1,7 @@
 package models.Personagens;
 
 import models.Itens.Inventario;
+import models.exceptions.MortePorFomeOuSedeException;
 
 /**
  * Classe abstrata base para todos os personagens do jogo.
@@ -51,7 +52,7 @@ public abstract class Personagem {
      * Exibe os atributos atuais do personagem.
      */
     public void exibirStatus() {
-        System.out.println("\n Status de " + nome + ":");
+        System.out.println("\nStatus de " + nome + ":");
         System.out.println("Vida: " + vida);
         System.out.println("Fome: " + fome);
         System.out.println("Sede: " + sede);
@@ -66,7 +67,7 @@ public abstract class Personagem {
     public void descansar() {
         energia += 15;
         sanidade += 10;
-        System.out.println(" Você descansou. Energia e sanidade recuperadas.");
+        System.out.println("Você descansou. Energia e sanidade recuperadas.");
         if (energia > 100) energia = 100;
         if (sanidade > 100) sanidade = 100;
     }
@@ -75,6 +76,16 @@ public abstract class Personagem {
      * Habilidade especial única de cada personagem.
      */
     public abstract void habilidadeEspecial();
+
+    /**
+     * Verifica se o personagem morreu de fome ou sede e lança uma exceção.
+     * @throws MortePorFomeOuSedeException Se o personagem morreu de fome ou sede.
+     */
+    public void verificarMorte() throws MortePorFomeOuSedeException {
+        if (fome >= 100 || sede >= 100) {
+            throw new MortePorFomeOuSedeException("Você morreu de fome ou sede.");
+        }
+    }
 }
 
 

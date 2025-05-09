@@ -3,6 +3,7 @@ package models.Eventos;
 import models.Ambientes.Ambiente;
 import models.Itens.*;
 import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Representa um evento climático que afeta o ambiente do jogo.
@@ -67,8 +68,12 @@ public class EventoClimatico extends Evento {
             case "chuva leve":
             case "chuva nutriente":
                 Item fruta = new ItemAlimento("Fruta Fresca", 0.4, 1, 10, "Fruta", 8);
-                jogador.getInventario().adicionarItem(fruta);
-                System.out.println("A chuva fez brotar frutas frescas. Você coletou: " + fruta.getNome());
+                try {
+                    jogador.getInventario().adicionarItem(fruta); // Tentar adicionar a fruta no inventário
+                    System.out.println("A chuva fez brotar frutas frescas. Você coletou: " + fruta.getNome());
+                } catch (InventarioCheioException e) {
+                    System.out.println("Não foi possível adicionar " + fruta.getNome() + " ao inventário: " + e.getMessage());
+                }
                 break;
 
             case "calor seco":

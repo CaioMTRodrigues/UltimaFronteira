@@ -4,6 +4,7 @@ import java.util.List;
 import models.Ambientes.Ambiente;
 import models.Itens.Item;
 import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Representa um evento de descoberta no ambiente.
@@ -50,7 +51,6 @@ public class EventoDescoberta extends Evento {
      * @param ambiente O ambiente onde a descoberta ocorreu.
      */
     @Override
-
     public void executar(Personagem jogador, Ambiente ambiente) {
         System.out.println("Descoberta: " + tipoDescoberta);
         System.out.println("Descrição: " + getDescricao());
@@ -61,8 +61,12 @@ public class EventoDescoberta extends Evento {
         } else {
             System.out.println("Recursos encontrados:");
             for (Item item : recursosEncontrados) {
-                jogador.getInventario().adicionarItem(item);
-                System.out.println("Adicionado ao inventário: " + item.getNome());
+                try {
+                    jogador.getInventario().adicionarItem(item); // Tenta adicionar o item ao inventário
+                    System.out.println("Adicionado ao inventário: " + item.getNome());
+                } catch (InventarioCheioException e) {
+                    System.out.println("Não foi possível adicionar " + item.getNome() + " ao inventário: " + e.getMessage());
+                }
             }
 
             // Bônus adicional baseado no tipo de descoberta

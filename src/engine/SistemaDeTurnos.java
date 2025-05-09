@@ -13,6 +13,7 @@ import models.Ambientes.AmbienteRuinas;
 import models.Eventos.GerenciadorDeEventos;
 import models.Personagens.Personagem;
 import models.Itens.Item;
+import models.exceptions.MortePorFomeOuSedeException;
 
 /**
  * Classe responsável por controlar o sistema de turnos do jogo.
@@ -42,12 +43,17 @@ public class SistemaDeTurnos {
     /**
      * Inicia um novo turno, permitindo que o jogador execute uma ação e que eventos ocorram.
      */
-    public void iniciarTurno() {
+    public void iniciarTurno() throws MortePorFomeOuSedeException {
         System.out.println("\n========== NOVO TURNO ==========");
         jogador.exibirStatus();
 
-        System.out.println("\n Ambiente atual: " + ambienteAtual.getNome());
-        System.out.println(" Clima: " + ambienteAtual.getCondicoesClimaticas());
+        // Verifica se o jogador morreu de fome ou sede
+        if (jogador.getFome() >= 100 || jogador.getSede() >= 100) {
+            throw new MortePorFomeOuSedeException("Você morreu de fome ou sede.");
+        }
+
+        System.out.println("\nAmbiente atual: " + ambienteAtual.getNome());
+        System.out.println("Clima: " + ambienteAtual.getCondicoesClimaticas());
 
         System.out.println("\nEscolha uma ação:");
         System.out.println("1 - Descansar");
@@ -55,7 +61,7 @@ public class SistemaDeTurnos {
         System.out.println("3 - Explorar ambiente");
         System.out.println("4 - Exibir inventário");
         System.out.println("5 - Usar item");
-        System.out.println("6 - Ir para outro ambiente"); // Nova opção
+        System.out.println("6 - Ir para outro ambiente");
         System.out.print(">> ");
         int escolha = scanner.nextInt();
         scanner.nextLine(); // limpar buffer
