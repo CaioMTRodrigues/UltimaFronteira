@@ -4,7 +4,7 @@ package models.Itens;
  * Classe abstrata que representa um item genérico no jogo.
  * Todos os itens herdam dessa classe e implementam o método usar().
  */
-public abstract class Item {
+public abstract class Item implements Comparable<Item> {
 
     private String nome;
     private double peso;
@@ -49,4 +49,12 @@ public abstract class Item {
      * Método abstrato para uso do item, definido pelas subclasses.
      */
     public abstract void usar();
+
+    /**
+     * Permite ordenação de itens por nome (ignorando maiúsculas/minúsculas).
+     */
+    @Override
+    public int compareTo(Item outro) {
+        return this.nome.compareToIgnoreCase(outro.getNome());
+    }
 }

@@ -1,6 +1,7 @@
 package models.Itens;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import models.exceptions.InventarioCheioException;
 
@@ -42,6 +43,7 @@ public class Inventario {
         if (pesoTotal + item.getPeso() <= capacidadeMaxima) {
             listaItens.add(item);
             pesoTotal += item.getPeso();
+            Collections.sort(listaItens); // Ordena automaticamente após adicionar
             System.out.println(item.getNome() + " adicionado ao inventário.");
         } else {
             throw new InventarioCheioException("Não há espaço suficiente para " + item.getNome() + " no inventário.");
