@@ -68,9 +68,9 @@ public class EventoClimatico extends Evento {
             case "chuva leve":
             case "chuva nutriente":
                 Item fruta = new ItemAlimento("Fruta Fresca", 0.4, 1, 10, "Fruta", 8);
+                System.out.println("A chuva fez brotar frutas frescas. Você encontrou: " + fruta.getNome());
                 try {
-                    jogador.getInventario().adicionarItem(fruta); // Tentar adicionar a fruta no inventário
-                    System.out.println("A chuva fez brotar frutas frescas. Você coletou: " + fruta.getNome());
+                    jogador.getInventario().adicionarItem(fruta);
                 } catch (InventarioCheioException e) {
                     System.out.println("Não foi possível adicionar " + fruta.getNome() + " ao inventário: " + e.getMessage());
                 }

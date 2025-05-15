@@ -61,9 +61,9 @@ public class EventoDescoberta extends Evento {
         } else {
             System.out.println("Recursos encontrados:");
             for (Item item : recursosEncontrados) {
+                System.out.println("Você encontrou: " + item.getNome());
                 try {
-                    jogador.getInventario().adicionarItem(item); // Tenta adicionar o item ao inventário
-                    System.out.println("Adicionado ao inventário: " + item.getNome());
+                    jogador.getInventario().adicionarItem(item);
                 } catch (InventarioCheioException e) {
                     System.out.println("Não foi possível adicionar " + item.getNome() + " ao inventário: " + e.getMessage());
                 }
@@ -83,5 +83,3 @@ public class EventoDescoberta extends Evento {
         jogador.setSanidade(jogador.getSanidade() + 5);
     }
 }
-
-
