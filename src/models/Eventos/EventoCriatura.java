@@ -40,20 +40,19 @@ public class EventoCriatura extends Evento {
         System.out.println("Nível de Perigo: " + nivelPerigo);
         System.out.println("Opções disponíveis: " + opcoesAcao);
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Escolha uma ação: ");
-            System.out.println("1 - Lutar");
-            System.out.println("2 - Fugir");
-            int escolha = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Escolha uma ação: ");
+        System.out.println("1 - Lutar");
+        System.out.println("2 - Fugir");
+        int escolha = scanner.nextInt();
+        scanner.nextLine(); // limpar buffer
 
-            if (escolha == 1) {
-                lutar(jogador);
-            } else if (escolha == 2) {
-                fugir(jogador);
-            } else {
-                System.out.println("Opção inválida.");
-            }
+        if (escolha == 1) {
+            lutar(jogador);
+        } else if (escolha == 2) {
+            fugir(jogador);
+        } else {
+            System.out.println("Opção inválida.");
         }
     }
 
@@ -73,7 +72,6 @@ public class EventoCriatura extends Evento {
         if (jogador.getVida() > 0) {
             System.out.println("Você venceu o combate contra o " + tipoCriatura + "!");
 
-            // Recompensa baseada no tipo de criatura
             Item recompensa;
             switch (tipoCriatura.toLowerCase()) {
                 case "lobo":
