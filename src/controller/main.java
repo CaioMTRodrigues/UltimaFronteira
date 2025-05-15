@@ -36,20 +36,31 @@ public class Main {
         switch (classeEscolhida) {
             case 1:
                 jogador = new Medico(nome, 100, 30, 30, 60, 80, "Indefinido");
+                System.out.println("Classe selecionada: Médico");
+                System.out.println("Habilidade Especial: Pode usar remédios para recuperar vida diretamente.");
                 break;
             case 2:
                 jogador = new Mecanico(nome, 100, 30, 30, 60, 80, "Indefinido");
+                System.out.println("Classe selecionada: Mecânico");
+                System.out.println("Habilidade Especial: Conserta ferramentas e aumenta sua durabilidade.");
                 break;
             case 3:
                 jogador = new Rastreador(nome, 100, 30, 30, 60, 80, "Indefinido");
+                System.out.println("Classe selecionada: Rastreador");
+                System.out.println("Habilidade Especial: Encontra água e comida com mais facilidade no inventário.");
                 break;
             case 4:
                 jogador = new SobreviventeNato(nome, 100, 30, 30, 60, 80, "Indefinido");
+                System.out.println("Classe selecionada: Sobrevivente Nato");
+                System.out.println("Habilidade Especial: Sofre menos com fome e sede ao longo do tempo.");
                 break;
             default:
                 System.out.println("Classe inválida! Um médico será atribuído por padrão.");
                 jogador = new Medico(nome, 100, 30, 30, 60, 80, "Indefinido");
+                System.out.println("Classe selecionada: Médico");
+                System.out.println("Habilidade Especial: Pode usar remédios para recuperar vida diretamente.");
         }
+
 
         // Itens iniciais
         try {
