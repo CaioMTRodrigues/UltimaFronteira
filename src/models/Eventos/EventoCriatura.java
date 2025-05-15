@@ -2,6 +2,9 @@ package models.Eventos;
 
 import models.Ambientes.Ambiente;
 import models.Personagens.Personagem;
+import models.Itens.*;
+import models.exceptions.InventarioCheioException;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -14,17 +17,6 @@ public class EventoCriatura extends Evento {
     private int nivelPerigo;
     private String opcoesAcao;
 
-    /**
-     * Construtor do evento de criatura.
-     *
-     * @param nome Nome do evento.
-     * @param descricao Descrição do evento.
-     * @param probabilidade Probabilidade de ocorrência.
-     * @param impacto Impacto causado.
-     * @param tipoCriatura Tipo da criatura (ex: lobo, urso).
-     * @param nivelPerigo Nível de perigo.
-     * @param opcoesAcao Ações possíveis do jogador.
-     */
     public EventoCriatura(String nome, String descricao, double probabilidade, String impacto, String tipoCriatura, int nivelPerigo, String opcoesAcao) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoCriatura = tipoCriatura;
@@ -32,7 +24,6 @@ public class EventoCriatura extends Evento {
         this.opcoesAcao = opcoesAcao;
     }
 
-    // Getters e Setters
     public String getTipoCriatura() { return tipoCriatura; }
     public void setTipoCriatura(String tipoCriatura) { this.tipoCriatura = tipoCriatura; }
 
@@ -42,12 +33,6 @@ public class EventoCriatura extends Evento {
     public String getOpcoesAcao() { return opcoesAcao; }
     public void setOpcoesAcao(String opcoesAcao) { this.opcoesAcao = opcoesAcao; }
 
-    /**
-     * Executa o evento de encontro com criatura, afetando o personagem de forma dinâmica.
-     *
-     * @param jogador O personagem afetado.
-     * @param ambiente O ambiente onde o encontro ocorre.
-     */
     @Override
     public void executar(Personagem jogador, Ambiente ambiente) {
         System.out.println("⚠ Encontro com Criatura: " + tipoCriatura);
@@ -55,8 +40,7 @@ public class EventoCriatura extends Evento {
         System.out.println("Nível de Perigo: " + nivelPerigo);
         System.out.println("Opções disponíveis: " + opcoesAcao);
 
-        try (// Escolha de ação (lutar ou fugir)
-        Scanner scanner = new Scanner(System.in)) {
+        try (Scanner scanner = new Scanner(System.in)) {
             System.out.println("Escolha uma ação: ");
             System.out.println("1 - Lutar");
             System.out.println("2 - Fugir");
@@ -73,44 +57,64 @@ public class EventoCriatura extends Evento {
         }
     }
 
-    // Método para lutar contra a criatura
     private void lutar(Personagem jogador) {
         System.out.println("Você escolheu lutar contra o " + tipoCriatura);
 
-        // Calculando dano ao jogador e à criatura
         Random random = new Random();
         int danoJogador = nivelPerigo * 5;
-        int danoCriatura = random.nextInt(15) + 5; // Dano aleatório da criatura
+        int danoCriatura = random.nextInt(15) + 5;
 
-        // Reduzindo vida do jogador
         jogador.setVida(jogador.getVida() - danoJogador);
-        jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2)); // Afeta a sanidade
+        jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2));
 
         System.out.println("A criatura causou " + danoCriatura + " de dano!");
         System.out.println("Você perdeu " + danoJogador + " de vida e " + (nivelPerigo * 2) + " de sanidade.");
 
-        // Se o jogador sobreviver, o combate continua e a criatura pode ser derrotada
         if (jogador.getVida() > 0) {
-            System.out.println("Você venceu o combate contra o " + tipoCriatura);
-            // O jogador pode ganhar itens após derrotar a criatura
+            System.out.println("Você venceu o combate contra o " + tipoCriatura + "!");
+
+            // Recompensa baseada no tipo de criatura
+            Item recompensa;
+            switch (tipoCriatura.toLowerCase()) {
+                case "lobo":
+                    recompensa = new ItemAlimento("Carne de Lobo", 1.0, 1, 20, "Carne", 5);
+                    break;
+                case "urso":
+                    recompensa = new ItemMaterial("Pele de Urso", 2.5, 1, "Couro", 70);
+                    break;
+                default:
+                    recompensa = new ItemAlimento("Carne Misteriosa", 0.8, 1, 10, "Carne", 3);
+                    break;
+            }
+
+            System.out.println("Você encontrou um item: " + recompensa.getNome());
+
+            try {
+                jogador.getInventario().adicionarItem(recompensa);
+            } catch (InventarioCheioException e) {
+                System.out.println("Não foi possível adicionar " + recompensa.getNome() + ": " + e.getMessage());
+            }
+
+            jogador.setSanidade(jogador.getSanidade() + 5);
+            System.out.println("Sua moral aumentou com a vitória. Sanidade +5.");
+
         } else {
             System.out.println("Você morreu durante o combate.");
             System.exit(0);
         }
     }
 
-    // Método para fugir do combate
     private void fugir(Personagem jogador) {
         System.out.println("Você escolheu tentar fugir...");
 
         Random random = new Random();
         int chanceDeFuga = random.nextInt(100);
 
-        if (chanceDeFuga < 50) { // 50% de chance de fuga
+        if (chanceDeFuga < 50) {
             System.out.println("Você conseguiu fugir com sucesso!");
         } else {
             System.out.println("Você não conseguiu fugir a tempo! A criatura atacou.");
-            lutar(jogador); // Se falhar na fuga, começa o combate
+            lutar(jogador);
         }
     }
 }

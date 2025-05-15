@@ -61,7 +61,6 @@ public class Main {
                 System.out.println("Habilidade Especial: Pode usar remédios para recuperar vida diretamente.");
         }
 
-
         // Itens iniciais
         try {
             jogador.getInventario().adicionarItem(new ItemAlimento("Fruta Silvestre", 1.2, 2, 15, "Fruta", 5));
@@ -84,7 +83,7 @@ public class Main {
 
         jogador.setLocalizacao(ambiente.getNome());
 
-        System.out.println("\n Ambiente inicial sorteado: " + ambiente.getNome());
+        System.out.println("\nAmbiente inicial sorteado: " + ambiente.getNome());
 
         // Eventos dinâmicos
         List<Evento> eventos = new ArrayList<>();
@@ -92,6 +91,7 @@ public class Main {
         eventos.add(new EventoClimatico("Chuva Nutriente", "Chuva suave estimula frutas a brotarem nas árvores próximas.", 0.25, "Geração de alimento", "Chuva leve", 2, "Frutas frescas aparecem na vegetação"));
         eventos.add(new EventoCriatura("Ataque de Lobo", "Um lobo aparece entre os arbustos pronto para atacar.", 0.2, "Redução de vida", "Lobo", 6, "Fugir ou lutar"));
         eventos.add(new EventoCriatura("Infestação de Ratos", "Ratos invadem seus suprimentos e roubam comida.", 0.2, "Perda de alimentos", "Ratos", 3, "Espantar ou ignorar"));
+        eventos.add(new EventoCriatura("Encontro com Urso", "Um urso enorme bloqueia seu caminho, rosnando ferozmente.", 0.15, "Ferimentos graves", "Urso", 9, "Fugir ou lutar"));
 
         List<Item> itensDescobertos = new ArrayList<>();
         itensDescobertos.add(new ItemRemedios("Erva Calmante", 0.2, 1, "Natural", "Reduz dor e estresse"));
@@ -107,17 +107,16 @@ public class Main {
         while (continuarJogando) {
             // Executar 5 turnos obrigatórios
             for (int turnosJogados = 1; turnosJogados <= 5; turnosJogados++) {
-                System.out.println("\n Turno " + turnosJogados);
+                System.out.println("\nTurno " + turnosJogados);
                 try {
                     sistema.iniciarTurno();
                 } catch (MortePorFomeOuSedeException e) {
                     System.out.println(e.getMessage());
-                    continuarJogando = false;  // Fim do jogo em caso de morte
+                    continuarJogando = false;
                     break;
                 }
             }
 
-            // Após 5 turnos, perguntar se o jogador quer continuar com mais 5 turnos
             if (continuarJogando) {
                 System.out.println("\nVocê completou 5 turnos! Deseja continuar jogando?");
                 System.out.println("1 - Continuar com mais 5 turnos");
