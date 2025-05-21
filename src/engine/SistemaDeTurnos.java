@@ -1,6 +1,7 @@
 package engine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,8 +12,9 @@ import models.Ambientes.AmbienteLagoRio;
 import models.Ambientes.AmbienteMontanha;
 import models.Ambientes.AmbienteRuinas;
 import models.Eventos.GerenciadorDeEventos;
-import models.Personagens.Personagem;
 import models.Itens.Item;
+import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 import models.exceptions.MortePorFomeOuSedeException;
 
 /**
@@ -62,6 +64,7 @@ public class SistemaDeTurnos {
         System.out.println("4 - Exibir inventário");
         System.out.println("5 - Usar item");
         System.out.println("6 - Ir para outro ambiente");
+        System.out.println("7 - Criar item (Craft)");
         System.out.print(">> ");
         int escolha = scanner.nextInt();
         scanner.nextLine(); // limpar buffer
@@ -85,6 +88,9 @@ public class SistemaDeTurnos {
             case 6:
                 // Trocar ambiente
                 trocarAmbiente(jogador);
+                break;
+            case 7:
+                criarItem();  
                 break;
             default:
                 System.out.println("Ação inválida.");
@@ -165,4 +171,41 @@ public class SistemaDeTurnos {
         System.out.println("Energia: " + jogador.getEnergia());
         System.out.println("Sanidade: " + jogador.getSanidade());
     }
+
+    private void criarItem() {
+    System.out.print("Digite o nome do item que deseja criar: ");
+    String nomeItem = scanner.nextLine().trim().toLowerCase();
+
+    List<String> materiaisNecessarios;
+
+    switch (nomeItem) {
+        case "machado":
+            materiaisNecessarios = Arrays.asList("madeira", "pedra");
+            break;
+        case "faca":
+            materiaisNecessarios = Arrays.asList("madeira", "pedra");
+            break;
+        case "bandagem":
+            materiaisNecessarios = Arrays.asList("algodao", "alcool");
+            break;
+        default:
+            System.out.println("Item não suportado para criação.");
+            return;
+    }
+
+    try {
+        boolean sucesso = jogador.getInventario().craft(nomeItem, materiaisNecessarios);
+        if (sucesso) {
+            System.out.println("Item '" + nomeItem + "' criado com sucesso!");
+        } else {
+            System.out.println("Falha ao criar item. Verifique os materiais.");
+        }
+    } catch (InventarioCheioException e) {
+        System.out.println("Inventário cheio. Não foi possível adicionar o item.");
+    }
+
+    jogador.getInventario().exibirInventario();
+}
+
+
 }
