@@ -120,4 +120,53 @@ public class Inventario {
         }
         return false;
     }
+
+    /**
+     * Tenta criar um novo item a partir dos materiais necessários.
+     * Remove os materiais do inventário se existirem, cria e adiciona o novo item.
+     *
+     * @param nomeNovoItem nome do item a ser criado
+     * @param nomesMateriais lista com nomes dos materiais necessários para o craft
+     * @return true se o craft foi bem-sucedido, false caso contrário
+     * @throws InventarioCheioException se não houver espaço para o novo item
+     */
+    public boolean craft(String nomeNovoItem, List<String> nomesMateriais) throws InventarioCheioException {
+        List<Item> materiaisParaRemover = new ArrayList<>();
+
+        // Verifica se todos os materiais necessários existem no inventário
+        for (String nomeMaterial : nomesMateriais) {
+            boolean achou = false;
+            for (Item item : listaItens) {
+                if (item.getNome().equalsIgnoreCase(nomeMaterial) && !materiaisParaRemover.contains(item)) {
+                    materiaisParaRemover.add(item);
+                    achou = true;
+                    break;
+                }
+            }
+            if (!achou) {
+                System.out.println("Material faltando: " + nomeMaterial);
+                return false;
+            }
+        }
+
+        // Remove os materiais do inventário
+        for (Item item : materiaisParaRemover) {
+            listaItens.remove(item);
+            pesoTotal -= item.getPeso();
+            System.out.println("Material removido: " + item.getNome());
+        }
+
+        // Cria o novo item
+        Item novoItem = FabricaDeItens.criarItem(nomeNovoItem);
+        if (novoItem == null) {
+            System.out.println("Falha ao criar o item: " + nomeNovoItem);
+            return false;
+        }
+
+        // Tenta adicionar o novo item (pode lançar InventarioCheioException)
+        adicionarItem(novoItem);
+        System.out.println("Item criado e adicionado: " + novoItem.getNome());
+
+        return true;
+    }
 }
