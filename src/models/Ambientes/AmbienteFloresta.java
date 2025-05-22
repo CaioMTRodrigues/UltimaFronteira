@@ -1,6 +1,10 @@
 package models.Ambientes;
 
+import java.util.Random;
+import models.Itens.Item;
+import models.Itens.ItemMaterial;
 import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Classe que representa o ambiente de Floresta.
@@ -42,16 +46,44 @@ public class AmbienteFloresta extends Ambiente {
     public void explorar(Personagem jogador) {
         System.out.println("Você se aventura na floresta. O som dos animais ecoa ao redor.");
         System.out.println("Você encontra alguns recursos na floresta.");
-        
-        // Exemplo de ações adicionais durante a exploração
+
+        Random rand = new Random();
+
+        try {
+            // Chance de encontrar Madeira
+            if (rand.nextDouble() < 0.6) {
+                Item madeira = new ItemMaterial("Madeira", 1.0, 50, "Madeira", 40);
+                jogador.getInventario().adicionarItem(madeira);
+                System.out.println("Você coletou Madeira!");
+            }
+
+            // Chance de encontrar Algodão
+            if (rand.nextDouble() < 0.3) {
+                Item algodao = new ItemMaterial("Algodão", 0.3, 20, "Fibra", 20);
+                jogador.getInventario().adicionarItem(algodao);
+                System.out.println("Você encontrou Algodão!");
+            }
+
+            // Chance de encontrar Frutas
+            if (rand.nextDouble() < 0.4) {
+                Item frutas = new ItemMaterial("Frutas", 0.5, 10, "Comida", 10);
+                jogador.getInventario().adicionarItem(frutas);
+                System.out.println("Você colheu algumas Frutas!");
+            }
+
+        } catch (InventarioCheioException e) {
+            System.out.println("Seu inventário está cheio! Não conseguiu carregar novos materiais.");
+        }
+
         if (this.isFaunaAbundante()) {
             System.out.println("A fauna na floresta é abundante, talvez você possa caçar.");
         } else {
             System.out.println("A floresta está tranquila, mas não há muita fauna por perto.");
         }
 
-        // Exemplo de impacto nos atributos do jogador
+        // Impacto nos atributos do jogador
         jogador.setEnergia(jogador.getEnergia() - 10);
         jogador.setSanidade(jogador.getSanidade() - 5);
     }
 }
+

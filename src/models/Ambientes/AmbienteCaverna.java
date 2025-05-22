@@ -1,6 +1,10 @@
 package models.Ambientes;
 
+import java.util.Random;
+import models.Itens.Item;
+import models.Itens.ItemMaterial;
 import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Classe que representa o ambiente de Caverna.
@@ -42,17 +46,38 @@ public class AmbienteCaverna extends Ambiente {
     public void explorar(Personagem jogador) {
         System.out.println("Você entra na caverna, sua lanterna ilumina as paredes úmidas.");
         System.out.println("Você encontra alguns recursos na caverna.");
-        
-        // Exemplo de ações adicionais durante a exploração
-        // Você pode adicionar mais interações ou recursos encontrados aqui
+
+        Random rand = new Random();
+
+        try {
+            // Chance de encontrar Pedra
+            if (rand.nextDouble() < 0.5) {
+                Item pedra = new ItemMaterial("Pedra", 2.0, 50, "Pedra", 40);
+                jogador.getInventario().adicionarItem(pedra);
+                System.out.println("Você encontrou Pedra!");
+            }
+
+            // Chance de encontrar Álcool
+            if (rand.nextDouble() < 0.2) {
+                Item alcool = new ItemMaterial("Álcool", 0.5, 10, "Liquido", 10);
+                jogador.getInventario().adicionarItem(alcool);
+                System.out.println("Você encontrou Álcool!");
+            }
+
+
+        } catch (InventarioCheioException e) {
+            System.out.println("Seu inventário está cheio! Não conseguiu carregar novos materiais.");
+        }
+
         if (this.isCriaturasPresentes()) {
             System.out.println("Cuidado! Há criaturas na caverna.");
         } else {
             System.out.println("A caverna parece tranquila por enquanto.");
         }
 
-        // Exemplo de impacto nos atributos do jogador
+        // Impacto nos atributos do jogador
         jogador.setEnergia(jogador.getEnergia() - 10);
         jogador.setSanidade(jogador.getSanidade() - 5);
-    }
+        }
 }
+

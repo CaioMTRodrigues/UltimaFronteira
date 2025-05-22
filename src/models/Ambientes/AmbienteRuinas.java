@@ -1,6 +1,10 @@
 package models.Ambientes;
 
+import java.util.Random;
+import models.Itens.Item;
+import models.Itens.ItemMaterial;
 import models.Personagens.Personagem;
+import models.exceptions.InventarioCheioException;
 
 /**
  * Classe que representa o ambiente de Ruínas Abandonadas.
@@ -42,15 +46,42 @@ public class AmbienteRuinas extends Ambiente {
     public void explorar(Personagem jogador) {
         System.out.println("Você adentra as ruínas, sentindo o cheiro da poeira e do tempo.");
         System.out.println("Você encontra alguns recursos nas ruínas.");
-        
-        // Exemplo de ações durante a exploração
+
+        Random rand = new Random();
+
+        try {
+            // Chance de encontrar Ferramenta antiga
+            if (rand.nextDouble() < 0.5) {
+                Item ferramenta = new ItemMaterial("Ferramenta Antiga", 2.5, 60, "Ferramenta", 50);
+                jogador.getInventario().adicionarItem(ferramenta);
+                System.out.println("Você encontrou uma Ferramenta Antiga!");
+            }
+
+            // Chance de encontrar Alimento enlatado
+            if (rand.nextDouble() < 0.4) {
+                Item alimento = new ItemMaterial("Alimento Enlatado", 1.0, 40, "Comida", 40);
+                jogador.getInventario().adicionarItem(alimento);
+                System.out.println("Você achou um Alimento Enlatado!");
+            }
+
+            // Chance de encontrar Munição 
+            if (rand.nextDouble() < 0.3) {
+                Item municao = new ItemMaterial("Munição", 1.2, 50, "Material", 50);
+                jogador.getInventario().adicionarItem(municao);
+                System.out.println("Você coletou Munição!");
+            }
+
+        } catch (InventarioCheioException e) {
+            System.out.println("Seu inventário está cheio! Não conseguiu carregar novos materiais.");
+        }
+
         if (this.isPresencaSobreviventes()) {
             System.out.println("Há outros sobreviventes nas ruínas, tome cuidado!");
         } else {
             System.out.println("As ruínas estão desertas, mas há muitos segredos a serem desvendados.");
         }
 
-        // Exemplo de impacto nos atributos do jogador
+        // Impacto nos atributos do jogador
         jogador.setEnergia(jogador.getEnergia() - 10);
         jogador.setSanidade(jogador.getSanidade() - 5);
     }
