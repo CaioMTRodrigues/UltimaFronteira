@@ -214,20 +214,32 @@ public class SistemaDeTurnos {
 
     /**
      * Ativa o pedido de resgate, o jogador terá que aguardar um número de turnos antes de ser resgatado.
+     * O pedido só pode ser feito se o jogador tiver sobrevivido por pelo menos 12 turnos e com fome, sede e sanidade em níveis "saudáveis".
      */
     private void pedirResgate() {
         if (jogador.isPedidoResgateAtivado()) {
             System.out.println("Você já ativou o pedido de resgate.");
             return;
         }
-        System.out.println("Você está prestes a ativar o pedido de resgate. Deseja continuar? (s/n): ");
-        String resposta = scanner.nextLine().trim().toLowerCase();
-        if (resposta.equals("s") || resposta.equals("sim")) {
-            jogador.setPedidoResgateAtivado(true);
-            jogador.setTurnosDesdePedidoResgate(0);
-            System.out.println("Pedido de resgate ativado! Aguarde a chegada do resgate.");
+        if (turnosPassados < 12) {
+            System.out.println("Você deve sobreviver por pelo menos 12 turnos antes de poder pedir resgate.");
+            return;
+        }
+
+        // Verifica as condições de saúde do jogador
+        if (jogador.getFome() > 50 && jogador.getSede() > 50 && jogador.getSanidade() > 50) {
+            System.out.println("Você está em condições boas para pedir resgate.");
+            System.out.println("Deseja continuar? (s/n): ");
+            String resposta = scanner.nextLine().trim().toLowerCase();
+            if (resposta.equals("s") || resposta.equals("sim")) {
+                jogador.setPedidoResgateAtivado(true);
+                jogador.setTurnosDesdePedidoResgate(0);
+                System.out.println("Pedido de resgate ativado! Aguarde a chegada do resgate.");
+            } else {
+                System.out.println("Pedido de resgate cancelado.");
+            }
         } else {
-            System.out.println("Pedido de resgate cancelado.");
+            System.out.println("Você não está em condições saudáveis o suficiente para pedir resgate.");
         }
     }
 

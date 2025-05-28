@@ -76,9 +76,14 @@ public class Main {
             jogador.getInventario().adicionarItem(new ItemAlimento("Fruta Silvestre", 1.2, 2, 15, "Fruta", 5));
             jogador.getInventario().adicionarItem(new ItemAgua("Cantil de Água", 1.0, 1, true, 0.5));
             jogador.getInventario().adicionarItem(new ItemRemedios("Kit de Primeiros Socorros", 2.0, 3, "Bandagem", "Cura ferimentos leves"));
+            jogador.getInventario().adicionarItem(new ItemFerramentas("Machado", 2.5, 10, "Ferramenta", 50)); // Adicionando ferramenta
         } catch (InventarioCheioException e) {
             System.out.println("Erro ao adicionar item ao inventário: " + e.getMessage());
         }
+
+        // Verificando os itens no inventário
+        System.out.println("Itens no inventário após inicialização:");
+        jogador.getInventario().exibirInventario();  
 
         // Sorteio de ambiente inicial
         List<Ambiente> ambientes = new ArrayList<>();
@@ -108,15 +113,12 @@ public class Main {
 
         eventos.add(new EventoDescoberta("Ervas Medicinais", "Você encontra ervas naturais em meio à vegetação.", 0.3, "Recuperação de sanidade", "Ervas escondidas", itensDescobertos, "Usar como infusão ou pomada"));
 
-        // Inicializando o gerenciador de eventos
         GerenciadorDeEventos gerenciador = new GerenciadorDeEventos(eventos);
 
-        // Número de turnos para vitória configurável
         int turnosParaVitoria = 20;
 
         SistemaDeTurnos sistema = new SistemaDeTurnos(jogador, ambiente, gerenciador, turnosParaVitoria);
 
-        // Loop principal do jogo: continua enquanto o jogo estiver ativo
         boolean continuarJogando = true;
         while (continuarJogando) {
             try {
@@ -132,3 +134,4 @@ public class Main {
         scanner.close();
     }
 }
+
