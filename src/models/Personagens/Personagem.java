@@ -9,30 +9,23 @@ import models.exceptions.MortePorFomeOuSedeException;
  */
 public abstract class Personagem {
 
-    protected String nome;
-    protected double vida;
-    protected double fome;
-    protected double sede;
-    protected double energia;
-    protected double sanidade;
-    protected String localizacao;
-    protected Inventario inventario;
+    private String nome;
+    private double vida;
+    private double fome;
+    private double sede;
+    private double energia;
+    private double sanidade;
+    private String localizacao;
+    private Inventario inventario;
 
-    // Atributo para indicar se encontrou refúgio seguro
-    protected boolean refugioSeguroEncontrado;
-
-    // Atributo para indicar se construiu abrigo permanente
-    protected boolean abrigoConstruido;
-
-    // Atributo para indicar se ativou pedido de resgate
-    protected boolean pedidoResgateAtivado;
-
-    // Contador de turnos desde o pedido de resgate
-    protected int turnosDesdePedidoResgate;
+    private boolean refugioSeguroEncontrado;
+    private boolean abrigoConstruido;
+    private boolean pedidoResgateAtivado;
+    private int turnosDesdePedidoResgate;
 
     /**
      * Construtor do personagem.
-     * 
+     *
      * @param nome Nome do personagem.
      * @param vida Quantidade de vida do personagem.
      * @param fome Quantidade de fome do personagem.
@@ -50,14 +43,12 @@ public abstract class Personagem {
         this.sanidade = sanidade;
         this.localizacao = localizacao;
         this.inventario = new Inventario(30.0);
-
         this.refugioSeguroEncontrado = false;
         this.abrigoConstruido = false;
         this.pedidoResgateAtivado = false;
         this.turnosDesdePedidoResgate = 0;
     }
 
-    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -118,7 +109,6 @@ public abstract class Personagem {
         this.inventario = inventario;
     }
 
-    // Métodos para refúgio seguro
     public boolean isRefugioSeguroEncontrado() {
         return refugioSeguroEncontrado;
     }
@@ -127,7 +117,6 @@ public abstract class Personagem {
         this.refugioSeguroEncontrado = refugioSeguroEncontrado;
     }
 
-    // Métodos para abrigo construído
     public boolean isAbrigoConstruido() {
         return abrigoConstruido;
     }
@@ -136,7 +125,6 @@ public abstract class Personagem {
         this.abrigoConstruido = abrigoConstruido;
     }
 
-    // Métodos para pedido de resgate
     public boolean isPedidoResgateAtivado() {
         return pedidoResgateAtivado;
     }
@@ -154,9 +142,9 @@ public abstract class Personagem {
     }
 
     /**
-     * Aplica dano na vida do personagem, garantindo que a vida não seja negativa.
-     * 
-     * @param dano Quantidade de dano a ser aplicada.
+     * Aplica dano ao personagem.
+     *
+     * @param dano Valor de dano a ser subtraído da vida.
      */
     public void aplicarDano(double dano) {
         if (dano < 0) {
@@ -181,7 +169,7 @@ public abstract class Personagem {
     }
 
     /**
-     * Permite ao personagem descansar, recuperando energia e sanidade.
+     * Permite ao personagem descansar.
      */
     public void descansar() {
         energia += 15;
@@ -192,15 +180,14 @@ public abstract class Personagem {
     }
 
     /**
-     * Habilidade especial única de cada personagem.
-     * Cada classe de personagem deve implementar suas habilidades especiais.
+     * Define a habilidade especial que deve ser implementada pelas subclasses.
      */
     public abstract void habilidadeEspecial();
 
     /**
-     * Verifica se o personagem morreu de fome ou sede e lança uma exceção.
-     * 
-     * @throws MortePorFomeOuSedeException Se o personagem morreu de fome ou sede.
+     * Verifica se o personagem morreu por fome ou sede.
+     *
+     * @throws MortePorFomeOuSedeException Se fome ou sede forem iguais ou superiores a 100.
      */
     public void verificarMorte() throws MortePorFomeOuSedeException {
         if (fome >= 100 || sede >= 100) {
