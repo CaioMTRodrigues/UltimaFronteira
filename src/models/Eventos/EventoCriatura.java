@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 /**
  * Representa um evento relacionado ao encontro com uma criatura.
+ * O evento pode resultar em uma luta ou fuga, com impactos na vida e sanidade do personagem.
  */
 public class EventoCriatura extends Evento {
 
@@ -17,6 +18,17 @@ public class EventoCriatura extends Evento {
     private int nivelPerigo;
     private String opcoesAcao;
 
+    /**
+     * Construtor do evento de encontro com uma criatura.
+     * 
+     * @param nome Nome do evento.
+     * @param descricao Descrição do evento.
+     * @param probabilidade Probabilidade de ocorrência do evento.
+     * @param impacto Impacto causado no jogo.
+     * @param tipoCriatura Tipo de criatura encontrada.
+     * @param nivelPerigo Nível de perigo da criatura.
+     * @param opcoesAcao Opções de ação do jogador (ex: fugir ou lutar).
+     */
     public EventoCriatura(String nome, String descricao, double probabilidade, String impacto, String tipoCriatura, int nivelPerigo, String opcoesAcao) {
         super(nome, descricao, probabilidade, impacto);
         this.tipoCriatura = tipoCriatura;
@@ -24,15 +36,67 @@ public class EventoCriatura extends Evento {
         this.opcoesAcao = opcoesAcao;
     }
 
-    public String getTipoCriatura() { return tipoCriatura; }
-    public void setTipoCriatura(String tipoCriatura) { this.tipoCriatura = tipoCriatura; }
+    /**
+     * Retorna o tipo de criatura encontrada.
+     * 
+     * @return O tipo da criatura.
+     */
+    public String getTipoCriatura() {
+        return tipoCriatura;
+    }
 
-    public int getNivelPerigo() { return nivelPerigo; }
-    public void setNivelPerigo(int nivelPerigo) { this.nivelPerigo = nivelPerigo; }
+    /**
+     * Define o tipo de criatura encontrada.
+     * 
+     * @param tipoCriatura O tipo da criatura.
+     */
+    public void setTipoCriatura(String tipoCriatura) {
+        this.tipoCriatura = tipoCriatura;
+    }
 
-    public String getOpcoesAcao() { return opcoesAcao; }
-    public void setOpcoesAcao(String opcoesAcao) { this.opcoesAcao = opcoesAcao; }
+    /**
+     * Retorna o nível de perigo associado à criatura.
+     * 
+     * @return O nível de perigo da criatura.
+     */
+    public int getNivelPerigo() {
+        return nivelPerigo;
+    }
 
+    /**
+     * Define o nível de perigo da criatura.
+     * 
+     * @param nivelPerigo O nível de perigo a ser atribuído à criatura.
+     */
+    public void setNivelPerigo(int nivelPerigo) {
+        this.nivelPerigo = nivelPerigo;
+    }
+
+    /**
+     * Retorna as opções de ação disponíveis para o jogador durante o encontro.
+     * 
+     * @return As opções de ação como uma string.
+     */
+    public String getOpcoesAcao() {
+        return opcoesAcao;
+    }
+
+    /**
+     * Define as opções de ação disponíveis para o jogador durante o encontro.
+     * 
+     * @param opcoesAcao As opções de ação.
+     */
+    public void setOpcoesAcao(String opcoesAcao) {
+        this.opcoesAcao = opcoesAcao;
+    }
+
+    /**
+     * Executa o evento de encontro com a criatura, oferecendo ao jogador opções de ação.
+     * O jogador pode lutar ou fugir, o que impacta seus atributos.
+     * 
+     * @param jogador O personagem afetado pelo evento.
+     * @param ambiente O ambiente onde o evento ocorre.
+     */
     @Override
     public void executar(Personagem jogador, Ambiente ambiente) {
         System.out.println("⚠ Encontro com Criatura: " + tipoCriatura);
@@ -45,7 +109,7 @@ public class EventoCriatura extends Evento {
         System.out.println("1 - Lutar");
         System.out.println("2 - Fugir");
         int escolha = scanner.nextInt();
-        scanner.nextLine(); // limpar buffer
+        scanner.nextLine(); // Limpar buffer
 
         if (escolha == 1) {
             lutar(jogador);
@@ -56,18 +120,25 @@ public class EventoCriatura extends Evento {
         }
     }
 
+    /**
+     * Realiza a luta entre o jogador e a criatura. 
+     * Aplica dano ao jogador e, se o jogador vencer, oferece uma recompensa.
+     * 
+     * @param jogador O personagem afetado pelo evento.
+     */
     private void lutar(Personagem jogador) {
         System.out.println("Você escolheu lutar contra o " + tipoCriatura);
 
         Random random = new Random();
-        int danoJogador = nivelPerigo * 5;
-        int danoCriatura = random.nextInt(15) + 5;
+        int danoCriatura = nivelPerigo * 5;
+        int danoJogador = random.nextInt(15) + 5;
 
-        jogador.setVida(jogador.getVida() - danoJogador);
+        // Aplica dano usando o método que já trata vida <= 0
+        jogador.aplicarDano(danoCriatura);
         jogador.setSanidade(jogador.getSanidade() - (nivelPerigo * 2));
 
         System.out.println("A criatura causou " + danoCriatura + " de dano!");
-        System.out.println("Você perdeu " + danoJogador + " de vida e " + (nivelPerigo * 2) + " de sanidade.");
+        System.out.println("Você perdeu " + danoCriatura + " de vida e " + (nivelPerigo * 2) + " de sanidade.");
 
         if (jogador.getVida() > 0) {
             System.out.println("Você venceu o combate contra o " + tipoCriatura + "!");
@@ -102,6 +173,12 @@ public class EventoCriatura extends Evento {
         }
     }
 
+    /**
+     * Tenta fugir do encontro com a criatura. A chance de sucesso é aleatória.
+     * Se a fuga falhar, o jogador deve lutar contra a criatura.
+     * 
+     * @param jogador O personagem afetado pelo evento.
+     */
     private void fugir(Personagem jogador) {
         System.out.println("Você escolheu tentar fugir...");
 

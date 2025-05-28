@@ -18,7 +18,7 @@ public abstract class Evento implements Executavel {
 
     /**
      * Construtor padrão de evento.
-     *
+     * 
      * @param nome Nome do evento.
      * @param descricao Descrição explicativa.
      * @param probabilidadeOcorrencia Probabilidade de ocorrência do evento.
@@ -32,21 +32,95 @@ public abstract class Evento implements Executavel {
         this.condicaoAtivacao = true;
     }
 
-    // Getters e Setters
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    /**
+     * Retorna o nome do evento.
+     * 
+     * @return O nome do evento.
+     */
+    public String getNome() {
+        return nome;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    /**
+     * Define o nome do evento.
+     * 
+     * @param nome O nome a ser atribuído ao evento.
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public double getProbabilidadeOcorrencia() { return probabilidadeOcorrencia; }
-    public void setProbabilidadeOcorrencia(double probabilidadeOcorrencia) { this.probabilidadeOcorrencia = probabilidadeOcorrencia; }
+    /**
+     * Retorna a descrição do evento.
+     * 
+     * @return A descrição do evento.
+     */
+    public String getDescricao() {
+        return descricao;
+    }
 
-    public String getImpacto() { return impacto; }
-    public void setImpacto(String impacto) { this.impacto = impacto; }
+    /**
+     * Define a descrição do evento.
+     * 
+     * @param descricao A descrição a ser atribuída ao evento.
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-    public boolean isCondicaoAtivacao() { return condicaoAtivacao; }
-    public void setCondicaoAtivacao(boolean condicaoAtivacao) { this.condicaoAtivacao = condicaoAtivacao; }
+    /**
+     * Retorna a probabilidade de ocorrência do evento.
+     * 
+     * @return A probabilidade de ocorrência.
+     */
+    public double getProbabilidadeOcorrencia() {
+        return probabilidadeOcorrencia;
+    }
+
+    /**
+     * Define a probabilidade de ocorrência do evento.
+     * 
+     * @param probabilidadeOcorrencia A probabilidade de ocorrência.
+     */
+    public void setProbabilidadeOcorrencia(double probabilidadeOcorrencia) {
+        this.probabilidadeOcorrencia = probabilidadeOcorrencia;
+    }
+
+    /**
+     * Retorna o impacto do evento no jogo.
+     * 
+     * @return O impacto do evento.
+     */
+    public String getImpacto() {
+        return impacto;
+    }
+
+    /**
+     * Define o impacto do evento no jogo.
+     * 
+     * @param impacto O impacto a ser atribuído ao evento.
+     */
+    public void setImpacto(String impacto) {
+        this.impacto = impacto;
+    }
+
+    /**
+     * Retorna o estado de ativação do evento.
+     * 
+     * @return true se o evento pode ocorrer, caso contrário false.
+     */
+    public boolean isCondicaoAtivacao() {
+        return condicaoAtivacao;
+    }
+
+    /**
+     * Define o estado de ativação do evento.
+     * 
+     * @param condicaoAtivacao A condição de ativação do evento.
+     */
+    public void setCondicaoAtivacao(boolean condicaoAtivacao) {
+        this.condicaoAtivacao = condicaoAtivacao;
+    }
 
     /**
      * Desativa o evento (por exemplo, se ele não puder mais ocorrer).
@@ -54,4 +128,13 @@ public abstract class Evento implements Executavel {
     public void desativarEvento() {
         this.condicaoAtivacao = false;
     }
+
+    /**
+     * Método abstrato que define a execução do evento.
+     * Este método deve ser implementado pelas subclasses específicas de evento.
+     * 
+     * @param jogador O personagem afetado pelo evento.
+     * @param ambiente O ambiente onde o evento ocorre.
+     */
+    public abstract void executar(Personagem jogador, Ambiente ambiente);
 }

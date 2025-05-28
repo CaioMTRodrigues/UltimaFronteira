@@ -12,17 +12,26 @@ import models.Personagens.*;
 import models.exceptions.InventarioCheioException;
 import models.exceptions.MortePorFomeOuSedeException;
 
+/**
+ * Classe principal que inicia o jogo e controla a execução do sistema de turnos.
+ */
 public class Main {
 
+    /**
+     * Método principal que inicia o jogo e controla a interação do jogador.
+     * Permite escolher o nome do personagem, sua classe, os itens iniciais e o ambiente.
+     * 
+     * @param args Argumentos de linha de comando (não utilizados neste jogo).
+     */
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Escolha do nome
+        // Escolha do nome do personagem
         System.out.print("Digite o nome do seu personagem: ");
         String nome = scanner.nextLine();
 
-        // Escolha da classe
+        // Escolha da classe do personagem
         System.out.println("Escolha sua classe:");
         System.out.println("1 - Médico");
         System.out.println("2 - Mecânico");
@@ -30,8 +39,9 @@ public class Main {
         System.out.println("4 - Sobrevivente Nato");
         System.out.print(">> ");
         int classeEscolhida = scanner.nextInt();
-        scanner.nextLine(); // limpar buffer
+        scanner.nextLine(); // Limpar buffer
 
+        // Criação do personagem baseado na classe escolhida
         Personagem jogador;
         switch (classeEscolhida) {
             case 1:
@@ -61,7 +71,7 @@ public class Main {
                 System.out.println("Habilidade Especial: Pode usar remédios para recuperar vida diretamente.");
         }
 
-        // Itens iniciais
+        // Adicionando itens iniciais ao inventário
         try {
             jogador.getInventario().adicionarItem(new ItemAlimento("Fruta Silvestre", 1.2, 2, 15, "Fruta", 5));
             jogador.getInventario().adicionarItem(new ItemAgua("Cantil de Água", 1.0, 1, true, 0.5));
@@ -85,7 +95,7 @@ public class Main {
 
         System.out.println("\nAmbiente inicial sorteado: " + ambiente.getNome());
 
-        // Eventos dinâmicos
+        // Adicionando eventos dinâmicos ao jogo
         List<Evento> eventos = new ArrayList<>();
         eventos.add(new EventoClimatico("Chuva Intensa", "Uma tempestade tropical atinge a região.", 0.3, "Redução de energia", "Chuva", 2, "Movimentação dificultada"));
         eventos.add(new EventoClimatico("Chuva Nutriente", "Chuva suave estimula frutas a brotarem nas árvores próximas.", 0.25, "Geração de alimento", "Chuva leve", 2, "Frutas frescas aparecem na vegetação"));
@@ -98,36 +108,23 @@ public class Main {
 
         eventos.add(new EventoDescoberta("Ervas Medicinais", "Você encontra ervas naturais em meio à vegetação.", 0.3, "Recuperação de sanidade", "Ervas escondidas", itensDescobertos, "Usar como infusão ou pomada"));
 
-        // Sistema de eventos e turnos
+        // Inicializando o gerenciador de eventos
         GerenciadorDeEventos gerenciador = new GerenciadorDeEventos(eventos);
-        SistemaDeTurnos sistema = new SistemaDeTurnos(jogador, ambiente, gerenciador);
 
-        // Início da simulação com turnos repetidos
+        // Número de turnos para vitória configurável
+        int turnosParaVitoria = 20;
+
+        SistemaDeTurnos sistema = new SistemaDeTurnos(jogador, ambiente, gerenciador, turnosParaVitoria);
+
+        // Loop principal do jogo: continua enquanto o jogo estiver ativo
         boolean continuarJogando = true;
         while (continuarJogando) {
-            // Executar 5 turnos obrigatórios
-            for (int turnosJogados = 1; turnosJogados <= 5; turnosJogados++) {
-                System.out.println("\nTurno " + turnosJogados);
-                try {
-                    sistema.iniciarTurno();
-                } catch (MortePorFomeOuSedeException e) {
-                    System.out.println(e.getMessage());
-                    continuarJogando = false;
-                    break;
-                }
-            }
-
-            if (continuarJogando) {
-                System.out.println("\nVocê completou 5 turnos! Deseja continuar jogando?");
-                System.out.println("1 - Continuar com mais 5 turnos");
-                System.out.println("2 - Sair");
-                int escolha = scanner.nextInt();
-                scanner.nextLine(); // Limpar o buffer
-
-                if (escolha == 2) {
-                    continuarJogando = false;
-                    System.out.println("Fim do jogo!");
-                }
+            try {
+                sistema.iniciarTurno();
+            } catch (MortePorFomeOuSedeException e) {
+                System.out.println(e.getMessage());
+                continuarJogando = false;
+                break;
             }
         }
 

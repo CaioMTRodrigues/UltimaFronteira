@@ -7,7 +7,7 @@ import models.Personagens.Personagem;
 import models.exceptions.InventarioCheioException;
 
 /**
- * Classe que representa o ambiente de Ruínas Abandonadas.
+ * Representa o ambiente de Ruínas Abandonadas.
  * Estruturas antigas que podem conter recursos valiosos ou perigos escondidos.
  */
 public class AmbienteRuinas extends Ambiente {
@@ -26,21 +26,65 @@ public class AmbienteRuinas extends Ambiente {
         this.baixoRiscoClimatico = true;
     }
 
-    // Getters e Setters
-    public boolean isEstruturasInstaveis() { return estruturasInstaveis; }
-    public void setEstruturasInstaveis(boolean estruturasInstaveis) { this.estruturasInstaveis = estruturasInstaveis; }
+    /**
+     * Retorna se o ambiente tem estruturas instáveis.
+     * 
+     * @return true se as estruturas são instáveis, caso contrário, false.
+     */
+    public boolean isEstruturasInstaveis() {
+        return estruturasInstaveis;
+    }
 
-    public boolean isPresencaSobreviventes() { return presencaSobreviventes; }
-    public void setPresencaSobreviventes(boolean presencaSobreviventes) { this.presencaSobreviventes = presencaSobreviventes; }
+    /**
+     * Define se o ambiente possui estruturas instáveis.
+     * 
+     * @param estruturasInstaveis Valor a ser configurado.
+     */
+    public void setEstruturasInstaveis(boolean estruturasInstaveis) {
+        this.estruturasInstaveis = estruturasInstaveis;
+    }
 
-    public boolean isBaixoRiscoClimatico() { return baixoRiscoClimatico; }
-    public void setBaixoRiscoClimatico(boolean baixoRiscoClimatico) { this.baixoRiscoClimatico = baixoRiscoClimatico; }
+    /**
+     * Retorna se há sobreviventes no ambiente.
+     * 
+     * @return true se há sobreviventes, caso contrário, false.
+     */
+    public boolean isPresencaSobreviventes() {
+        return presencaSobreviventes;
+    }
+
+    /**
+     * Define se há sobreviventes no ambiente.
+     * 
+     * @param presencaSobreviventes Valor a ser configurado.
+     */
+    public void setPresencaSobreviventes(boolean presencaSobreviventes) {
+        this.presencaSobreviventes = presencaSobreviventes;
+    }
+
+    /**
+     * Retorna se o ambiente possui baixo risco climático.
+     * 
+     * @return true se o risco climático for baixo, caso contrário, false.
+     */
+    public boolean isBaixoRiscoClimatico() {
+        return baixoRiscoClimatico;
+    }
+
+    /**
+     * Define se o ambiente tem baixo risco climático.
+     * 
+     * @param baixoRiscoClimatico Valor a ser configurado.
+     */
+    public void setBaixoRiscoClimatico(boolean baixoRiscoClimatico) {
+        this.baixoRiscoClimatico = baixoRiscoClimatico;
+    }
 
     /**
      * Exibe uma mensagem personalizada ao explorar as ruínas.
      * Este método implementa a ação definida na interface Exploravel.
-     *
-     * @param jogador O personagem que está explorando.
+     * 
+     * @param jogador O personagem que está explorando o ambiente.
      */
     @Override
     public void explorar(Personagem jogador) {
@@ -64,7 +108,7 @@ public class AmbienteRuinas extends Ambiente {
                 System.out.println("Você achou um Alimento Enlatado!");
             }
 
-            // Chance de encontrar Munição 
+            // Chance de encontrar Munição
             if (rand.nextDouble() < 0.3) {
                 Item municao = new ItemMaterial("Munição", 1.2, 50, "Material", 50);
                 jogador.getInventario().adicionarItem(municao);
@@ -79,6 +123,12 @@ public class AmbienteRuinas extends Ambiente {
             System.out.println("Há outros sobreviventes nas ruínas, tome cuidado!");
         } else {
             System.out.println("As ruínas estão desertas, mas há muitos segredos a serem desvendados.");
+        }
+
+        // Marca o jogador como tendo encontrado um refúgio seguro
+        if (!jogador.isRefugioSeguroEncontrado()) {
+            jogador.setRefugioSeguroEncontrado(true);
+            System.out.println("Você encontrou um refúgio seguro nas ruínas!");
         }
 
         // Impacto nos atributos do jogador

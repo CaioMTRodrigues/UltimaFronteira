@@ -12,7 +12,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Construtor do item.
-     *
+     * 
      * @param nome Nome do item.
      * @param peso Peso do item.
      * @param durabilidade Durabilidade do item.
@@ -23,18 +23,63 @@ public abstract class Item implements Comparable<Item> {
         this.durabilidade = durabilidade;
     }
 
-    // Getters e Setters
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    /**
+     * Retorna o nome do item.
+     * 
+     * @return O nome do item.
+     */
+    public String getNome() {
+        return nome;
+    }
 
-    public double getPeso() { return peso; }
-    public void setPeso(double peso) { this.peso = peso; }
+    /**
+     * Define o nome do item.
+     * 
+     * @param nome O nome a ser atribuído ao item.
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public int getDurabilidade() { return durabilidade; }
-    public void setDurabilidade(int durabilidade) { this.durabilidade = durabilidade; }
+    /**
+     * Retorna o peso do item.
+     * 
+     * @return O peso do item.
+     */
+    public double getPeso() {
+        return peso;
+    }
+
+    /**
+     * Define o peso do item.
+     * 
+     * @param peso O peso a ser atribuído ao item.
+     */
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    /**
+     * Retorna a durabilidade do item.
+     * 
+     * @return A durabilidade do item.
+     */
+    public int getDurabilidade() {
+        return durabilidade;
+    }
+
+    /**
+     * Define a durabilidade do item.
+     * 
+     * @param durabilidade A durabilidade a ser atribuída ao item.
+     */
+    public void setDurabilidade(int durabilidade) {
+        this.durabilidade = durabilidade;
+    }
 
     /**
      * Reduz a durabilidade do item após o uso.
+     * Caso a durabilidade seja zero, o item não pode ser utilizado.
      */
     public void reduzirDurabilidade() {
         if (durabilidade > 0) {
@@ -47,14 +92,28 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Método abstrato para uso do item, definido pelas subclasses.
+     * Cada tipo de item terá seu próprio comportamento ao ser usado.
      */
     public abstract void usar();
 
     /**
      * Permite ordenação de itens por nome (ignorando maiúsculas/minúsculas).
+     * 
+     * @param outro O outro item a ser comparado.
+     * @return Um valor inteiro indicando a ordem relativa dos itens.
      */
     @Override
     public int compareTo(Item outro) {
         return this.nome.compareToIgnoreCase(outro.getNome());
+    }
+
+    /**
+     * Compara o nome do item com outro nome, ignorando maiúsculas e minúsculas.
+     * 
+     * @param outroNome O nome a ser comparado com o nome do item.
+     * @return true se os nomes forem iguais, false caso contrário.
+     */
+    public boolean nomeEquals(String outroNome) {
+        return this.nome.equalsIgnoreCase(outroNome);
     }
 }
