@@ -212,7 +212,9 @@ public class SistemaDeTurnos {
                 System.out.println("Construção do abrigo cancelada.");
             }
         } else {
-            System.out.println("Você não possui materiais suficientes para construir o abrigo. Reúna mais Madeiras e Pedras.");
+            System.out.println("Você não possui materiais suficientes para construir o abrigo.");
+            System.out.println("São necessárias 5 unidades de Madeira e 3 unidades de Pedra.");
+
         }
     }
 
