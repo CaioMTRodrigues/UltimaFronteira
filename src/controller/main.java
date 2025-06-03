@@ -28,18 +28,39 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Escolha do nome do personagem
-        System.out.print("Digite o nome do seu personagem: ");
-        String nome = scanner.nextLine();
+        String nome;
+        do {
+            System.out.print("Digite o nome do seu personagem (apenas letras, até 30 caracteres): ");
+            nome = scanner.nextLine().trim();
+            if (!nome.matches("^[A-Za-zÀ-ÿ\\s]{1,30}$")) {
+                System.out.println("Escreva um nome válido.");
+                nome = null;
+            }
+        } while (nome == null);
+
 
         // Escolha da classe do personagem
-        System.out.println("Escolha sua classe:");
-        System.out.println("1 - Médico");
-        System.out.println("2 - Mecânico");
-        System.out.println("3 - Rastreador");
-        System.out.println("4 - Sobrevivente Nato");
-        System.out.print(">> ");
-        int classeEscolhida = scanner.nextInt();
-        scanner.nextLine(); // Limpar buffer
+        int classeEscolhida = 0;
+        while (classeEscolhida < 1 || classeEscolhida > 4) {
+            System.out.println("Escolha sua classe:");
+            System.out.println("1 - Médico");
+            System.out.println("2 - Mecânico");
+            System.out.println("3 - Rastreador");
+            System.out.println("4 - Sobrevivente Nato");
+            System.out.print(">> ");
+
+            if (scanner.hasNextInt()) {
+                classeEscolhida = scanner.nextInt();
+                scanner.nextLine(); // Limpa o buffer
+                if (classeEscolhida < 1 || classeEscolhida > 4) {
+                    System.out.println("Digite uma opção válida.");
+                }
+            } else {
+                System.out.println("Digite uma opção válida.");
+                scanner.nextLine(); // Descarta entrada inválida
+            }
+        }
+
 
         // Criação do personagem baseado na classe escolhida
         Personagem jogador;

@@ -167,10 +167,11 @@ public class SistemaDeTurnos {
         return turnosPassados >= turnosParaVitoria;
     }
 
-    /**
-     * Verifica se o jogador ficou sem recursos essenciais (comida, água e ferramentas).
+        /**
+     * Verifica se o jogador ficou completamente sem recursos essenciais (comida, água e ferramentas).
+     * A derrota só ocorre se o jogador não tiver absolutamente nenhum dos três.
      * 
-     * @return true se faltar qualquer um dos recursos essenciais para sobrevivência.
+     * @return true se faltar todos os recursos essenciais, false se ainda tiver ao menos um.
      */
     private boolean verificarEsgotamentoRecursos() {
         boolean temComida = false;
@@ -182,15 +183,18 @@ public class SistemaDeTurnos {
             if (nome.contains("comida") || nome.contains("carne") || nome.contains("fruta") || nome.contains("alimento") || nome.contains("enlatado")) {
                 temComida = true;
             }
-            if (nome.contains("água") || nome.contains("cantil") || nome.contains("água")) {
+            if (nome.contains("água") || nome.contains("cantil") || nome.contains("agua")) {
                 temAgua = true;
             }
             if (nome.contains("ferramenta") || nome.contains("machado") || nome.contains("faca") || nome.contains("tools")) {
                 temFerramenta = true;
             }
         }
-        return !(temComida && temAgua && temFerramenta);
+
+        // O jogo só termina se o jogador não tiver nenhum dos três
+        return !(temComida || temAgua || temFerramenta);
     }
+
 
     /**
      * Permite ao jogador construir um abrigo permanente se tiver os materiais necessários.
@@ -338,7 +342,7 @@ public class SistemaDeTurnos {
 
         if (escolhaItem >= 1 && escolhaItem <= listaItens.size()) {
             Item itemEscolhido = listaItens.get(escolhaItem - 1);
-            itemEscolhido.usar();
+            itemEscolhido.usar(jogador);
 
             if (itemEscolhido.getDurabilidade() == 0) {
                 jogador.getInventario().removerItem(itemEscolhido.getNome());

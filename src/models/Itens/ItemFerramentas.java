@@ -1,5 +1,7 @@
 package models.Itens;
 
+import models.Personagens.Personagem;
+
 /**
  * Representa um item do tipo ferramenta, como machado ou isqueiro.
  */
@@ -23,19 +25,50 @@ public class ItemFerramentas extends Item {
         this.eficiencia = eficiencia;
     }
 
-    // Getters e Setters
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-
-    public int getEficiencia() { return eficiencia; }
-    public void setEficiencia(int eficiencia) { this.eficiencia = eficiencia; }
+    /**
+     * Retorna o tipo da ferramenta.
+     *
+     * @return Tipo da ferramenta.
+     */
+    public String getTipo() {
+        return tipo;
+    }
 
     /**
-     * Usa a ferramenta, reduzindo sua durabilidade.
+     * Define o tipo da ferramenta.
+     *
+     * @param tipo Tipo da ferramenta.
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * Retorna a eficiência da ferramenta.
+     *
+     * @return Eficiência da ferramenta.
+     */
+    public int getEficiencia() {
+        return eficiencia;
+    }
+
+    /**
+     * Define a eficiência da ferramenta.
+     *
+     * @param eficiencia Valor da eficiência.
+     */
+    public void setEficiencia(int eficiencia) {
+        this.eficiencia = eficiencia;
+    }
+
+    /**
+     * Usa a ferramenta, exibindo informações e reduzindo a durabilidade.
+     *
+     * @param personagem O personagem que está utilizando a ferramenta.
      */
     @Override
-    public void usar() {
-        System.out.println(" Você usou " + getNome() + " (" + tipo + ") com eficiência de " + eficiencia + ".");
+    public void usar(Personagem personagem) {
+        System.out.println("Você usou " + getNome() + " (" + tipo + ") com eficiência de " + eficiencia + ".");
         reduzirDurabilidade();
     }
 }

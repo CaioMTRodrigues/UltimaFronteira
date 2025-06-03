@@ -1,5 +1,7 @@
 package models.Itens;
 
+import models.Personagens.Personagem;
+
 /**
  * Classe abstrata que representa um item genérico no jogo.
  * Todos os itens herdam dessa classe e implementam o método usar().
@@ -12,7 +14,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Construtor do item.
-     * 
+     *
      * @param nome Nome do item.
      * @param peso Peso do item.
      * @param durabilidade Durabilidade do item.
@@ -25,7 +27,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Retorna o nome do item.
-     * 
+     *
      * @return O nome do item.
      */
     public String getNome() {
@@ -34,7 +36,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Define o nome do item.
-     * 
+     *
      * @param nome O nome a ser atribuído ao item.
      */
     public void setNome(String nome) {
@@ -43,7 +45,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Retorna o peso do item.
-     * 
+     *
      * @return O peso do item.
      */
     public double getPeso() {
@@ -52,7 +54,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Define o peso do item.
-     * 
+     *
      * @param peso O peso a ser atribuído ao item.
      */
     public void setPeso(double peso) {
@@ -61,7 +63,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Retorna a durabilidade do item.
-     * 
+     *
      * @return A durabilidade do item.
      */
     public int getDurabilidade() {
@@ -70,7 +72,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Define a durabilidade do item.
-     * 
+     *
      * @param durabilidade A durabilidade a ser atribuída ao item.
      */
     public void setDurabilidade(int durabilidade) {
@@ -92,13 +94,15 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Método abstrato para uso do item, definido pelas subclasses.
-     * Cada tipo de item terá seu próprio comportamento ao ser usado.
+     * Deve receber o personagem para alterar seus atributos.
+     *
+     * @param personagem O personagem que utilizará o item.
      */
-    public abstract void usar();
+    public abstract void usar(Personagem personagem);
 
     /**
      * Permite ordenação de itens por nome (ignorando maiúsculas/minúsculas).
-     * 
+     *
      * @param outro O outro item a ser comparado.
      * @return Um valor inteiro indicando a ordem relativa dos itens.
      */
@@ -109,7 +113,7 @@ public abstract class Item implements Comparable<Item> {
 
     /**
      * Compara o nome do item com outro nome, ignorando maiúsculas e minúsculas.
-     * 
+     *
      * @param outroNome O nome a ser comparado com o nome do item.
      * @return true se os nomes forem iguais, false caso contrário.
      */

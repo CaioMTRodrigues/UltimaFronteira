@@ -1,5 +1,7 @@
 package models.Itens;
 
+import models.Personagens.Personagem;
+
 /**
  * Representa um item do tipo remédio, utilizado para recuperar atributos.
  */
@@ -23,23 +25,50 @@ public class ItemRemedios extends Item {
         this.efeito = efeito;
     }
 
-    // Getters e Setters
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-
-    public String getEfeito() { return efeito; }
-    public void setEfeito(String efeito) { this.efeito = efeito; }
+    /**
+     * Retorna o tipo do remédio.
+     *
+     * @return Tipo do remédio.
+     */
+    public String getTipo() {
+        return tipo;
+    }
 
     /**
-     * Usa o remédio, aplicando seu efeito.
+     * Define o tipo do remédio.
+     *
+     * @param tipo Tipo do remédio.
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * Retorna o efeito do remédio.
+     *
+     * @return Efeito do remédio.
+     */
+    public String getEfeito() {
+        return efeito;
+    }
+
+    /**
+     * Define o efeito do remédio.
+     *
+     * @param efeito Efeito a ser definido.
+     */
+    public void setEfeito(String efeito) {
+        this.efeito = efeito;
+    }
+
+    /**
+     * Usa o remédio, aplicando seu efeito ao personagem.
+     *
+     * @param personagem O personagem que utilizará o remédio.
      */
     @Override
-    public void usar() {
-        System.out.println(" Você usou " + getNome() + ". Efeito: " + efeito);
+    public void usar(Personagem personagem) {
+        System.out.println("Você usou " + getNome() + ". Efeito: " + efeito);
         reduzirDurabilidade();
     }
 }
-
-
-
-

@@ -1,5 +1,7 @@
 package models.Itens;
 
+import models.Personagens.Personagem;
+
 /**
  * Representa um item de material, utilizado para fabricar ou combinar.
  */
@@ -23,30 +25,61 @@ public class ItemMaterial extends Item {
         this.resistencia = resistencia;
     }
 
-    // Getters e Setters
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
-
-    public int getResistencia() { return resistencia; }
-    public void setResistencia(int resistencia) { this.resistencia = resistencia; }
+    /**
+     * Retorna o tipo do material.
+     *
+     * @return Tipo do material.
+     */
+    public String getTipo() {
+        return tipo;
+    }
 
     /**
-     * Usa o material para fins de construção ou conserto.
+     * Define o tipo do material.
+     *
+     * @param tipo Tipo a ser definido.
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * Retorna o nível de resistência do material.
+     *
+     * @return Resistência do material.
+     */
+    public int getResistencia() {
+        return resistencia;
+    }
+
+    /**
+     * Define a resistência do material.
+     *
+     * @param resistencia Nível de resistência.
+     */
+    public void setResistencia(int resistencia) {
+        this.resistencia = resistencia;
+    }
+
+    /**
+     * Usa o material para fins de criação ou conserto.
+     *
+     * @param personagem O personagem que está utilizando o material.
      */
     @Override
-    public void usar() {
-        System.out.println(" Usando " + getNome() + " para criar ou consertar algo.");
+    public void usar(Personagem personagem) {
+        System.out.println("Você usou " + getNome() + " para criar ou consertar algo.");
         reduzirDurabilidade();
     }
 
     /**
-     * Combina dois materiais e retorna um novo material.
+     * Combina este material com outro e gera um novo item material.
      *
-     * @param outroMaterial Outro material a combinar.
-     * @return Novo item combinado.
+     * @param outroMaterial Outro material a ser combinado.
+     * @return Novo item material resultante da combinação.
      */
     public ItemMaterial combinar(ItemMaterial outroMaterial) {
-        System.out.println(" Combinando " + getNome() + " com " + outroMaterial.getNome());
+        System.out.println("Combinando " + getNome() + " com " + outroMaterial.getNome());
         return new ItemMaterial(
             "Material Combinado",
             getPeso() + outroMaterial.getPeso(),
@@ -56,4 +89,3 @@ public class ItemMaterial extends Item {
         );
     }
 }
-
