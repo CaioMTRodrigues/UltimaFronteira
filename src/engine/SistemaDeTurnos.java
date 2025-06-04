@@ -57,7 +57,6 @@ public class SistemaDeTurnos {
      * @throws MortePorFomeOuSedeException Se o jogador morrer devido a fome ou sede.
      */
     public void iniciarTurno() throws MortePorFomeOuSedeException {
-        turnosPassados++;
         System.out.println("\n========== NOVO TURNO ==========");
         System.out.println("Turno atual: " + turnosPassados + "/" + turnosParaVitoria);
         jogador.exibirStatus();
@@ -115,47 +114,68 @@ public class SistemaDeTurnos {
         System.out.println("8 - Construir abrigo permanente");
         System.out.println("9 - Pedir resgate");
         System.out.print(">> ");
-        int escolha = scanner.nextInt();
-        scanner.nextLine(); // limpar buffer
+        int escolha;
+
+        try {
+            String entrada = scanner.nextLine().trim();
+            escolha = Integer.parseInt(entrada);
+
+            if (escolha < 1 || escolha > 9) {
+                System.out.println("Entrada inválida. Por favor, digite um número de 1 a 9.");
+                return; // Encerra o turno sem executar ação
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada inválida. Por favor, digite um número de 1 a 9.");
+            return;
+        }
+
+        boolean acaoExecutada = false;
 
         switch (escolha) {
             case 1:
                 jogador.descansar();
+                acaoExecutada = true;
                 break;
             case 2:
                 jogador.habilidadeEspecial();
+                acaoExecutada = true;
                 break;
             case 3:
                 ambienteAtual.explorar(jogador);
+                acaoExecutada = true;
                 break;
             case 4:
                 jogador.getInventario().exibirInventario();
+                acaoExecutada = true;
                 break;
             case 5:
-                usarItem();
+                acaoExecutada = usarItem();
                 break;
             case 6:
                 trocarAmbiente(jogador);
+                acaoExecutada = true;
                 break;
             case 7:
-                menuCraft();
+                acaoExecutada = menuCraft();
                 break;
             case 8:
                 construirAbrigo();
+                acaoExecutada = true;
                 break;
             case 9:
                 pedirResgate();
+                acaoExecutada = true;
                 break;
-            default:
-                System.out.println("Ação inválida.");
         }
 
-        gerenciadorDeEventos.aplicarEvento(jogador, ambienteAtual);
-
-        jogador.setFome(jogador.getFome() + 5);
-        jogador.setSede(jogador.getSede() + 5);
-        jogador.setSanidade(jogador.getSanidade() - 2);
-        System.out.println("Atributos ajustados após o turno.");
+        if (acaoExecutada) {
+            turnosPassados++;
+            gerenciadorDeEventos.aplicarEvento(jogador, ambienteAtual);
+            jogador.setFome(jogador.getFome() + 5);
+            jogador.setSede(jogador.getSede() + 5);
+            jogador.setSanidade(jogador.getSanidade() - 2);
+            System.out.println("Atributos ajustados após o turno.");
+        }
     }
 
     /**
@@ -252,39 +272,50 @@ public class SistemaDeTurnos {
     /**
      * Exibe o menu de crafting de itens e permite que o jogador crie novos itens.
      */
-    private void menuCraft() {
-        System.out.println("\n-- Menu de Craft --");
-        System.out.println("Escolha o item para criar:");
-        System.out.println("1 - Machado (Madeira + Pedra)");
-        System.out.println("2 - Faca (Madeira + Pedra)");
-        System.out.println("3 - Bandagem (Algodão + Álcool)");
-        System.out.println("0 - Voltar");
+    private boolean menuCraft() {
+    System.out.println("\n-- Menu de Craft --");
+    System.out.println("Escolha o item para criar:");
+    System.out.println("1 - Machado (Madeira + Pedra)");
+    System.out.println("2 - Faca (Madeira + Pedra)");
+    System.out.println("3 - Bandagem (Algodão + Álcool)");
+    System.out.println("0 - Voltar");
 
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
+    int opcao;
+    try {
+        String entrada = scanner.nextLine().trim();
+        opcao = Integer.parseInt(entrada);
 
-        List<String> materiaisNecessarios;
-
-        switch (opcao) {
-            case 1:
-                materiaisNecessarios = Arrays.asList("Madeira", "Pedra");
-                craftItem("Machado", materiaisNecessarios);
-                break;
-            case 2:
-                materiaisNecessarios = Arrays.asList("Madeira", "Pedra");
-                craftItem("Faca", materiaisNecessarios);
-                break;
-            case 3:
-                materiaisNecessarios = Arrays.asList("Algodão", "Álcool");
-                craftItem("Bandagem", materiaisNecessarios);
-                break;
-            case 0:
-                System.out.println("Voltando ao menu principal.");
-                break;
-            default:
-                System.out.println("Opção inválida.");
+        if (opcao < 0 || opcao > 3) {
+            System.out.println("Opção inválida. Digite um número entre 0 e 3.");
+            return false;
         }
+    } catch (NumberFormatException e) {
+        System.out.println("Opção inválida. Digite um número entre 0 e 3.");
+        return false;
     }
+
+    List<String> materiaisNecessarios;
+
+    switch (opcao) {
+        case 1:
+            materiaisNecessarios = Arrays.asList("Madeira", "Pedra");
+            craftItem("Machado", materiaisNecessarios);
+            return true;
+        case 2:
+            materiaisNecessarios = Arrays.asList("Madeira", "Pedra");
+            craftItem("Faca", materiaisNecessarios);
+            return true;
+        case 3:
+            materiaisNecessarios = Arrays.asList("Algodão", "Álcool");
+            craftItem("Bandagem", materiaisNecessarios);
+            return true;
+        case 0:
+            System.out.println("Voltando ao menu principal.");
+            return false;
+    }
+    return false;
+}
+
 
     /**
      * Tenta criar um item no inventário a partir dos materiais necessários.
@@ -332,29 +363,45 @@ public class SistemaDeTurnos {
     /**
      * Permite ao jogador usar um item do inventário.
      */
-    public void usarItem() {
-        System.out.println("Escolha um item para usar:");
-        List<Item> listaItens = jogador.getInventario().getListaItens();
-        for (int i = 0; i < listaItens.size(); i++) {
-            System.out.println((i + 1) + " - " + listaItens.get(i).getNome());
-        }
-        System.out.print("Digite o número do item: ");
-        int escolhaItem = scanner.nextInt();
-        scanner.nextLine(); // limpar buffer
+    public boolean usarItem() {
+    List<Item> listaItens = jogador.getInventario().getListaItens();
 
-        if (escolhaItem >= 1 && escolhaItem <= listaItens.size()) {
-            Item itemEscolhido = listaItens.get(escolhaItem - 1);
-            itemEscolhido.usar(jogador);
-
-            if (itemEscolhido.getDurabilidade() == 0) {
-                jogador.getInventario().removerItem(itemEscolhido.getNome());
-            }
-
-            atualizarStatus(jogador);
-        } else {
-            System.out.println("Escolha inválida.");
-        }
+    if (listaItens.isEmpty()) {
+        System.out.println("Seu inventário está vazio.");
+        return false;
     }
+
+    System.out.println("Escolha um item para usar:");
+    for (int i = 0; i < listaItens.size(); i++) {
+        System.out.println((i + 1) + " - " + listaItens.get(i).getNome());
+    }
+    System.out.print("Digite o número do item: ");
+
+    int escolhaItem;
+    try {
+        String entrada = scanner.nextLine().trim();
+        escolhaItem = Integer.parseInt(entrada);
+
+        if (escolhaItem < 1 || escolhaItem > listaItens.size()) {
+            System.out.println("Escolha inválida. Digite um número válido da lista.");
+            return false;
+        }
+    } catch (NumberFormatException e) {
+        System.out.println("Escolha inválida. Por favor, digite um número válido.");
+        return false;
+    }
+
+    Item itemEscolhido = listaItens.get(escolhaItem - 1);
+    itemEscolhido.usar(jogador);
+
+    if (itemEscolhido.getDurabilidade() == 0) {
+        jogador.getInventario().removerItem(itemEscolhido.getNome());
+    }
+
+    atualizarStatus(jogador);
+    return true;
+}
+
 
     /**
      * Atualiza o status atual do personagem.
